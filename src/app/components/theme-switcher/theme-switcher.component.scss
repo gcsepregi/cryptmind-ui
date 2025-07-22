@@ -12,9 +12,6 @@ button {
   transition: transform 0.2s;
   cursor: pointer;
 
-  /* Use rgba for background opacity */
-  background: rgba(var(--background-rgb, 248,250,252), 0.8);
-
   &:hover {
     transform: scale(1.10);
   }
