@@ -1,6 +1,10 @@
-<body class="antialiased">
+<ng-container *ngIf="!isLoggedIn else loggedIn">
+  <app-landing-page></app-landing-page>
+</ng-container>
+
+<ng-template #loggedIn>
   <app-sidebar></app-sidebar>
   <div>
     <router-outlet></router-outlet>
   </div>
-</body>
+</ng-template>

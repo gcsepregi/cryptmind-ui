@@ -1,1 +1,18 @@
-<p>sidebar works!</p>
+<ng-container *ngIf="!isCollapsed">
+  <div class="overlay"></div>
+</ng-container>
+<aside *ngIf="!isCollapsed">
+  <div class="header">
+    <div class="logo">
+      <lucide-icon [img]="SkullIcon" class="my-icon"></lucide-icon>
+      <span>CryptMind</span>
+    </div>
+    <div class="close-btn" (click)="toggleSidebar()">
+      <lucide-icon [img]="XIcon" class="my-icon"></lucide-icon>
+    </div>
+  </div>
+</aside>
+
+<button class="sidebar-btn" (click)="toggleSidebar()">
+  <lucide-icon [img]="MenuIcon" />
+</button>

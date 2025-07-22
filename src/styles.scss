@@ -1,1 +1,201 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  /* Light theme colors */
+  --background: #f8fafc;
+  --foreground: #18181b;
+  /* Color Palette */
+  --color-primary-50: #e0f2fe;
+  --color-primary-100: #bae6fd;
+  --color-primary-200: #7dd3fc;
+  --color-primary-300: #38bdf8;
+  --color-primary-400: #0ea5e9;
+  --color-primary-500: #0ea5e9;
+  --color-primary-700: #0369a1;
+  --color-primary-900: #0c4a6e;
+
+  --color-secondary-50: #f3e8ff;
+  --color-secondary-100: #e9d5ff;
+  --color-secondary-200: #d8b4fe;
+  --color-secondary-300: #c084fc;
+  --color-secondary-400: #a855f7;
+  --color-secondary-500: #a855f7;
+  --color-secondary-700: #7c3aed;
+  --color-secondary-900: #581c87;
+
+  --color-accent-50: #dcfce7;
+  --color-accent-100: #bbf7d0;
+  --color-accent-200: #86efac;
+  --color-accent-300: #4ade80;
+  --color-accent-400: #22c55e;
+  --color-accent-500: #22c55e;
+  --color-accent-700: #15803d;
+  --color-accent-900: #14532d;
+
+  /* Neon Accents */
+  --neon-cyan: #009999;
+  --neon-purple: #8b5cf6;
+  --neon-green: #00bd2f;
+  --neon-pink: #ff0080;
+  --neon-orange: #ff6b35;
+
+  /* Typography */
+  --font-sans: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: JetBrains Mono, 'Fira Code', 'Consolas', monospace;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.15), 0 8px 10px -6px rgba(0,0,0,0.15);
+
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  padding: 0;
+  margin: 0;
+  transition: transform 0.2s;
+}
+
+.btn-crypt {
+  font-family: var(--font-sans);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.btn-crypt-primary {
+  background: linear-gradient(90deg, var(--color-primary-400), var(--color-accent-400));
+  color: #fff;
+  box-shadow: 0 0 12px var(--neon-cyan);
+}
+.btn-crypt-secondary {
+  background: linear-gradient(90deg, var(--color-secondary-400), var(--color-primary-400));
+  color: #fff;
+  box-shadow: 0 0 12px var(--neon-purple);
+}
+.btn-crypt-ghost {
+  background: transparent;
+  color: var(--color-primary-400);
+  border: 1px solid var(--color-primary-400);
+}
+.btn-crypt-neon {
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+  color: #fff;
+  box-shadow: 0 0 16px var(--neon-cyan), 0 0 32px var(--neon-purple);
+}
+
+/* Neon Glow Effects */
+.neon-text {
+  color: var(--neon-cyan);
+}
+.neon-text-purple {
+  color: var(--neon-purple);
+}
+.neon-text-green {
+  color: var(--neon-green);
+}
+.neon-text-pink {
+  color: var(--neon-pink);
+}
+.neon-text-orange {
+  color: var(--neon-orange);
+}
+
+.neon-glow {
+  box-shadow: 0 0 16px var(--neon-cyan), 0 0 32px var(--color-primary-400);
+}
+.neon-glow-purple {
+  box-shadow: 0 0 16px var(--neon-purple), 0 0 32px var(--color-secondary-400);
+}
+.neon-glow-green {
+  box-shadow: 0 0 16px var(--neon-green), 0 0 32px var(--color-accent-400);
+}
+.neon-glow-pink {
+  box-shadow: 0 0 16px var(--neon-pink), 0 0 32px var(--neon-pink);
+}
+.scale-up:hover {
+  animation: scaleUp 0.2s forwards;
+}
+@keyframes scaleUp {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.05);
+  }
+}
+.glow-animation {
+  animation: glowPulse 1.5s infinite alternate;
+}
+.glow-animation-hover:hover {
+  animation: glowPulse 1.5s infinite alternate;
+}
+@keyframes glowPulse {
+  from { box-shadow: 0 0 8px var(--neon-cyan); }
+  to { box-shadow: 0 0 24px var(--neon-cyan), 0 0 48px var(--color-primary-400); }
+}
+.pulse {
+  animation: pulseAnim 1.2s infinite alternate;
+}
+@keyframes pulseAnim {
+  from { opacity: 1; }
+  to { opacity: 0.7; }
+}
+.float {
+  animation: floatAnim 2.5s infinite ease-in-out alternate;
+}
+@keyframes floatAnim {
+  from { transform: translateY(0); }
+  to { transform: translateY(-12px); }
+}
+.shimmer {
+  background: linear-gradient(90deg, #222 25%, #444 50%, #222 75%);
+  background-size: 200% 100%;
+  animation: shimmerAnim 1.5s infinite linear;
+}
+@keyframes shimmerAnim {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
