@@ -1,6 +1,6 @@
 <ng-container *ngIf="!isLoggedIn else loggedIn">
   <app-theme-switcher></app-theme-switcher>
-  <app-landing-page></app-landing-page>
+  <router-outlet></router-outlet>
 </ng-container>
 
 <ng-template #loggedIn>

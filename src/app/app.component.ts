@@ -5,6 +5,7 @@ import {LucideAngularModule} from 'lucide-angular';
 import {NgIf} from '@angular/common';
 import {LandingPageComponent} from './components/landing-page/landing-page.component';
 import {ThemeSwitcherComponent} from './components/theme-switcher/theme-switcher.component';
+import {UserService} from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -14,9 +15,11 @@ import {ThemeSwitcherComponent} from './components/theme-switcher/theme-switcher
 })
 export class AppComponent {
   title = 'cryptmind-angular';
-  isLoggedIn: boolean;
+  isLoggedIn: boolean = false;
 
-  constructor() {
-    this.isLoggedIn = false;
+  constructor(private readonly userService: UserService) {
+    userService.authenticated$.subscribe(res => {
+      this.isLoggedIn = res;
+    });
   }
 }
