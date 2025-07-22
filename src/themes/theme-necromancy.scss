@@ -1,0 +1,259 @@
+
+/*
+  CryptMind Necromancy Theme - Refined
+  Deep, spectral, and arcane. For a truly eerie, mystical necromancer aesthetic.
+*/
+
+:root {
+  /* Necromancy theme colors */
+  --background: #0b0a13; /* deep shadow, hint of blue-violet */
+  --foreground: #e6e6fa; /* ghostly lavender */
+  /* Color Palette */
+  --color-primary-50: #1a1624;
+  --color-primary-100: #23203a;
+  --color-primary-200: #2d274d;
+  --color-primary-300: #3a2e5c;
+  --color-primary-400: #5a3a8a; /* spectral purple */
+  --color-primary-500: #7c4dff; /* arcane purple */
+  --color-primary-700: #2a1a3a;
+  --color-primary-900: #140c1a;
+
+  --color-secondary-50: #18181f;
+  --color-secondary-100: #23232d;
+  --color-secondary-200: #2e2e3a;
+  --color-secondary-300: #39394a;
+  --color-secondary-400: #4e4e6e; /* shadow violet */
+  --color-secondary-500: #8e7cc3; /* ghostly violet */
+  --color-secondary-700: #2a2a3a;
+  --color-secondary-900: #0e0e14;
+
+  --color-accent-50: #1a2420;
+  --color-accent-100: #1e2e26;
+  --color-accent-200: #234034;
+  --color-accent-300: #2e5c47;
+  --color-accent-400: #4ade80; /* spectral green */
+  --color-accent-500: #00ffb3; /* necro green */
+  --color-accent-700: #14532d;
+  --color-accent-900: #0a1a0a;
+
+  /* Neon Accents */
+  --neon-cyan: #00e6e6; /* ghostly cyan */
+  --neon-purple: #a259f7; /* spectral purple */
+  --neon-green: #00ffb3; /* eerie green */
+  --neon-pink: #b80080; /* magenta mist */
+  --neon-orange: #ff6b35; /* haunted ember */
+
+  /* Typography */
+  --font-sans: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: JetBrains Mono, 'Fira Code', 'Consolas', monospace;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(20,10,30,0.18);
+  --shadow-md: 0 4px 12px 0 rgba(60,40,80,0.28), 0 2px 4px -2px rgba(60,40,80,0.18);
+  --shadow-lg: 0 10px 30px -3px rgba(60,40,80,0.38), 0 4px 16px -4px rgba(60,40,80,0.28);
+  --shadow-xl: 0 20px 40px -5px rgba(60,40,80,0.48), 0 8px 20px -6px rgba(60,40,80,0.38);
+
+  --landing-page-hero-gradient: linear-gradient(to bottom, #1a1624, #23203a 60%, transparent);
+  --landing-page-footer-gradient: linear-gradient(to top, #1a1624, #23203a 60%, transparent);
+}
+
+:root[data-theme='light'] {
+  /* Necromancy Light theme colors */
+  --background: #f6f6fb; /* pale spectral parchment */
+  --foreground: #1a1624; /* deep shadow text */
+  /* Color Palette */
+  --color-primary-50: #ede9f7;
+  --color-primary-100: #d6d0ef;
+  --color-primary-200: #bfb3e6;
+  --color-primary-300: #a18fd6;
+  --color-primary-400: #7c4dff; /* arcane purple */
+  --color-primary-500: #5a3a8a; /* spectral purple */
+  --color-primary-700: #3a2e5c;
+  --color-primary-900: #23203a;
+
+  --color-secondary-50: #f3f0fa;
+  --color-secondary-100: #e3def3;
+  --color-secondary-200: #cfc0e6;
+  --color-secondary-300: #b49ad6;
+  --color-secondary-400: #8e7cc3; /* ghostly violet */
+  --color-secondary-500: #4e4e6e; /* shadow violet */
+  --color-secondary-700: #39394a;
+  --color-secondary-900: #23232d;
+
+  --color-accent-50: #e6faf3;
+  --color-accent-100: #c8f5e3;
+  --color-accent-200: #a0eecf;
+  --color-accent-300: #6be0b3;
+  --color-accent-400: #00ffb3; /* necro green */
+  --color-accent-500: #4ade80; /* spectral green */
+  --color-accent-700: #2e5c47;
+  --color-accent-900: #1e2e26;
+
+  /* Neon Accents */
+  --neon-cyan: #00b3b3; /* spectral cyan */
+  --neon-purple: #a259f7; /* spectral purple */
+  --neon-green: #00e6a0; /* eerie green */
+  --neon-pink: #e040a0; /* magenta mist */
+  --neon-orange: #ffb385; /* haunted ember */
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(120,100,160,0.08);
+  --shadow-md: 0 4px 12px 0 rgba(120,100,160,0.12), 0 2px 4px -2px rgba(120,100,160,0.08);
+  --shadow-lg: 0 10px 30px -3px rgba(120,100,160,0.18), 0 4px 16px -4px rgba(120,100,160,0.12);
+  --shadow-xl: 0 20px 40px -5px rgba(120,100,160,0.22), 0 8px 20px -6px rgba(120,100,160,0.18);
+
+  --landing-page-hero-gradient: linear-gradient(to bottom, #ede9f7, #f3f0fa 60%, transparent);
+  --landing-page-footer-gradient: linear-gradient(to top, #ede9f7, #f3f0fa 60%, transparent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --background: #09081a;
+    --foreground: #e6e6fa;
+    --neon-cyan: #00ffff;
+    --neon-green: #00ffcc;
+    --neon-purple: #c084fc;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+/* Component Classes */
+.crypt-card {
+  background: linear-gradient(135deg, #181824 60%, #23203a 100%);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 0 32px 4px #000a, 0 0 24px 2px var(--neon-purple, #a259f7);
+  padding: var(--spacing-lg);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.crypt-card-header {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-sm);
+  color: var(--neon-purple);
+}
+.crypt-card-body {
+  font-size: var(--font-size-base);
+}
+.crypt-card-footer {
+  margin-top: var(--spacing-md);
+}
+
+.btn-crypt {
+  font-family: var(--font-sans);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.btn-crypt-primary {
+  background: linear-gradient(90deg, #23203a, var(--neon-purple));
+  color: #fff;
+  box-shadow: 0 0 16px var(--neon-purple), 0 0 32px #000a;
+}
+.btn-crypt-secondary {
+  background: linear-gradient(90deg, #181824, var(--neon-green));
+  color: #fff;
+  box-shadow: 0 0 16px var(--neon-green), 0 0 32px #000a;
+}
+.btn-crypt-ghost {
+  background: transparent;
+  color: var(--neon-cyan);
+  border: 1px solid var(--neon-cyan);
+}
+.btn-crypt-neon {
+  background: linear-gradient(90deg, var(--neon-green), var(--neon-purple));
+  color: #fff;
+  box-shadow: 0 0 24px var(--neon-green), 0 0 48px var(--neon-purple);
+}
+
+/* Neon Glow Effects */
+.neon-text {
+  color: var(--neon-cyan);
+  text-shadow: 0 0 8px var(--neon-cyan), 0 0 16px #000a;
+}
+.neon-text-purple {
+  color: var(--neon-purple);
+  text-shadow: 0 0 8px var(--neon-purple), 0 0 16px #000a;
+}
+.neon-text-green {
+  color: var(--neon-green);
+  text-shadow: 0 0 8px var(--neon-green), 0 0 16px #000a;
+}
+.neon-text-pink {
+  color: var(--neon-pink);
+  text-shadow: 0 0 8px var(--neon-pink), 0 0 16px #000a;
+}
+.neon-text-orange {
+  color: var(--neon-orange);
+  text-shadow: 0 0 8px var(--neon-orange), 0 0 16px #000a;
+}
+
+.neon-glow {
+  box-shadow: 0 0 24px var(--neon-cyan), 0 0 48px #000a;
+}
+.neon-glow-purple {
+  box-shadow: 0 0 24px var(--neon-purple), 0 0 48px #000a;
+}
+.neon-glow-green {
+  box-shadow: 0 0 24px var(--neon-green), 0 0 48px #000a;
+}
+.neon-glow-pink {
+  box-shadow: 0 0 24px var(--neon-pink), 0 0 48px #000a;
+}
+
+/* Animations and Effects: add a spectral mist overlay for necromancy */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(ellipse at 50% 60%, rgba(100,255,200,0.07) 0%, rgba(40,0,60,0.18) 100%);
+}
+
+/* Add a subtle animated shimmer for arcane effect */
+.spectral-shimmer {
+  background: linear-gradient(90deg, #23203a 25%, #3a2e5c 50%, #23203a 75%);
+  background-size: 200% 100%;
+  animation: shimmerAnim 2.5s infinite linear;
+}
+@keyframes shimmerAnim {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
