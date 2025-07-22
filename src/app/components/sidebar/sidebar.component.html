@@ -1,18 +1,57 @@
+<!-- Overlay (hidden by default) -->
 <ng-container *ngIf="!isCollapsed">
-  <div class="overlay"></div>
+  <div class="sidebar-overlay" style="display:none;"></div>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-brand">
+        <lucide-icon [img]="SkullIcon" class="my-icon" size="36"/>
+        <span class="sidebar-title">CryptMind</span>
+      </div>
+      <button class="sidebar-close" type="button" (click)="toggleSidebar()">
+        <lucide-icon [img]="XIcon" class="my-icon" size="24"/>
+      </button>
+    </div>
+    <div class="sidebar-user">
+      <lucide-icon [img]="UserIcon" class="my-icon" size="36"/>
+      <div>
+        <div class="sidebar-nickname">User</div>
+        <div class="sidebar-status">Online</div>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Navigation</div>
+        <div class="sidebar-links">
+          <button class="sidebar-link" type="button">
+            <lucide-icon [img]="HomeIcon" class="my-icon" size="24"/>
+            <span>Home</span>
+          </button>
+          <button class="sidebar-link" type="button">
+            <lucide-icon [img]="BookAIcon" class="my-icon" size="24"/>
+            <span>Sacred Journal</span>
+          </button>
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-section-title">Account</div>
+        <div class="sidebar-links">
+          <button class="sidebar-link" type="button">
+            <lucide-icon [img]="icon()" class="my-icon" size="24"/>
+            <span>Switch Theme</span>
+          </button>
+          <button class="sidebar-link sidebar-link-logout" type="button" (click)="logout()">
+            <lucide-icon [img]="LogOutIcon" class="my-icon" size="24"/>
+            <span>Logout</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </aside>
 </ng-container>
-<aside *ngIf="!isCollapsed">
-  <div class="header">
-    <div class="logo">
-      <lucide-icon [img]="SkullIcon" class="my-icon"></lucide-icon>
-      <span>CryptMind</span>
-    </div>
-    <div class="close-btn" (click)="toggleSidebar()">
-      <lucide-icon [img]="XIcon" class="my-icon"></lucide-icon>
-    </div>
-  </div>
-</aside>
-
-<button class="sidebar-btn" (click)="toggleSidebar()">
-  <lucide-icon [img]="MenuIcon" />
-</button>
+<!-- Hamburger Button -->
+<ng-container *ngIf="isCollapsed">
+  <button class="sidebar-hamburger" type="button" (click)="toggleSidebar()">
+    <lucide-icon [img]="MenuIcon" class="my-icon" size="24"/>
+  </button>
+</ng-container>

@@ -34,7 +34,11 @@ export class UserService {
   }
 
   logout() {
-    return this.http.delete('/logout', {});
+    return this.http.delete(`${this.baseUrl}/logout`, {})
+      .pipe(tap(() => {
+        localStorage.removeItem('crypt-token');
+        this.authenticated.next(false);
+      }));
   }
 
   getMe() {
