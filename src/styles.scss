@@ -34,6 +34,15 @@
   --color-accent-700: #15803d;
   --color-accent-900: #14532d;
 
+  --color-danger-50: #fff5f5;
+  --color-danger-100: #fed7d7;
+  --color-danger-200: #feb2b2;
+  --color-danger-300: #fc8181;
+  --color-danger-400: #f56565;
+  --color-danger-500: #f56565;
+  --color-danger-700: #c53030;
+  --color-danger-900: #9b2c2c;
+
   /* Neon Accents */
   --neon-cyan: #009999;
   --neon-purple: #8b5cf6;
@@ -208,3 +217,12 @@ body {
   100% { background-position: -200% 0; }
 }
 
+.error {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(---color-danger-100);
+  color: var(--color-danger-200);
+  padding: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}

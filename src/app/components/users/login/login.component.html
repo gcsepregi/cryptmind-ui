@@ -5,6 +5,12 @@
       <lucide-icon [img]="LogInIcon" class="my-icon" size="50" />
       <h1>Log In</h1>
     </div>
+    <ng-container *ngIf="errorMessage">
+      <div class="error font-bold">
+        <lucide-icon [img]="AlertCircleIcon" class="my-icon" size="24" />
+        Invalid email or password.
+      </div>
+    </ng-container>
     <form class="login-form">
       <div class="login-group">
         <label for="email">Email</label>
