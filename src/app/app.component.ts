@@ -4,10 +4,11 @@ import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {LucideAngularModule} from 'lucide-angular';
 import {NgIf} from '@angular/common';
 import {LandingPageComponent} from './components/landing-page/landing-page.component';
+import {ThemeSwitcherComponent} from './components/theme-switcher/theme-switcher.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, SidebarComponent, LucideAngularModule, NgIf, LandingPageComponent],
+  imports: [RouterOutlet, SidebarComponent, LucideAngularModule, NgIf, LandingPageComponent, ThemeSwitcherComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
