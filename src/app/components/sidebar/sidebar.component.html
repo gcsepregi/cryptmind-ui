@@ -1,6 +1,6 @@
 <!-- Overlay (hidden by default) -->
 <ng-container *ngIf="!isCollapsed">
-  <div class="sidebar-overlay" style="display:none;"></div>
+  <div class="sidebar-overlay" style="display:none;" (click)="toggleSidebar()"></div>
   <!-- Sidebar -->
   <aside class="sidebar">
     <div class="sidebar-header">
@@ -36,7 +36,7 @@
       <div class="sidebar-section">
         <div class="sidebar-section-title">Account</div>
         <div class="sidebar-links">
-          <button class="sidebar-link" type="button">
+          <button class="sidebar-link" type="button" (click)="toggleTheme()">
             <lucide-icon [img]="icon()" class="my-icon" size="24"/>
             <span>Switch Theme</span>
           </button>

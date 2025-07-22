@@ -57,4 +57,8 @@ export class SidebarComponent {
       });
     });
   }
+
+  toggleTheme() {
+    this.themeService.toggle();
+  }
 }
