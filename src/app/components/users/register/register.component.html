@@ -1,0 +1,38 @@
+<div class="register-root">
+  <div class="register-container">
+    <div class="register-header">
+      <!-- UserPlus Icon Placeholder -->
+      <lucide-icon [img]="UserPlusIcon" class="my-icon" size="50" />
+      <h1>Sign Up</h1>
+    </div>
+    <form class="register-form">
+      <div class="register-group">
+        <label for="nickname">Nickname</label>
+        <input type="text" id="nickname" name="nickname" autocomplete="nickname" [(ngModel)]="signupData.nickname" required />
+      </div>
+      <div class="register-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" autocomplete="email" [(ngModel)]="signupData.email" required />
+      </div>
+      <div class="register-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" autocomplete="new-password" [(ngModel)]="signupData.password" required />
+      </div>
+      <div class="register-group">
+        <label for="passwordConfirm">Confirm Password</label>
+        <input type="password" id="passwordConfirm" name="passwordConfirm" autocomplete="new-password" [(ngModel)]="signupData.password_confirm" required />
+      </div>
+      <div class="register-error" style="display:none"></div>
+      <button class="register-btn" (click)="register()">
+        <!-- UserPlus Icon Placeholder -->
+        <lucide-icon [img]="UserPlusIcon" class="my-icon" size="16" />
+        <span class="register-btn-text">Create Account</span>
+      </button>
+    </form>
+  </div>
+  <a href="/" class="register-back">
+    <!-- Home Icon Placeholder -->
+    <lucide-icon [img]="HomeIcon" class="my-icon" size="24" />
+    Back to Home
+  </a>
+</div>

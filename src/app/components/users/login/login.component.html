@@ -15,7 +15,7 @@
         <input type="password" id="password" name="password" autocomplete="current-password" [(ngModel)]="loginData.password" required/>
       </div>
       <div class="login-error" style="display:none"></div>
-      <button class="btn-crypt btn-crypt-primary" (click)="signIn()">
+      <button class="login-btn" (click)="signIn()">
         <!-- LogIn Icon Placeholder -->
         <lucide-icon [img]="LogInIcon" class="my-icon" size="16" />
         Log In

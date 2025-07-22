@@ -20,7 +20,7 @@ export class UserService {
   }
 
   signup(data: SignupData) {
-    return this.http.post('/signup', {user: data});
+    return this.http.post(`${this.baseUrl}/signup`, {user: data});
   }
 
   login(data: LoginData) {

@@ -5,10 +5,10 @@ $accent: var(--neon-purple, #a259f7);
 $radius: 1rem;
 $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.25);
 
-.login-root {
+.register-root {
   min-height: 100vh;
-  background: var(--background);
-  color: var(--foreground);
+  background: $background;
+  color: $foreground;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,10 +17,10 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
   padding: 1rem;
 }
 
-.login-container {
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-primary-50);
-  box-shadow: var(--shadow-lg);
+.register-container {
+  border-radius: $radius;
+  border: 1px solid $primary;
+  box-shadow: $shadow;
   max-width: 24rem;
   width: 100%;
   padding: 2.5rem 2rem 2rem 2rem;
@@ -28,57 +28,57 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
   animation: fadeIn 0.8s ease-in;
 }
 
-.login-header {
+.register-header {
   display: flex;
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 1.5rem;
-  .login-icon {
+  .register-icon {
     width: 2.5rem;
     height: 2.5rem;
     display: inline-block;
-    color: var(--accent);
+    color: $accent;
     /* Replace with SVG */
   }
   h1 {
     font-size: 2rem;
     font-weight: bold;
-    color: var(--foreground);
+    color: $foreground;
     margin: 0;
   }
 }
 
-.login-form {
+.register-form {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
 }
 
-.login-group {
+.register-group {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
   label {
     font-weight: 600;
     font-size: 1rem;
-    color: var(--foreground);
+    color: $foreground;
   }
   input {
     border-radius: 0.5rem;
-    border: 1px solid var(--color-primary-50);
+    border: 1px solid $primary;
     padding: 0.75rem 1rem;
     font-size: 1rem;
-    background: var(--background);
-    color: var(--foreground);
+    background: $background;
+    color: $foreground;
     transition: border 0.2s;
     &:focus {
-      border-color: var(--color-accent-50);
+      border-color: $accent;
       outline: none;
     }
   }
 }
 
-.login-error {
+.register-error {
   color: #ff6b35;
   font-size: 0.9rem;
   margin-top: -0.5rem;
@@ -86,7 +86,7 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
   min-height: 1.2em;
 }
 
-.login-btn {
+.register-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -118,21 +118,21 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
   }
 }
 
-.login-back {
+.register-back {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   margin-top: 2rem;
   font-size: 1rem;
-  color: var(--foreground);
+  color: $foreground;
   opacity: 0.7;
   text-decoration: none;
   transition: opacity 0.2s;
-  .login-back-icon {
+  .register-back-icon {
     width: 1.25rem;
     height: 1.25rem;
     display: inline-block;
-    color: var(--foreground);
+    color: $foreground;
   }
   &:hover {
     opacity: 1;

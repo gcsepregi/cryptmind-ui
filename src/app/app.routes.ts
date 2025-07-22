@@ -4,6 +4,7 @@ import {LoginComponent} from './components/users/login/login.component';
 import {LandingPageComponent} from './components/landing-page/landing-page.component';
 import {Injectable} from '@angular/core';
 import {UserService} from './services/user.service';
+import {RegisterComponent} from './components/users/register/register.component';
 
 @Injectable(
   {
@@ -33,5 +34,6 @@ export const routes: Routes = [
   {path: '', component: HomeComponent, canMatch: [AuthGuard]},
   {path: '', component: LandingPageComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
   {path: '**', redirectTo: ''},
 ];
