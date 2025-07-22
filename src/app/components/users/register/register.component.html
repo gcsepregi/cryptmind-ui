@@ -22,7 +22,7 @@
         <label for="passwordConfirm">Confirm Password</label>
         <input type="password" id="passwordConfirm" name="passwordConfirm" autocomplete="new-password" [(ngModel)]="signupData.password_confirm" required />
       </div>
-      <div class="register-error" style="display:none"></div>
+      <div class="register-error"></div>
       <button class="register-btn" (click)="register()">
         <!-- UserPlus Icon Placeholder -->
         <lucide-icon [img]="UserPlusIcon" class="my-icon" size="16" />

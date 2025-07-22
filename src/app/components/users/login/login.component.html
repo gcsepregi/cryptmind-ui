@@ -5,12 +5,6 @@
       <lucide-icon [img]="LogInIcon" class="my-icon" size="50" />
       <h1>Log In</h1>
     </div>
-    <ng-container *ngIf="errorMessage">
-      <div class="error font-bold">
-        <lucide-icon [img]="AlertCircleIcon" class="my-icon" size="24" />
-        Invalid email or password.
-      </div>
-    </ng-container>
     <form class="login-form">
       <div class="login-group">
         <label for="email">Email</label>
@@ -20,7 +14,12 @@
         <label for="password">Password</label>
         <input type="password" id="password" name="password" autocomplete="current-password" [(ngModel)]="loginData.password" required/>
       </div>
-      <div class="login-error" style="display:none"></div>
+      <ng-container *ngIf="errorMessage">
+        <div class="error font-bold">
+          <lucide-icon [img]="AlertCircleIcon" class="my-icon" size="24" />
+          Invalid email or password.
+        </div>
+      </ng-container>
       <button class="login-btn" (click)="signIn()">
         <!-- LogIn Icon Placeholder -->
         <lucide-icon [img]="LogInIcon" class="my-icon" size="16" />
