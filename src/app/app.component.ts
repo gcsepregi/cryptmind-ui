@@ -9,7 +9,7 @@ import {UserService} from './services/user.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, SidebarComponent, LucideAngularModule, NgIf, LandingPageComponent, ThemeSwitcherComponent],
+  imports: [RouterOutlet, SidebarComponent, LucideAngularModule, NgIf, ThemeSwitcherComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
