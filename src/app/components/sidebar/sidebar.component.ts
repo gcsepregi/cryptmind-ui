@@ -14,6 +14,7 @@ import {ThemeService} from '../../services/theme.service';
 import {NgIf} from '@angular/common';
 import {UserService} from '../../services/user.service';
 import {Router} from '@angular/router';
+import {User} from '../../models/user.model';
 
 @Component({
   selector: 'app-sidebar',
@@ -26,20 +27,22 @@ import {Router} from '@angular/router';
 })
 export class SidebarComponent {
 
-  public isCollapsed = true;
-  public SkullIcon = SkullIcon;
+  protected isCollapsed = true;
+  protected readonly SkullIcon = SkullIcon;
   protected readonly MenuIcon = MenuIcon;
   protected readonly UserIcon = UserIcon;
   protected readonly HomeIcon = HomeIcon;
   protected readonly BookAIcon = BookAIcon;
   protected readonly LogOutIcon = LogOutIcon;
-
   protected readonly XIcon = XIcon;
+  protected user: User | undefined;
 
   constructor(private readonly themeService: ThemeService,
               private readonly userService: UserService,
               private readonly router: Router) {
-
+    this.userService.getMe().subscribe(res => {
+      this.user = res;
+    });
   }
 
   toggleSidebar() {

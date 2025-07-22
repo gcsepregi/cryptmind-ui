@@ -1,6 +1,6 @@
 <!-- Overlay (hidden by default) -->
 <ng-container *ngIf="!isCollapsed">
-  <div class="sidebar-overlay" style="display:none;" (click)="toggleSidebar()"></div>
+  <div class="sidebar-overlay" (click)="toggleSidebar()"></div>
   <!-- Sidebar -->
   <aside class="sidebar">
     <div class="sidebar-header">
@@ -15,7 +15,7 @@
     <div class="sidebar-user">
       <lucide-icon [img]="UserIcon" class="my-icon" size="36"/>
       <div>
-        <div class="sidebar-nickname">User</div>
+        <div class="sidebar-nickname">{{ user?.nickname }}</div>
         <div class="sidebar-status">Online</div>
       </div>
     </div>
