@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
   /* Light theme colors */
+  color-scheme: light;
   --background: #f8fafc;
   --foreground: #18181b;
   /* Color Palette */
@@ -78,8 +79,17 @@
 
 }
 
+html.light {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not(html.light) {
+    color-scheme: dark;
     --background: #0a0a0a;
     --foreground: #ededed;
   }
