@@ -58,4 +58,18 @@ export class JournalListComponent {
   toggleNewEntryDropDown() {
     this.newEntryDropDownOpen = !this.newEntryDropDownOpen;
   }
+
+  icon(journal_type: "diary" | "dream" | "ritual" | "divination") {
+    if (journal_type === "diary") {
+      return BookAIcon;
+    } else if (journal_type === "dream") {
+      return MoonIcon;
+    } else if (journal_type === "ritual") {
+      return StarIcon;
+    } else if (journal_type === "divination") {
+      return CrownIcon;
+    } else {
+      return CalendarIcon;
+    }
+  }
 }

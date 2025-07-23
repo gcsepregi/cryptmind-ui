@@ -75,7 +75,7 @@
       <ng-container *ngFor="let journal of journals | async">
         <div class="journals-card">
           <div class="journals-card-header">
-            <span class="journals-card-type-icon"><lucide-icon [img]="BookAIcon" class="my-icon" size="24"/></span>
+            <span class="journals-card-type-icon"><lucide-icon [img]="icon(journal.journal_type)" class="my-icon" size="24"/></span>
             <span class="journals-card-type">{{ journal.journal_type }}</span>
             <span class="journals-card-private"><lucide-icon [img]="EyeOffIcon" class="my-icon" size="24"/></span>
             <div class="journals-card-actions">
