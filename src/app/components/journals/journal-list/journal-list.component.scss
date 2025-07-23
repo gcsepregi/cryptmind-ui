@@ -118,9 +118,10 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
     flex-wrap: wrap;
     gap: 1rem;
     align-items: center;
-    /* Remove margin-top so actions are closer to count */
     margin-top: 0;
     .journals-search {
+      flex: 1 1 0%;
+      min-width: 180px;
       position: relative;
       .journals-search-icon {
         position: absolute;
@@ -139,7 +140,8 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
         background: $background;
         color: $foreground;
         font-size: 1rem;
-        width: 14rem;
+        width: 100%;
+        box-sizing: border-box;
         transition: border 0.2s;
         &:focus {
           border-color: $accent;
