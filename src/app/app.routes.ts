@@ -5,6 +5,7 @@ import {LandingPageComponent} from './components/landing-page/landing-page.compo
 import {Injectable} from '@angular/core';
 import {UserService} from './services/user.service';
 import {RegisterComponent} from './components/users/register/register.component';
+import {JournalListComponent} from './components/journals/journal-list/journal-list.component';
 
 @Injectable(
   {
@@ -35,5 +36,6 @@ export const routes: Routes = [
   {path: '', component: LandingPageComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'journals', component: JournalListComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: ''},
 ];

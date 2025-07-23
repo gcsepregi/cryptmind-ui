@@ -1,0 +1,96 @@
+<div class="journals-root">
+  <div class="journals-container">
+    <div class="journals-dropdown-cover" (click)="toggleNewEntryDropDown()" *ngIf="newEntryDropDownOpen"></div>
+    <!-- Header -->
+    <div class="journals-header">
+      <div class="journals-header-row">
+        <div class="journals-header-title">
+          <lucide-icon [img]="BookAIcon" class="my-icon" size="24" />
+          <h1>Journal Entries</h1>
+        </div>
+        <div class="journals-dropdown">
+          <button class="journals-dropdown-btn" type="button" (click)="toggleNewEntryDropDown()">
+            <lucide-icon [img]="PlusIcon" class="my-icon" size="16" />
+            New Entry
+            <lucide-icon [img]="ChevronDownIcon" class="my-icon" size="16" />
+          </button>
+          <div class="journals-dropdown-menu" *ngIf="newEntryDropDownOpen">
+            <button class="journals-dropdown-item" type="button"><lucide-icon [img]="BookAIcon" class="my-icon" size="24" /> New Diary Entry</button>
+            <button class="journals-dropdown-item" type="button"><lucide-icon [img]="MoonIcon" class="my-icon" size="24" /> New Dream Entry</button>
+            <button class="journals-dropdown-item" type="button"><lucide-icon [img]="StarIcon" class="my-icon" size="24" /> New Ritual Entry</button>
+            <button class="journals-dropdown-item" type="button"><lucide-icon [img]="CrownIcon" class="my-icon" size="24" /> New Divination Entry</button>
+          </div>
+        </div>
+      </div>
+      <p class="journals-header-count">2 of 2 entries</p>
+      <div class="journals-header-actions">
+        <!-- Search -->
+        <div class="journals-search">
+          <span class="journals-search-icon"><lucide-icon [img]="SearchIcon" class="my-icon" size="24" /></span>
+          <input type="text" class="journals-search-input" placeholder="Search entries..." />
+        </div>
+        <!-- Type Filter -->
+        <select class="journals-type-filter">
+          <option value="all">All Types</option>
+          <option value="diary">Diary</option>
+          <option value="dream">Dream</option>
+          <option value="ritual">Ritual</option>
+          <option value="divination">Divination</option>
+        </select>
+        <!-- Privacy Toggle -->
+        <button class="journals-privacy-toggle" type="button"><lucide-icon [img]="EyeIcon" class="my-icon" size="24" /> Show Private</button>
+        <!-- View Mode Toggle -->
+        <div class="journals-view-toggle">
+          <button class="journals-view-btn journals-view-btn-active" type="button"><lucide-icon [img]="GridIcon" class="my-icon" size="24" /></button>
+          <button class="journals-view-btn" type="button"><lucide-icon [img]="ListIcon" class="my-icon" size="24" /></button>
+        </div>
+      </div>
+    </div>
+    <!-- Error State (hidden by default) -->
+    <div class="journals-error" style="display:none">Failed to load journal entries</div>
+    <!-- Entries Grid/List -->
+    <div class="journals-list">
+      <div class="journals-card">
+        <div class="journals-card-header">
+          <span class="journals-card-type-icon"><lucide-icon [img]="BookAIcon" class="my-icon" size="24" /></span>
+          <span class="journals-card-type">diary</span>
+          <span class="journals-card-private"><lucide-icon [img]="EyeOffIcon" class="my-icon" size="24" /></span>
+          <div class="journals-card-actions">
+            <button class="journals-card-edit" type="button"><lucide-icon [img]="EditIcon" class="my-icon" size="24" /></button>
+            <button class="journals-card-delete" type="button"><lucide-icon [img]="Trash2Icon" class="my-icon" size="24" /></button>
+          </div>
+        </div>
+        <h3 class="journals-card-title">This is a diary</h3>
+        <p class="journals-card-content">First diary entry entry for real</p>
+        <div class="journals-card-tags">
+          <span class="journals-card-tag">meditation</span>
+          <span class="journals-card-tag">pondering</span>
+        </div>
+        <div class="journals-card-footer">
+          <span class="journals-card-date"><lucide-icon [img]="CalendarIcon" class="my-icon" size="24" /> 2025-07-20</span>
+          <span class="journals-card-tagcount"><lucide-icon [img]="TagIcon" class="my-icon" size="24" /> 2 tags</span>
+        </div>
+      </div>
+      <div class="journals-card">
+        <div class="journals-card-header">
+          <span class="journals-card-type-icon"><lucide-icon [img]="MoonIcon" class="my-icon" size="24" /></span>
+          <span class="journals-card-type">dream</span>
+          <div class="journals-card-actions">
+            <button class="journals-card-edit" type="button"><lucide-icon [img]="EditIcon" class="my-icon" size="24" /></button>
+            <button class="journals-card-delete" type="button"><lucide-icon [img]="Trash2Icon" class="my-icon" size="24" /></button>
+          </div>
+        </div>
+        <h3 class="journals-card-title">My dream</h3>
+        <p class="journals-card-content">This is a dream from last night.</p>
+        <div class="journals-card-tags">
+          <span class="journals-card-tag">lucid</span>
+          <span class="journals-card-tag">recurring</span>
+        </div>
+        <div class="journals-card-footer">
+          <span class="journals-card-date"><lucide-icon [img]="CalendarIcon" class="my-icon" size="24" /> 2025-07-20</span>
+          <span class="journals-card-tagcount"><lucide-icon [img]="TagIcon" class="my-icon" size="24" /> 2 tags</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

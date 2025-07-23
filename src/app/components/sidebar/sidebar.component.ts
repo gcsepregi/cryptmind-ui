@@ -13,14 +13,15 @@ import {
 import {ThemeService} from '../../services/theme.service';
 import {NgIf} from '@angular/common';
 import {UserService} from '../../services/user.service';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {User} from '../../models/user.model';
 
 @Component({
   selector: 'app-sidebar',
   imports: [
     LucideAngularModule,
-    NgIf
+    NgIf,
+    RouterLink
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
