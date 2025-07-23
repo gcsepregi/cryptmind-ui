@@ -12,9 +12,11 @@
           <button class="journals-dropdown-btn" type="button" (click)="toggleNewEntryDropDown()">
             <lucide-icon [img]="PlusIcon" class="my-icon" size="16" />
             New Entry
-            <lucide-icon [img]="ChevronDownIcon" class="my-icon" size="16" />
+            <span [ngClass]="{'chevron-open': newEntryDropDownOpen}" class="chevron-wrapper">
+              <lucide-icon [img]="ChevronDownIcon" class="my-icon chevron" size="16" />
+            </span>
           </button>
-          <div class="journals-dropdown-menu" *ngIf="newEntryDropDownOpen">
+          <div class="journals-dropdown-menu" *ngIf="newEntryDropDownOpen" [ngClass]="{'dropdown-animate': newEntryDropDownOpen}">
             <button class="journals-dropdown-item" type="button"><lucide-icon [img]="BookAIcon" class="my-icon" size="24" /> New Diary Entry</button>
             <button class="journals-dropdown-item" type="button"><lucide-icon [img]="MoonIcon" class="my-icon" size="24" /> New Dream Entry</button>
             <button class="journals-dropdown-item" type="button"><lucide-icon [img]="StarIcon" class="my-icon" size="24" /> New Ritual Entry</button>

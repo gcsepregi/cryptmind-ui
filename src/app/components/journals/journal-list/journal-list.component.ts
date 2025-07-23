@@ -9,13 +9,14 @@ import {
   SearchIcon,
   StarIcon, TagIcon, Trash2Icon
 } from 'lucide-angular';
-import {NgIf} from '@angular/common';
+import {NgIf, NgClass} from '@angular/common';
 
 @Component({
   selector: 'app-journal-list',
   imports: [
     LucideAngularModule,
-    NgIf
+    NgIf,
+    NgClass
   ],
   templateUrl: './journal-list.component.html',
   styleUrl: './journal-list.component.scss'

@@ -83,6 +83,10 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      opacity: 0;
+      transform: translateY(-10px);
+      pointer-events: none;
+      transition: opacity 0.25s cubic-bezier(0.4,0,0.2,1), transform 0.25s cubic-bezier(0.4,0,0.2,1);
       .journals-dropdown-item {
         display: flex;
         align-items: center;
@@ -99,6 +103,11 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
           color: #fff;
         }
       }
+    }
+    .journals-dropdown-menu.dropdown-animate {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
     }
   }
 .journals-header-count {
@@ -323,6 +332,17 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
       gap: 0.3rem;
     }
   }
+}
+
+.chevron-wrapper {
+  display: inline-flex;
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+.chevron {
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+.chevron-open .chevron {
+  transform: rotate(180deg);
 }
 
 @keyframes fadeIn {
