@@ -90,7 +90,7 @@
           <h3 class="journals-card-title">{{ journal.title }}</h3>
           <p class="journals-card-content">{{ journal.entry }}</p>
           <div class="journals-card-tags">
-            <span class="journals-card-tag" *ngFor="let tag of journal.tags">{{ tag.name }}</span>
+            <span class="journals-card-tag" *ngFor="let tag of journal.tags.slice(0,2)">{{ tag.name }}</span>
           </div>
           <div class="journals-card-footer">
             <span class="journals-card-date"><lucide-icon [img]="CalendarIcon" class="my-icon" size="24"/>{{ journal.created_at | date:'dd MMM yyyy, HH:mm' }}</span>

@@ -347,6 +347,10 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
       letter-spacing: 0.01em;
       transition: background 0.2s, color 0.2s, border 0.2s;
       cursor: default;
+      max-width: 7em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
   .journals-card-footer {
