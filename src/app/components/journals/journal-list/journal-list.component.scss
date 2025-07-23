@@ -317,11 +317,20 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
     font-weight: 700;
     margin: 0 0 0.5rem 0;
     color: $foreground;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .journals-card-content {
     color: $primary;
     font-size: 1rem;
     margin-bottom: 0.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 3.5em;
   }
   .journals-card-tags {
     display: flex;
