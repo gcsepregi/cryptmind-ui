@@ -46,6 +46,7 @@ export class JournalListComponent {
   protected readonly Trash2Icon = Trash2Icon;
 
   protected newEntryDropDownOpen = false;
+  protected view: 'grid' | 'list' = 'grid';
 
   protected journals = new BehaviorSubject<Journal[]>([])
 
@@ -71,5 +72,9 @@ export class JournalListComponent {
     } else {
       return CalendarIcon;
     }
+  }
+
+  toggleView() {
+    this.view = this.view === 'grid' ? 'list' : 'grid';
   }
 }

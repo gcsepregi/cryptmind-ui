@@ -59,10 +59,12 @@
         </button>
         <!-- View Mode Toggle -->
         <div class="journals-view-toggle">
-          <button class="journals-view-btn journals-view-btn-active" type="button">
+          <button class="journals-view-btn" type="button" (click)="toggleView()"
+                  [ngClass]="{'journals-view-btn-active': view === 'grid'}">
             <lucide-icon [img]="GridIcon" class="my-icon" size="24"/>
           </button>
-          <button class="journals-view-btn" type="button">
+          <button class="journals-view-btn" type="button" (click)="toggleView()"
+                  [ngClass]="{'journals-view-btn-active': view === 'list'}">
             <lucide-icon [img]="ListIcon" class="my-icon" size="24"/>
           </button>
         </div>
@@ -71,7 +73,7 @@
     <!-- Error State (hidden by default) -->
     <div class="journals-error" style="display:none">Failed to load journal entries</div>
     <!-- Entries Grid/List -->
-    <div class="journals-list">
+    <div class="journals-list" [ngClass]="{'journals-list-grid': view === 'grid', 'journals-list-list': view === 'list'}" *ngIf="journals">
       <ng-container *ngFor="let journal of journals | async">
         <div class="journals-card">
           <div class="journals-card-header">
