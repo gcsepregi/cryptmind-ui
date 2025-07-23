@@ -9,14 +9,19 @@ import {
   SearchIcon,
   StarIcon, TagIcon, Trash2Icon
 } from 'lucide-angular';
-import {NgIf, NgClass} from '@angular/common';
+import {NgIf, NgClass, NgForOf, AsyncPipe} from '@angular/common';
+import {JournalsService} from '../../../services/journals.service';
+import {BehaviorSubject} from 'rxjs';
+import {Journal} from '../../../models/journal.model';
 
 @Component({
   selector: 'app-journal-list',
   imports: [
     LucideAngularModule,
     NgIf,
-    NgClass
+    NgClass,
+    NgForOf,
+    AsyncPipe
   ],
   templateUrl: './journal-list.component.html',
   styleUrl: './journal-list.component.scss'
@@ -41,7 +46,13 @@ export class JournalListComponent {
 
   protected newEntryDropDownOpen = false;
 
-  constructor() { }
+  protected journals = new BehaviorSubject<Journal[]>([])
+
+  constructor(private readonly journalsService: JournalsService) {
+    this.journalsService.getJournals().subscribe(res => {
+      this.journals.next(res);
+    });
+  }
 
   toggleNewEntryDropDown() {
     this.newEntryDropDownOpen = !this.newEntryDropDownOpen;
