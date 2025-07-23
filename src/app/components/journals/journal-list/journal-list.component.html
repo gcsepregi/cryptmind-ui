@@ -93,8 +93,7 @@
             <span class="journals-card-tag" *ngFor="let tag of journal.tags">{{ tag.name }}</span>
           </div>
           <div class="journals-card-footer">
-            <span class="journals-card-date"><lucide-icon [img]="CalendarIcon" class="my-icon"
-                                                          size="24"/>{{ journal.created_at }}</span>
+            <span class="journals-card-date"><lucide-icon [img]="CalendarIcon" class="my-icon" size="24"/>{{ journal.created_at | date:'dd MMM yyyy, HH:mm' }}</span>
             <span class="journals-card-tagcount"><lucide-icon [img]="TagIcon" class="my-icon" size="24"/>{{ journal.tags.length }} tags</span>
           </div>
         </div>
