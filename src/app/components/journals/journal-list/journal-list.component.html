@@ -75,7 +75,7 @@
     <!-- Entries Grid/List -->
     <div class="journals-list" [ngClass]="{'journals-list-grid': view === 'grid', 'journals-list-list': view === 'list'}" *ngIf="journals">
       <ng-container *ngFor="let journal of journals | async">
-        <div class="journals-card">
+        <div class="journals-card journals-card-{{journal.journal_type}}">
           <div class="journals-card-header">
             <span class="journals-card-type-icon"><lucide-icon [img]="icon(journal.journal_type)" class="my-icon" size="24"/></span>
             <span class="journals-card-type">{{ journal.journal_type }}</span>
