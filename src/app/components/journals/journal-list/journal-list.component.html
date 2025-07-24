@@ -124,8 +124,12 @@
         <ng-container *ngFor="let day of calendarDays; let i = index">
           <div class="calendar-cell" [ngClass]="{'calendar-cell-other': !day.isCurrentMonth, 'calendar-cell-today': day.date.toDateString() === (today | date:'fullDate')}">
             <span class="calendar-cell-day-number" [ngClass]="{'calendar-cell-has-entry': hasEntryForDay(day.date)}">{{ day.date.getDate() }}</span>
-            <span *ngIf="hasEntryForDay(day.date)" class="calendar-cell-entry-icon d-desktop">
-              <lucide-icon [img]="BookAIcon" size="18" />
+            <span *ngIf="getEntryTypesForDay(day.date).length > 0" class="calendar-cell-entry-icons d-desktop">
+              <ng-container *ngFor="let type of getEntryTypesForDay(day.date)">
+                <span class="calendar-cell-entry-marker" [ngClass]="'calendar-marker-' + type">
+                  <lucide-icon [img]="icon(type)" size="14" />
+                </span>
+              </ng-container>
             </span>
           </div>
         </ng-container>

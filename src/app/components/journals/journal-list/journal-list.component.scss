@@ -524,6 +524,47 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
   font-weight: 700;
   box-shadow: 0 0 0 2px $accent, 0 2px 8px 0 rgba($accent, 0.18);
 }
+.calendar-cell-entry-icons {
+  display: none;
+  @media (min-width: 900px) {
+    display: flex;
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    z-index: 2;
+    gap: 0.25rem;
+  }
+}
+.calendar-cell-entry-marker {
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 4px 0 rgba($accent, 0.15);
+  background: $accent;
+  color: #fff;
+  font-size: 1em;
+  > .my-icon, > lucide-icon {
+    display: block;
+    font-size: 1em;
+    margin: 0 auto;
+    line-height: 1;
+  }
+}
+.calendar-marker-diary {
+  background: var(--neon-cyan, #00ffff);
+  color: #18181b;
+}
+.calendar-marker-dream {
+  background: var(--neon-purple, #a259f7);
+  color: #fff;
+}
+.calendar-marker-ritual {
+  background: var(--neon-green, #22c55e);
+  color: #18181b;
+}
 .calendar-cell-entry-icon {
   display: flex;
   align-items: center;

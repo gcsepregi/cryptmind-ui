@@ -139,4 +139,15 @@ export class JournalListComponent {
              entryDate.getDate() === date.getDate();
     });
   }
+
+  getEntryTypesForDay(date: Date): string[] {
+    const journals = this.journals.getValue();
+    const types = journals.filter(journal => {
+      const entryDate = new Date(journal.created_at);
+      return entryDate.getFullYear() === date.getFullYear() &&
+             entryDate.getMonth() === date.getMonth() &&
+             entryDate.getDate() === date.getDate();
+    }).map(journal => journal.journal_type);
+    return Array.from(new Set(types));
+  }
 }
