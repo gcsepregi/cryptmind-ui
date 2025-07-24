@@ -1,7 +1,8 @@
 $background: var(--background, #18181b);
 $foreground: var(--foreground, #ededed);
 $primary: var(--color-primary-400, #5a5a8a);
-$accent: var(--neon-purple, #a259f7);
+$secondary: var(--color-secondary-400, #5a5a8a);
+$accent: var(--color-accent-400, #a259f7);
 $radius: 1rem;
 $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.25);
 
@@ -57,16 +58,16 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
       gap: 0.5rem;
       padding: 0.75rem 1.5rem;
       border-radius: 0.75rem;
-      background: linear-gradient(90deg, $primary 0%, $accent 100%);
+      background: linear-gradient(90deg, $primary 0%, $secondary 100%);
       color: #fff;
       border: none;
       font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
-      box-shadow: 0 0 16px $accent, 0 0 32px #000a;
+      box-shadow: 0 0 16px $secondary, 0 0 32px #000a;
       transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
       &:hover {
-        background: linear-gradient(90deg, $accent 0%, $primary 100%);
+        background: linear-gradient(90deg, $secondary 0%, $primary 100%);
         transform: scale(1.03);
       }
     }
@@ -413,7 +414,7 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
   justify-content: center;
   min-height: 20rem;
   font-size: 1.5rem;
-  color: $accent;
+  color: $secondary;
   background: rgba($accent, 0.05);
   border-radius: 1rem;
   margin: 2rem 0;
@@ -440,7 +441,6 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
   .calendar-title {
     font-size: 1.3rem;
     font-weight: 700;
-    color: $accent;
     letter-spacing: 0.02em;
   }
   .calendar-nav-btn {
@@ -468,7 +468,6 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
   .calendar-day-label {
     font-size: 0.95rem;
     font-weight: 600;
-    color: $primary;
     text-align: center;
     padding: 0.25rem 0;
     letter-spacing: 0.01em;
@@ -477,7 +476,6 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
 .calendar-cell {
   min-height: 2.5rem;
   background: rgba($primary, 0.08);
-  color: $foreground;
   border-radius: 0.5rem;
   text-align: center;
   font-size: 1rem;
@@ -487,18 +485,32 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
   justify-content: center;
   transition: background 0.2s, color 0.2s, box-shadow 0.2s, border 0.2s;
   cursor: pointer;
+  position: relative;
   @media (min-width: 900px) {
     background: $background;
     border: 1px solid $primary;
     box-shadow: 0 2px 8px 0 rgba($primary, 0.10);
     border-radius: 1rem;
     min-height: 4.5rem;
-    padding: 0.5rem 0.25rem;
+    padding: 0.5rem 0.25rem 0.25rem 0.5rem;
     margin: 0.1rem;
+    justify-content: flex-start;
+    align-items: flex-start;
   }
   &:hover {
     background: $accent;
     color: #fff;
+  }
+}
+.calendar-cell-day-number {
+  @media (min-width: 900px) {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.75rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    opacity: 0.85;
+    z-index: 2;
   }
 }
 .calendar-cell-other {
@@ -511,6 +523,40 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
   color: #fff;
   font-weight: 700;
   box-shadow: 0 0 0 2px $accent, 0 2px 8px 0 rgba($accent, 0.18);
+}
+.calendar-cell-entry-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $secondary;
+  @media (min-width: 900px) {
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    z-index: 2;
+    filter: drop-shadow(0 1px 4px rgba($accent, 0.15));
+  }
+}
+.calendar-cell-day-number.calendar-cell-has-entry {
+  background: $accent;
+  color: #fff;
+  border-radius: 50%;
+  padding: 0.15em 0.55em;
+  font-weight: 700;
+  box-shadow: 0 1px 4px 0 rgba($accent, 0.15);
+  display: inline-block;
+  @media (min-width: 900px) {
+    background: none;
+    box-shadow: none;
+    font-weight: 700;
+    padding: 0;
+  }
+}
+.d-desktop {
+  display: none;
+  @media (min-width: 900px) {
+    display: flex;
+  }
 }
 
 .chevron-wrapper {

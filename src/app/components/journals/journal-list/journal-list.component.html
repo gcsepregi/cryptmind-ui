@@ -122,8 +122,11 @@
       </div>
       <div class="calendar-grid">
         <ng-container *ngFor="let day of calendarDays; let i = index">
-          <div class="calendar-cell" [ngClass]="{'calendar-cell-other': !day.isCurrentMonth, 'calendar-cell-today': day.date.toDateString() === (today | date:'fullDate')}" >
-            {{ day.date.getDate() }}
+          <div class="calendar-cell" [ngClass]="{'calendar-cell-other': !day.isCurrentMonth, 'calendar-cell-today': day.date.toDateString() === (today | date:'fullDate')}">
+            <span class="calendar-cell-day-number" [ngClass]="{'calendar-cell-has-entry': hasEntryForDay(day.date)}">{{ day.date.getDate() }}</span>
+            <span *ngIf="hasEntryForDay(day.date)" class="calendar-cell-entry-icon d-desktop">
+              <lucide-icon [img]="BookAIcon" size="18" />
+            </span>
           </div>
         </ng-container>
       </div>

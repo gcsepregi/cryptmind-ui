@@ -129,4 +129,14 @@ export class JournalListComponent {
       default: return this.BookAIcon;
     }
   }
+
+  hasEntryForDay(date: Date): boolean {
+    const journals = this.journals.getValue();
+    return journals.some(journal => {
+      const entryDate = new Date(journal.created_at);
+      return entryDate.getFullYear() === date.getFullYear() &&
+             entryDate.getMonth() === date.getMonth() &&
+             entryDate.getDate() === date.getDate();
+    });
+  }
 }
