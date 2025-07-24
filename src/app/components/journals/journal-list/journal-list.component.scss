@@ -410,6 +410,113 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
 
 }
 
+.journals-calendar-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 20rem;
+  font-size: 1.5rem;
+  color: $accent;
+  background: rgba($accent, 0.05);
+  border-radius: 1rem;
+  margin: 2rem 0;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.journals-calendar-view {
+  border-radius: 1rem;
+  background: $background;
+  border: 1px solid $primary;
+  padding: 2rem 1rem 1.5rem 1rem;
+  box-shadow: $shadow;
+  margin: 2rem 0;
+  max-width: 70rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  .calendar-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: $accent;
+    letter-spacing: 0.02em;
+  }
+  .calendar-nav-btn {
+    background: $primary;
+    color: #fff;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    &:hover {
+      background: $accent;
+    }
+  }
+}
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.25rem;
+  width: 100%;
+}
+.calendar-days-row {
+  margin-bottom: 0.5rem;
+  .calendar-day-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: $primary;
+    text-align: center;
+    padding: 0.25rem 0;
+    letter-spacing: 0.01em;
+  }
+}
+.calendar-cell {
+  min-height: 2.5rem;
+  background: rgba($primary, 0.08);
+  color: $foreground;
+  border-radius: 0.5rem;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, border 0.2s;
+  cursor: pointer;
+  @media (min-width: 900px) {
+    background: $background;
+    border: 1px solid $primary;
+    box-shadow: 0 2px 8px 0 rgba($primary, 0.10);
+    border-radius: 1rem;
+    min-height: 4.5rem;
+    padding: 0.5rem 0.25rem;
+    margin: 0.1rem;
+  }
+  &:hover {
+    background: $accent;
+    color: #fff;
+  }
+}
+.calendar-cell-other {
+  color: $primary;
+  background: rgba($primary, 0.03);
+  opacity: 0.6;
+}
+.calendar-cell-today {
+  background: $accent;
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 0 0 0 2px $accent, 0 2px 8px 0 rgba($accent, 0.18);
+}
+
 .chevron-wrapper {
   display: inline-flex;
   transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);

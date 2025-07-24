@@ -46,7 +46,62 @@ export class JournalListComponent {
   protected readonly Trash2Icon = Trash2Icon;
 
   protected newEntryDropDownOpen = false;
-  protected view: 'grid' | 'list' = 'grid';
+  view: 'grid' | 'list' | 'calendar' = 'grid';
+
+  currentMonth: number = new Date().getMonth();
+  currentYear: number = new Date().getFullYear();
+
+  today = new Date();
+
+  get monthName(): string {
+    return new Date(this.currentYear, this.currentMonth).toLocaleString('default', { month: 'long' });
+  }
+
+  get calendarDays(): { date: Date, isCurrentMonth: boolean }[] {
+    const days: { date: Date, isCurrentMonth: boolean }[] = [];
+    const firstDayOfMonth = new Date(this.currentYear, this.currentMonth, 1);
+    const lastDayOfMonth = new Date(this.currentYear, this.currentMonth + 1, 0);
+    const firstDayOfWeek = firstDayOfMonth.getDay(); // 0 (Sun) - 6 (Sat)
+    const daysInMonth = lastDayOfMonth.getDate();
+
+    // Calculate previous month's days to fill first week
+    const prevMonth = this.currentMonth === 0 ? 11 : this.currentMonth - 1;
+    const prevYear = this.currentMonth === 0 ? this.currentYear - 1 : this.currentYear;
+    const prevMonthLastDay = new Date(prevYear, prevMonth + 1, 0).getDate();
+    for (let i = firstDayOfWeek - 1; i >= 0; i--) {
+      days.push({ date: new Date(prevYear, prevMonth, prevMonthLastDay - i), isCurrentMonth: false });
+    }
+    // Current month days
+    for (let i = 1; i <= daysInMonth; i++) {
+      days.push({ date: new Date(this.currentYear, this.currentMonth, i), isCurrentMonth: true });
+    }
+    // Next month's days to fill last week
+    const nextMonth = this.currentMonth === 11 ? 0 : this.currentMonth + 1;
+    const nextYear = this.currentMonth === 11 ? this.currentYear + 1 : this.currentYear;
+    const totalCells = Math.ceil(days.length / 7) * 7;
+    for (let i = 1; days.length < totalCells; i++) {
+      days.push({ date: new Date(nextYear, nextMonth, i), isCurrentMonth: false });
+    }
+    return days;
+  }
+
+  prevMonth() {
+    if (this.currentMonth === 0) {
+      this.currentMonth = 11;
+      this.currentYear--;
+    } else {
+      this.currentMonth--;
+    }
+  }
+
+  nextMonth() {
+    if (this.currentMonth === 11) {
+      this.currentMonth = 0;
+      this.currentYear++;
+    } else {
+      this.currentMonth++;
+    }
+  }
 
   protected journals = new BehaviorSubject<Journal[]>([])
 
@@ -60,21 +115,18 @@ export class JournalListComponent {
     this.newEntryDropDownOpen = !this.newEntryDropDownOpen;
   }
 
-  icon(journal_type: "diary" | "dream" | "ritual" | "divination") {
-    if (journal_type === "diary") {
-      return BookAIcon;
-    } else if (journal_type === "dream") {
-      return MoonIcon;
-    } else if (journal_type === "ritual") {
-      return StarIcon;
-    } else if (journal_type === "divination") {
-      return CrownIcon;
-    } else {
-      return CalendarIcon;
-    }
+  toggleView(mode: 'grid' | 'list' | 'calendar') {
+    this.view = mode;
   }
 
-  toggleView() {
-    this.view = this.view === 'grid' ? 'list' : 'grid';
+  icon(type: string) {
+    switch (type) {
+      case 'diary': return this.BookAIcon;
+      case 'dream': return this.MoonIcon;
+      case 'ritual': return this.StarIcon;
+      case 'divination': return this.CrownIcon;
+      case 'calendar': return this.CalendarIcon;
+      default: return this.BookAIcon;
+    }
   }
 }

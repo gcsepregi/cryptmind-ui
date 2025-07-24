@@ -59,13 +59,17 @@
         </button>
         <!-- View Mode Toggle -->
         <div class="journals-view-toggle">
-          <button class="journals-view-btn" type="button" (click)="toggleView()"
+          <button class="journals-view-btn" type="button" (click)="toggleView('grid')"
                   [ngClass]="{'journals-view-btn-active': view === 'grid'}">
             <lucide-icon [img]="GridIcon" class="my-icon" size="24"/>
           </button>
-          <button class="journals-view-btn" type="button" (click)="toggleView()"
+          <button class="journals-view-btn" type="button" (click)="toggleView('list')"
                   [ngClass]="{'journals-view-btn-active': view === 'list'}">
             <lucide-icon [img]="ListIcon" class="my-icon" size="24"/>
+          </button>
+          <button class="journals-view-btn" type="button" (click)="toggleView('calendar')"
+                  [ngClass]="{'journals-view-btn-active': view === 'calendar'}">
+            <lucide-icon [img]="CalendarIcon" class="my-icon" size="24"/>
           </button>
         </div>
       </div>
@@ -73,7 +77,7 @@
     <!-- Error State (hidden by default) -->
     <div class="journals-error" style="display:none">Failed to load journal entries</div>
     <!-- Entries Grid/List -->
-    <div class="journals-list" [ngClass]="{'journals-list-grid': view === 'grid', 'journals-list-list': view === 'list'}" *ngIf="journals">
+    <div class="journals-list" [ngClass]="{'journals-list-grid': view === 'grid', 'journals-list-list': view === 'list'}" *ngIf="journals && view !== 'calendar'">
       <ng-container *ngFor="let journal of journals | async">
         <div class="journals-card journals-card-{{journal.journal_type}}">
           <div class="journals-card-header">
@@ -100,6 +104,29 @@
           </div>
         </div>
       </ng-container>
+    </div>
+    <div *ngIf="view === 'calendar'" class="journals-calendar-view">
+      <div class="calendar-header">
+        <button class="calendar-nav-btn" (click)="prevMonth()">&#8592;</button>
+        <span class="calendar-title">{{ monthName }} {{ currentYear }}</span>
+        <button class="calendar-nav-btn" (click)="nextMonth()">&#8594;</button>
+      </div>
+      <div class="calendar-grid calendar-days-row">
+        <div class="calendar-day-label">Sun</div>
+        <div class="calendar-day-label">Mon</div>
+        <div class="calendar-day-label">Tue</div>
+        <div class="calendar-day-label">Wed</div>
+        <div class="calendar-day-label">Thu</div>
+        <div class="calendar-day-label">Fri</div>
+        <div class="calendar-day-label">Sat</div>
+      </div>
+      <div class="calendar-grid">
+        <ng-container *ngFor="let day of calendarDays; let i = index">
+          <div class="calendar-cell" [ngClass]="{'calendar-cell-other': !day.isCurrentMonth, 'calendar-cell-today': day.date.toDateString() === (today | date:'fullDate')}" >
+            {{ day.date.getDate() }}
+          </div>
+        </ng-container>
+      </div>
     </div>
   </div>
 </div>
