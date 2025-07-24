@@ -9,3 +9,10 @@ export interface Journal {
   updated_at: string;
   tags: Tag[];
 }
+
+export interface NewJournal {
+  journal_type: 'diary' | 'dream' | 'ritual' | 'divination';
+  title: string;
+  entry: string;
+  tags: string[];
+}

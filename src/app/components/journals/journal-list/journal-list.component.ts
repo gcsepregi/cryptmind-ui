@@ -13,6 +13,7 @@ import {NgIf, NgClass, NgForOf, AsyncPipe, DatePipe} from '@angular/common';
 import {JournalsService} from '../../../services/journals.service';
 import {BehaviorSubject} from 'rxjs';
 import {Journal} from '../../../models/journal.model';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-journal-list',
@@ -22,7 +23,8 @@ import {Journal} from '../../../models/journal.model';
     NgClass,
     NgForOf,
     AsyncPipe,
-    DatePipe
+    DatePipe,
+    RouterLink
   ],
   templateUrl: './journal-list.component.html',
   styleUrl: './journal-list.component.scss'

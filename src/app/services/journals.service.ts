@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Journal} from '../models/journal.model';
+import {Journal, NewJournal} from '../models/journal.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,5 +13,9 @@ export class JournalsService {
 
   getJournals() {
     return this.http.get<Journal[]>(`${this.baseUrl}/journals`);
+  }
+
+  createJournalEntry(entry: NewJournal) {
+    return this.http.post(`${this.baseUrl}/journals/${entry.journal_type}/`, {entry});
   }
 }

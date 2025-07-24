@@ -18,7 +18,7 @@
           </button>
           <div class="journals-dropdown-menu" *ngIf="newEntryDropDownOpen"
                [ngClass]="{'dropdown-animate': newEntryDropDownOpen}">
-            <button class="journals-dropdown-item" type="button">
+            <button [routerLink]="['diaries/new']" class="journals-dropdown-item" type="button">
               <lucide-icon [img]="BookAIcon" class="my-icon" size="24"/>
               New Diary Entry
             </button>

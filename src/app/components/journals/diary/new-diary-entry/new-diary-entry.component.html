@@ -1,0 +1,38 @@
+<div class="diary-entry-root">
+  <div class="diary-entry-container">
+    <button [routerLink]="['/journals']" class="diary-entry-back" type="button">
+      <lucide-icon [img]="ArrowLeftIcon" class="my-icon" size="24"/>
+      Back to Journals
+    </button>
+    <h1 class="diary-entry-title">
+      <lucide-icon [img]="BookAIcon" class="my-icon" size="28"/>
+      New Diary Entry
+    </h1>
+    <form class="diary-entry-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="diary-entry-group">
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" placeholder="Entry title" formControlName="title" required/>
+      </div>
+      <div class="diary-entry-group diary-entry-group-textarea">
+        <label for="entry">Entry</label>
+        <textarea id="entry" name="entry" placeholder="Write your diary entry here..." formControlName="entry" required></textarea>
+      </div>
+      <div class="diary-entry-group">
+        <label for="tags">Tags <span class="diary-entry-tags-hint">(press Enter or comma)</span></label>
+        <div class="diary-entry-tags-box">
+          <span class="diary-entry-tag" *ngFor="let tag of tags">
+            {{ tag }}
+            <button type="button" class="diary-entry-tag-remove" (click)="removeTag(tag)">
+              <lucide-icon [img]="XIcon" class="my-icon" size="18"/>
+            </button>
+          </span>
+          <input type="text" class="diary-entry-tag-input" placeholder="Add tag..." aria-label="Add tag" formControlName="tagInput" (keydown)="addTag($event)"/>
+        </div>
+      </div>
+      <button type="submit" class="diary-entry-submit" [disabled]="form.invalid">
+        <lucide-icon [img]="BookAIcon" class="my-icon" size="24"/>
+        Create Entry
+      </button>
+    </form>
+  </div>
+</div>

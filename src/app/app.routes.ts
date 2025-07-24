@@ -6,6 +6,7 @@ import {Injectable} from '@angular/core';
 import {UserService} from './services/user.service';
 import {RegisterComponent} from './components/users/register/register.component';
 import {JournalListComponent} from './components/journals/journal-list/journal-list.component';
+import {NewDiaryEntryComponent} from './components/journals/diary/new-diary-entry/new-diary-entry.component';
 
 @Injectable(
   {
@@ -16,7 +17,7 @@ class AuthGuard {
 
   private authenticated: boolean = false;
 
-  constructor(private readonly userService: UserService) {
+  constructor(userService: UserService) {
     userService.authenticated$.subscribe(res => {
       this.authenticated = res;
     })
@@ -37,5 +38,6 @@ export const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'journals', component: JournalListComponent, canActivate: [AuthGuard]},
+  {path: 'journals/diaries/new', component: NewDiaryEntryComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: ''},
 ];
