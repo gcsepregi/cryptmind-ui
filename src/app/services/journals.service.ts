@@ -15,6 +15,10 @@ export class JournalsService {
     return this.http.get<Journal[]>(`${this.baseUrl}/journals`);
   }
 
+  getJournalEntry(id: string, journal_type: "diary" | "dream" | "ritual" | "divination") {
+    return this.http.get<Journal>(`${this.baseUrl}/journals/${journal_type}/${id}`);
+  }
+
   createJournalEntry(entry: NewJournal) {
     return this.http.post(`${this.baseUrl}/journals/${entry.journal_type}/`, {journal_entry: entry});
   }

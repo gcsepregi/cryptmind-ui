@@ -3,7 +3,7 @@ import {NgClass, AsyncPipe, DatePipe} from '@angular/common';
 import {JournalsService} from '../../../services/journals.service';
 import {BehaviorSubject} from 'rxjs';
 import {Journal} from '../../../models/journal.model';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {
   faBook,
@@ -115,7 +115,8 @@ export class JournalListComponent {
   protected journals = new BehaviorSubject<Journal[]>([])
 
   constructor(private readonly journalsService: JournalsService,
-              private readonly toastr: ToastrService) {
+              private readonly toastr: ToastrService,
+              private readonly router: Router) {
     this.journalsService.getJournals().subscribe(res => {
       this.journals.next(res);
     });
@@ -178,5 +179,10 @@ export class JournalListComponent {
         }
       }
     )
+  }
+
+  goToJournal(journal: Journal) {
+    console.log('navigating to ', journal.journal_type, journal.id, ' journal entry')
+    this.router.navigate([`/journals/${journal.journal_type}`, journal.id]).then(() => {})
   }
 }

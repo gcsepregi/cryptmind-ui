@@ -84,7 +84,7 @@
     @if (journals && view !== 'calendar') {
       <div class="journals-list" [ngClass]="{'journals-list-grid': view === 'grid', 'journals-list-list': view === 'list'}">
         @for (journal of journals | async; track journal) {
-          <div class="journals-card journals-card-{{journal.journal_type}}">
+          <div class="journals-card journals-card-{{journal.journal_type}}" (click)="goToJournal(journal)">
             <div class="journals-card-header">
               <span class="journals-card-type-icon"><fa-icon [icon]="icon(journal.journal_type)" class="my-icon" /></span>
               <span class="journals-card-type">{{ journal.journal_type }}</span>
