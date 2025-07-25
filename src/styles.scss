@@ -226,3 +226,12 @@ body {
   padding: var(--spacing-sm);
   margin-bottom: var(--spacing-md);
 }
+
+.my-icon {
+  width: 1.5em;
+  height: 1.5em;
+  min-width: 1.5em;
+  min-height: 1.5em;
+  vertical-align: middle;
+  display: inline-block;
+}
