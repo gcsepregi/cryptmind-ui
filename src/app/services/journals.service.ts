@@ -16,6 +16,6 @@ export class JournalsService {
   }
 
   createJournalEntry(entry: NewJournal) {
-    return this.http.post(`${this.baseUrl}/journals/${entry.journal_type}/`, {entry});
+    return this.http.post(`${this.baseUrl}/journals/${entry.journal_type}/`, {journal_entry: entry});
   }
 }

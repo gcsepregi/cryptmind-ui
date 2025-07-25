@@ -7,14 +7,12 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
 
 .diary-entry-root {
   min-height: 100vh;
-  background: $background;
-  color: $foreground;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  max-width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 2rem 0;
+  justify-content: stretch;
 }
 
 .diary-entry-container {
@@ -24,10 +22,10 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
   border: 1px solid $primary;
   box-shadow: $shadow;
   padding: 2.5rem 2rem;
-  margin: 0 auto;
+  margin: 2rem auto;
   display: flex;
   flex-direction: column;
-  min-height: 70vh;
+  flex: 1 1 auto;
   animation: fadeIn 0.8s ease-in;
 }
 
@@ -62,6 +60,8 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 .diary-entry-group {
@@ -99,11 +99,19 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
   }
   textarea {
     min-height: 180px;
-    max-height: 40vh;
+    max-height: none;
     resize: vertical;
   }
   &.diary-entry-group-textarea {
     flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  &.diary-entry-group-textarea textarea {
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: none;
   }
 }
 
@@ -183,4 +191,34 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 900px) {
+  .diary-entry-root {
+    padding: 0.5rem 0;
+    min-height: 100vh;
+    height: 100vh;
+  }
+  .diary-entry-container {
+    max-width: 100vw;
+    min-height: 0;
+    height: 100%;
+    padding: 1.25rem 0.5rem;
+    border-radius: 0.5rem;
+    box-shadow: none;
+  }
+  .diary-entry-form {
+    gap: 1rem;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  .diary-entry-group.diary-entry-group-textarea {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  .diary-entry-group textarea {
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: none;
+  }
 }
