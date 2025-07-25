@@ -1,7 +1,7 @@
 $background: var(--background, #18181b);
 $foreground: var(--foreground, #ededed);
 $primary: var(--color-primary-400, #5a5a8a);
-$accent: var(--color-primary-400, #0ea5e9); // Use a blue accent for diary entries
+$accent: var(--neon-green, #0ea5e9); // Use a blue accent for diary entries
 $radius: 1rem;
 $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.25);
 
@@ -34,7 +34,7 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: $accent;
+  color: $primary;
   background: none;
   border: none;
   font-size: 1rem;
@@ -42,7 +42,7 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
   cursor: pointer;
   transition: color 0.2s, text-decoration 0.2s;
   &:hover {
-    color: $primary;
+    color: $accent;
     text-decoration: underline;
   }
 }

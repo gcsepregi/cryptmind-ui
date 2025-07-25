@@ -21,15 +21,15 @@
           @if (newEntryDropDownOpen) {
             <div class="journals-dropdown-menu"
               [ngClass]="{'dropdown-animate': newEntryDropDownOpen}">
-              <button [routerLink]="['diaries/new']" class="journals-dropdown-item" type="button">
+              <button [routerLink]="['diary/new']" class="journals-dropdown-item" type="button">
                 <fa-icon [icon]="faBook" class="my-icon neon-text" />
                 New Diary Entry
               </button>
-              <button [routerLink]="['dreams/new']" class="journals-dropdown-item" type="button">
+              <button [routerLink]="['dream/new']" class="journals-dropdown-item" type="button">
                 <fa-icon [icon]="faMoon" class="my-icon neon-text-purple" />
                 New Dream Entry
               </button>
-              <button [routerLink]="['rituals/new']" class="journals-dropdown-item" type="button">
+              <button [routerLink]="['ritual/new']" class="journals-dropdown-item" type="button">
                 <fa-icon [icon]="faStar" class="my-icon neon-text-green" />
                 New Ritual Entry
               </button>
