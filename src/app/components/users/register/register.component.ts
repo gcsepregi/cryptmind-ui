@@ -1,25 +1,25 @@
 import { Component } from '@angular/core';
-import {AlertCircleIcon, HomeIcon, LucideAngularModule, UserPlusIcon} from 'lucide-angular';
 import {UserService} from '../../../services/user.service';
 import {SignupData} from '../../../models/signup.model';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 import {FormsModule} from '@angular/forms';
-
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {faUserPlus, faHome, faCircleExclamation} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-register',
   imports: [
-    LucideAngularModule,
+    FontAwesomeModule,
     FormsModule
 ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
-
-  protected readonly UserPlusIcon = UserPlusIcon;
-  protected readonly HomeIcon = HomeIcon;
+  protected readonly faUserPlus = faUserPlus;
+  protected readonly faHome = faHome;
+  protected readonly faCircleExclamation = faCircleExclamation;
 
   protected errorMessage: string = '';
 
@@ -47,6 +47,4 @@ export class RegisterComponent {
       }
     })
   }
-
-  protected readonly AlertCircleIcon = AlertCircleIcon;
 }

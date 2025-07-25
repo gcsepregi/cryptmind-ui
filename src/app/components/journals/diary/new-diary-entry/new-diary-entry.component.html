@@ -1,11 +1,11 @@
 <div class="diary-entry-root">
   <div class="diary-entry-container">
     <button [routerLink]="['/journals']" class="diary-entry-back" type="button">
-      <lucide-icon [img]="ArrowLeftIcon" class="my-icon" size="24"/>
+      <fa-icon [icon]="faArrowLeft" class="my-icon" />
       Back to Journals
     </button>
     <h1 class="diary-entry-title">
-      <lucide-icon [img]="BookAIcon" class="my-icon" size="28"/>
+      <fa-icon [icon]="faBook" class="my-icon" />
       New Diary Entry
     </h1>
     <form class="diary-entry-form" [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -24,7 +24,7 @@
             <span class="diary-entry-tag">
               {{ tag }}
               <button type="button" class="diary-entry-tag-remove" (click)="removeTag(tag)">
-                <lucide-icon [img]="XIcon" class="my-icon" size="18"/>
+                <fa-icon [icon]="faXmark" class="my-icon" />
               </button>
             </span>
           }
@@ -32,7 +32,7 @@
         </div>
       </div>
       <button type="submit" class="diary-entry-submit" [disabled]="form.invalid">
-        <lucide-icon [img]="BookAIcon" class="my-icon" size="24"/>
+        <fa-icon [icon]="faBook" class="my-icon" />
         Create Entry
       </button>
     </form>

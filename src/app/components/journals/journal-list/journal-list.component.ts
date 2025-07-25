@@ -1,24 +1,32 @@
 import { Component } from '@angular/core';
-import {
-  BookAIcon, CalendarIcon,
-  ChevronDownIcon,
-  CrownIcon, EditIcon, EyeIcon, EyeOffIcon, GridIcon, ListIcon,
-  LucideAngularModule,
-  MoonIcon,
-  PlusIcon,
-  SearchIcon,
-  StarIcon, TagIcon, Trash2Icon
-} from 'lucide-angular';
 import { NgClass, AsyncPipe, DatePipe } from '@angular/common';
 import {JournalsService} from '../../../services/journals.service';
 import {BehaviorSubject} from 'rxjs';
 import {Journal} from '../../../models/journal.model';
 import {RouterLink} from '@angular/router';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {
+  faBook,
+  faCalendar,
+  faChevronDown,
+  faCrown,
+  faEdit,
+  faEye,
+  faEyeSlash,
+  faTableCells,
+  faList,
+  faMoon,
+  faPlus,
+  faSearch,
+  faStar,
+  faTag,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-journal-list',
   imports: [
-    LucideAngularModule,
+    FontAwesomeModule,
     NgClass,
     AsyncPipe,
     DatePipe,
@@ -28,22 +36,21 @@ import {RouterLink} from '@angular/router';
   styleUrl: './journal-list.component.scss'
 })
 export class JournalListComponent {
-
-  protected readonly BookAIcon = BookAIcon;
-  protected readonly PlusIcon = PlusIcon;
-  protected readonly ChevronDownIcon = ChevronDownIcon;
-  protected readonly MoonIcon = MoonIcon;
-  protected readonly CrownIcon = CrownIcon;
-  protected readonly StarIcon = StarIcon;
-  protected readonly SearchIcon = SearchIcon;
-  protected readonly EyeIcon = EyeIcon;
-  protected readonly GridIcon = GridIcon;
-  protected readonly ListIcon = ListIcon;
-  protected readonly EyeOffIcon = EyeOffIcon;
-  protected readonly EditIcon = EditIcon;
-  protected readonly CalendarIcon = CalendarIcon;
-  protected readonly TagIcon = TagIcon;
-  protected readonly Trash2Icon = Trash2Icon;
+  protected readonly faBook = faBook;
+  protected readonly faPlus = faPlus;
+  protected readonly faChevronDown = faChevronDown;
+  protected readonly faMoon = faMoon;
+  protected readonly faCrown = faCrown;
+  protected readonly faStar = faStar;
+  protected readonly faSearch = faSearch;
+  protected readonly faEye = faEye;
+  protected readonly faTableCells = faTableCells;
+  protected readonly faList = faList;
+  protected readonly faEyeSlash = faEyeSlash;
+  protected readonly faEdit = faEdit;
+  protected readonly faCalendar = faCalendar;
+  protected readonly faTag = faTag;
+  protected readonly faTrash = faTrash;
 
   protected newEntryDropDownOpen = false;
   view: 'grid' | 'list' | 'calendar' = 'grid';
@@ -82,6 +89,7 @@ export class JournalListComponent {
     for (let i = 1; days.length < totalCells; i++) {
       days.push({ date: new Date(nextYear, nextMonth, i), isCurrentMonth: false });
     }
+    console.log(days);
     return days;
   }
 
@@ -121,12 +129,12 @@ export class JournalListComponent {
 
   icon(type: string) {
     switch (type) {
-      case 'diary': return this.BookAIcon;
-      case 'dream': return this.MoonIcon;
-      case 'ritual': return this.StarIcon;
-      case 'divination': return this.CrownIcon;
-      case 'calendar': return this.CalendarIcon;
-      default: return this.BookAIcon;
+      case 'diary': return this.faBook;
+      case 'dream': return this.faMoon;
+      case 'ritual': return this.faStar;
+      case 'divination': return this.faCrown;
+      case 'calendar': return this.faCalendar;
+      default: return this.faBook;
     }
   }
 

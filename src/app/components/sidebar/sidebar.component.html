@@ -5,15 +5,15 @@
   <aside class="sidebar">
     <div class="sidebar-header">
       <div class="sidebar-brand">
-        <lucide-icon [img]="SkullIcon" class="my-icon" size="36"/>
+        <fa-icon [icon]="faSkull" class="my-icon" />
         <span class="sidebar-title">CryptMind</span>
       </div>
       <button class="sidebar-close" type="button" (click)="toggleSidebar()">
-        <lucide-icon [img]="XIcon" class="my-icon" size="24"/>
+        <fa-icon [icon]="faXmark" class="my-icon" />
       </button>
     </div>
     <div class="sidebar-user">
-      <lucide-icon [img]="UserIcon" class="my-icon" size="36"/>
+      <fa-icon [icon]="faUser" class="my-icon" />
       <div>
         <div class="sidebar-nickname">{{ user?.nickname }}</div>
         <div class="sidebar-status">Online</div>
@@ -24,11 +24,11 @@
         <div class="sidebar-section-title">Navigation</div>
         <div class="sidebar-links">
           <button class="sidebar-link" type="button">
-            <lucide-icon [img]="HomeIcon" class="my-icon" size="24"/>
+            <fa-icon [icon]="faHome" class="my-icon" />
             <span>Home</span>
           </button>
           <button [routerLink]="['journals']" class="sidebar-link" type="button">
-            <lucide-icon [img]="BookAIcon" class="my-icon" size="24"/>
+            <fa-icon [icon]="faBook" class="my-icon" />
             <span>Sacred Journal</span>
           </button>
         </div>
@@ -37,11 +37,11 @@
         <div class="sidebar-section-title">Account</div>
         <div class="sidebar-links">
           <button class="sidebar-link" type="button" (click)="toggleTheme()">
-            <lucide-icon [img]="icon()" class="my-icon" size="24"/>
+            <fa-icon [icon]="icon()" class="my-icon" />
             <span>Switch Theme</span>
           </button>
           <button class="sidebar-link sidebar-link-logout" type="button" (click)="logout()">
-            <lucide-icon [img]="LogOutIcon" class="my-icon" size="24"/>
+            <fa-icon [icon]="faSignOutAlt" class="my-icon" />
             <span>Logout</span>
           </button>
         </div>
@@ -52,6 +52,6 @@
 <!-- Hamburger Button -->
 @if (isCollapsed) {
   <button class="sidebar-hamburger" type="button" (click)="toggleSidebar()">
-    <lucide-icon [img]="MenuIcon" class="my-icon" size="24"/>
+    <fa-icon [icon]="faBars" class="my-icon" />
   </button>
 }

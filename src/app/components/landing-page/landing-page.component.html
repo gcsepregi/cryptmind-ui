@@ -2,7 +2,7 @@
   <header class="landing-hero">
     <h1 class="landing-title">
       <span class="landing-title-row">
-        <lucide-icon [img]="SkullIcon" class="my-icon" size="50"></lucide-icon>
+        <fa-icon [icon]="faSkull" class="my-icon"></fa-icon>
         <span>CryptMind</span>
       </span>
     </h1>
@@ -11,11 +11,11 @@
     </p>
     <div class="landing-cta-row">
       <a [routerLink]="['/register']" class="btn-crypt btn-crypt-secondary scale-up">
-        <lucide-icon [img]="UserPlusIcon"></lucide-icon>
+        <fa-icon [icon]="faUserPlus" class="my-icon"></fa-icon>
         Sign Up
       </a>
       <a [routerLink]="['/login']" class="btn-crypt btn-crypt-ghost scale-up">
-      <lucide-icon [img]="LoginIcon"></lucide-icon>
+      <fa-icon [icon]="faRightToBracket" class="my-icon"></fa-icon>
       Log In
       </a>
     </div>
@@ -25,7 +25,7 @@
     <div class="landing-features-grid">
       <div class="landing-feature-card scale-up">
         <h2 class="landing-feature-card-title-cyan">
-          <lucide-icon [img]="BookAIcon" class="my-icon"></lucide-icon>
+          <fa-icon [icon]="faBook" class="my-icon"></fa-icon>
           Private Journaling
         </h2>
         <div class="landing-feature-description">
@@ -39,7 +39,7 @@
       </div>
       <div class="landing-feature-card-purple landing-feature-card scale-up">
         <h2 class="landing-feature-card-title-purple">
-          <lucide-icon [img]="SearchCheckIcon" class="my-icon"></lucide-icon>
+          <fa-icon [icon]="faMagnifyingGlass" class="my-icon"></fa-icon>
           Semantic Web Analysis
         </h2>
         <div class="landing-feature-description">
@@ -53,7 +53,7 @@
       </div>
       <div class="landing-feature-card landing-feature-card-green scale-up">
         <h2 class="landing-feature-card-title-green">
-          <lucide-icon [img]="PenLineIcon" class="my-icon"></lucide-icon>
+          <fa-icon [icon]="faPen" class="my-icon"></fa-icon>
           Public Blogging
         </h2>
         <div class="landing-feature-description">
@@ -67,7 +67,7 @@
       </div>
       <div class="landing-feature-card landing-feature-card-pink scale-up">
         <h2 class="landing-feature-card-title-pink">
-          <lucide-icon [img]="Users2Icon" class="my-icon"></lucide-icon>
+          <fa-icon [icon]="faUsers" class="my-icon"></fa-icon>
           Social Media
         </h2>
         <div class="landing-feature-description">

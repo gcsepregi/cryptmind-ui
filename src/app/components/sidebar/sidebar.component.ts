@@ -1,40 +1,29 @@
 import { Component } from '@angular/core';
-import {
-  BookAIcon,
-  HomeIcon, LogOutIcon,
-  LucideAngularModule,
-  MenuIcon,
-  MoonIcon,
-  SkullIcon,
-  SunIcon,
-  UserIcon,
-  XIcon
-} from 'lucide-angular';
 import {ThemeService} from '../../services/theme.service';
-
 import {UserService} from '../../services/user.service';
 import {Router, RouterLink} from '@angular/router';
 import {User} from '../../models/user.model';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {faBook, faHome, faSignOutAlt, faBars, faMoon, faSkull, faSun, faUser, faXmark} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-sidebar',
   imports: [
-    LucideAngularModule,
+    FontAwesomeModule,
     RouterLink
 ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
-
   protected isCollapsed = true;
-  protected readonly SkullIcon = SkullIcon;
-  protected readonly MenuIcon = MenuIcon;
-  protected readonly UserIcon = UserIcon;
-  protected readonly HomeIcon = HomeIcon;
-  protected readonly BookAIcon = BookAIcon;
-  protected readonly LogOutIcon = LogOutIcon;
-  protected readonly XIcon = XIcon;
+  protected readonly faSkull = faSkull;
+  protected readonly faBars = faBars;
+  protected readonly faUser = faUser;
+  protected readonly faHome = faHome;
+  protected readonly faBook = faBook;
+  protected readonly faSignOutAlt = faSignOutAlt;
+  protected readonly faXmark = faXmark;
   protected user: User | undefined;
 
   constructor(private readonly themeService: ThemeService,
@@ -50,7 +39,7 @@ export class SidebarComponent {
   }
 
   icon() {
-    return this.themeService.currentTheme === 'dark' ? SunIcon : MoonIcon;
+    return this.themeService.currentTheme === 'dark' ? faSun : faMoon;
   }
 
   logout() {

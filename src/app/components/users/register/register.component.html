@@ -1,8 +1,7 @@
 <div class="register-root">
   <div class="register-container">
     <div class="register-header">
-      <!-- UserPlus Icon Placeholder -->
-      <lucide-icon [img]="UserPlusIcon" class="my-icon" size="50" />
+      <fa-icon [icon]="faUserPlus" class="my-icon" />
       <h1>Sign Up</h1>
     </div>
     <form class="register-form">
@@ -24,20 +23,18 @@
       </div>
       @if (errorMessage) {
         <div class="error">
-          <lucide-icon [img]="AlertCircleIcon" class="my-icon" size="24" />
+          <fa-icon [icon]="faCircleExclamation" class="my-icon" />
           {{ errorMessage }}
         </div>
       }
       <button class="register-btn" (click)="register()">
-        <!-- UserPlus Icon Placeholder -->
-        <lucide-icon [img]="UserPlusIcon" class="my-icon" size="16" />
+        <fa-icon [icon]="faUserPlus" class="my-icon" />
         <span class="register-btn-text">Create Account</span>
       </button>
     </form>
   </div>
   <a href="/" class="register-back">
-    <!-- Home Icon Placeholder -->
-    <lucide-icon [img]="HomeIcon" class="my-icon" size="24" />
+    <fa-icon [icon]="faHome" class="my-icon" />
     Back to Home
   </a>
 </div>

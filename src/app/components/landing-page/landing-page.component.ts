@@ -1,31 +1,24 @@
 import { Component } from '@angular/core';
-import {
-  BookAIcon,
-  LockIcon,
-  LogInIcon,
-  LucideAngularModule, PenLineIcon,
-  SearchCheckIcon,
-  SkullIcon,
-  UserPlusIcon, Users2Icon
-} from 'lucide-angular';
 import {RouterLink} from '@angular/router';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {faBook, faLock, faRightToBracket, faPen, faMagnifyingGlass, faSkull, faUserPlus, faUsers} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-landing-page',
   imports: [
-    LucideAngularModule,
+    FontAwesomeModule,
     RouterLink
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.scss'
 })
 export class LandingPageComponent {
-
-  protected readonly SkullIcon = SkullIcon;
-  protected readonly UserPlusIcon = UserPlusIcon;
-  protected readonly LoginIcon = LogInIcon;
-  protected readonly BookAIcon = BookAIcon;
-  protected readonly SearchCheckIcon = SearchCheckIcon;
-  protected readonly PenLineIcon = PenLineIcon;
-  protected readonly Users2Icon = Users2Icon;
+  protected readonly faSkull = faSkull;
+  protected readonly faUserPlus = faUserPlus;
+  protected readonly faRightToBracket = faRightToBracket;
+  protected readonly faBook = faBook;
+  protected readonly faMagnifyingGlass = faMagnifyingGlass;
+  protected readonly faPen = faPen;
+  protected readonly faUsers = faUsers;
+  protected readonly faLock = faLock;
 }

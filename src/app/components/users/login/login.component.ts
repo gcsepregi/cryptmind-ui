@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import {AlertCircleIcon, HomeIcon, LogInIcon, LucideAngularModule} from 'lucide-angular';
 import {UserService} from '../../../services/user.service';
 import {FormsModule} from '@angular/forms';
 import {LoginData} from '../../../models/login.model';
 import {ActivatedRoute, Navigation, Router, RouterLink} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {catchError} from 'rxjs';
-
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {faRightToBracket, faHome, faCircleExclamation} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login',
   imports: [
-    LucideAngularModule,
+    FontAwesomeModule,
     FormsModule,
     RouterLink
 ],
@@ -19,9 +19,9 @@ import {catchError} from 'rxjs';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-
-  protected readonly LogInIcon = LogInIcon;
-  protected readonly HomeIcon = HomeIcon;
+  protected readonly faRightToBracket = faRightToBracket;
+  protected readonly faHome = faHome;
+  protected readonly faCircleExclamation = faCircleExclamation;
 
   protected loginData: LoginData = {email: '', password: ''};
   protected errorMessage: string = '';
@@ -41,6 +41,4 @@ export class LoginComponent {
       this.router.navigate(['/']).then(()=>{});
     });
   }
-
-  protected readonly AlertCircleIcon = AlertCircleIcon;
 }

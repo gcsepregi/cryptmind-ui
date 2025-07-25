@@ -2,7 +2,7 @@
   <div class="login-container">
     <div class="login-header">
       <!-- LogIn Icon Placeholder -->
-      <lucide-icon [img]="LogInIcon" class="my-icon" size="50" />
+      <fa-icon [icon]="faRightToBracket" class="my-icon" />
       <h1>Log In</h1>
     </div>
     <form class="login-form">
@@ -16,20 +16,20 @@
       </div>
       @if (errorMessage) {
         <div class="error font-bold">
-          <lucide-icon [img]="AlertCircleIcon" class="my-icon" size="24" />
+          <fa-icon [icon]="faCircleExclamation" class="my-icon" />
           Invalid email or password.
         </div>
       }
       <button class="login-btn" (click)="signIn()">
         <!-- LogIn Icon Placeholder -->
-        <lucide-icon [img]="LogInIcon" class="my-icon" size="16" />
+        <fa-icon [icon]="faRightToBracket" class="my-icon" />
         Log In
       </button>
     </form>
   </div>
   <a [routerLink]="['/']" class="login-back">
     <!-- Home Icon Placeholder -->
-    <lucide-icon [img]="HomeIcon" class="my-icon" size="24" />
+    <fa-icon [icon]="faHome" class="my-icon" />
     Back to Home
   </a>
 </div>

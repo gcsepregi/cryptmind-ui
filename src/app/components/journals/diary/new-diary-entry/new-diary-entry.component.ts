@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import {ArrowLeftIcon, BookAIcon, LucideAngularModule, XIcon} from 'lucide-angular';
 import {FormBuilder, FormGroup, FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
-
 import {RouterLink} from '@angular/router';
 import {JournalsService} from '../../../../services/journals.service';
 import {Tag} from '../../../../models/tag.model';
 import {ToastrService} from 'ngx-toastr';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {faArrowLeft, faBook, faXmark} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-new-diary-entry',
   imports: [
-    LucideAngularModule,
+    FontAwesomeModule,
     ReactiveFormsModule,
     RouterLink
 ],
@@ -18,9 +18,9 @@ import {ToastrService} from 'ngx-toastr';
   styleUrl: './new-diary-entry.component.scss'
 })
 export class NewDiaryEntryComponent {
-  protected readonly XIcon = XIcon;
-  protected readonly BookAIcon = BookAIcon;
-  protected readonly ArrowLeftIcon = ArrowLeftIcon;
+  protected readonly faXmark = faXmark;
+  protected readonly faBook = faBook;
+  protected readonly faArrowLeft = faArrowLeft;
 
   form: FormGroup;
   tags: string[] = [];
