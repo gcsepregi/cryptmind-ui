@@ -1,7 +1,7 @@
 $background: var(--background, #18181b);
 $foreground: var(--foreground, #ededed);
 $primary: var(--color-primary-400, #5a5a8a);
-$accent: var(--neon-cyan, #a259f7);
+$accent: var(--neon-green, #22c55e); // Use a green accent for ritual entries
 $radius: 1rem;
 $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.25);
 
@@ -95,7 +95,6 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
       padding: 0.3rem 0.5rem;
       outline: none;
     }
-
   }
   textarea {
     min-height: 180px;
@@ -155,7 +154,6 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
     }
   }
 }
-
 
 .diary-entry-submit {
   display: flex;

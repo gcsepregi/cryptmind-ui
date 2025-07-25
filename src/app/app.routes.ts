@@ -8,6 +8,7 @@ import {RegisterComponent} from './components/users/register/register.component'
 import {JournalListComponent} from './components/journals/journal-list/journal-list.component';
 import {NewDiaryEntryComponent} from './components/journals/diary/new-diary-entry/new-diary-entry.component';
 import {NewDreamEntryComponent} from './components/journals/dream/new-dream-entry/new-dream-entry.component';
+import {NewRitualEntryComponent} from './components/journals/ritual/new-ritual-entry/new-ritual-entry.component';
 
 @Injectable(
   {
@@ -41,5 +42,6 @@ export const routes: Routes = [
   {path: 'journals', component: JournalListComponent, canActivate: [AuthGuard]},
   {path: 'journals/diaries/new', component: NewDiaryEntryComponent, canActivate: [AuthGuard]},
   {path: 'journals/dreams/new', component: NewDreamEntryComponent, canActivate: [AuthGuard]},
+  {path: 'journals/rituals/new', component: NewRitualEntryComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: ''},
 ];
