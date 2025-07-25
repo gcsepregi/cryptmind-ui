@@ -182,7 +182,10 @@ export class JournalListComponent {
   }
 
   goToJournal(journal: Journal) {
-    console.log('navigating to ', journal.journal_type, journal.id, ' journal entry')
     this.router.navigate([`/journals/${journal.journal_type}`, journal.id]).then(() => {})
+  }
+
+  editJournal(journal: Journal) {
+    this.router.navigate([`/journals/${journal.journal_type}`, journal.id, 'edit']).then(() => {})
   }
 }

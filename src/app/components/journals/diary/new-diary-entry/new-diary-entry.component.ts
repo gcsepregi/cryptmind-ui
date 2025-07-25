@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
-import {RouterLink} from '@angular/router';
+import {RouterLink, ActivatedRoute, Router} from '@angular/router';
 import {JournalsService} from '../../../../services/journals.service';
 import {Tag} from '../../../../models/tag.model';
 import {ToastrService} from 'ngx-toastr';
@@ -24,14 +24,31 @@ export class NewDiaryEntryComponent {
 
   form: FormGroup;
   tags: string[] = [];
+  entryId?: string;
 
   constructor(private fb: FormBuilder,
               private readonly journalService: JournalsService,
-              private readonly toastr: ToastrService) {
+              private readonly toastr: ToastrService,
+              private readonly route: ActivatedRoute,
+              private readonly router: Router) {
     this.form = this.fb.group({
       title: ['', Validators.required],
       entry: ['', Validators.required],
       tagInput: ['']
+    });
+
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      if (id) {
+        this.entryId = id;
+        this.journalService.getJournalEntry(id, 'diary').subscribe(entry => {
+          this.form.patchValue({
+            title: entry.title,
+            entry: entry.entry
+          });
+          this.tags = entry.tags ? entry.tags.map((t: any) => t.name || t) : [];
+        });
+      }
     });
   }
 
@@ -55,16 +72,31 @@ export class NewDiaryEntryComponent {
     if (this.form.valid) {
       const {title, entry} = this.form.value;
       const tags = this.tags;
-      this.journalService.createJournalEntry({
-        journal_type: 'diary', entry, title, tags
-      }).subscribe({
-        next: () => {
-          this.toastr.success('Journal entry created');
-        },
-        error: () => {
-          this.toastr.error('Journal entry failed to create. Please try again.');
-        }
-      });
+      if (this.entryId) {
+        this.journalService.updateJournalEntry(this.entryId, 'diary', {
+          journal_type: 'diary', entry, title, tags
+        }).subscribe({
+          next: () => {
+            this.toastr.success('Diary entry updated');
+            this.router.navigate(['/journals']);
+          },
+          error: () => {
+            this.toastr.error('Failed to update diary entry. Please try again.');
+          }
+        });
+      } else {
+        this.journalService.createJournalEntry({
+          journal_type: 'diary', entry, title, tags
+        }).subscribe({
+          next: () => {
+            this.toastr.success('Diary entry created');
+            this.router.navigate(['/journals']);
+          },
+          error: () => {
+            this.toastr.error('Diary entry failed to create. Please try again.');
+          }
+        });
+      }
       console.log({title, entry, tags});
     }
   }

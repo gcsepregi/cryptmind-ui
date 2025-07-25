@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import {Router, RouterLink} from '@angular/router';
-import {FaIconComponent} from '@fortawesome/angular-fontawesome';
-import {faArrowLeft, faStar, faXmark} from '@fortawesome/free-solid-svg-icons';
-import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
+import {RouterLink, ActivatedRoute, Router} from '@angular/router';
 import {JournalsService} from '../../../../services/journals.service';
 import {ToastrService} from 'ngx-toastr';
+import {FaIconComponent} from '@fortawesome/angular-fontawesome';
+import {faArrowLeft, faStar, faXmark} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-new-ritual-entry',
@@ -23,15 +23,30 @@ export class NewRitualEntryComponent {
 
   form: FormGroup;
   tags: string[] = [];
+  entryId?: string;
 
   constructor(private fb: FormBuilder,
               private readonly journalService: JournalsService,
               private readonly toastr: ToastrService,
-              private readonly router: Router,) {
+              private readonly route: ActivatedRoute,
+              private readonly router: Router) {
     this.form = this.fb.group({
       title: ['', Validators.required],
       entry: ['', Validators.required],
       tagInput: ['']
+    });
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      if (id) {
+        this.entryId = id;
+        this.journalService.getJournalEntry(id, 'ritual').subscribe(entry => {
+          this.form.patchValue({
+            title: entry.title,
+            entry: entry.entry
+          });
+          this.tags = entry.tags ? entry.tags.map((t: any) => t.name || t) : [];
+        });
+      }
     });
   }
 
@@ -55,18 +70,32 @@ export class NewRitualEntryComponent {
     if (this.form.valid) {
       const {title, entry} = this.form.value;
       const tags = this.tags;
-      this.journalService.createJournalEntry({
-        journal_type: 'ritual', entry, title, tags
-      }).subscribe({
-        next: () => {
-          this.toastr.success('Journal entry created');
-          this.router.navigate(['/journals']).then(() => {
-          });
-        },
-        error: () => {
-          this.toastr.error('Journal entry failed to create. Please try again.');
-        }
-      });
+      if (this.entryId) {
+        this.journalService.updateJournalEntry(this.entryId, 'ritual', {
+          journal_type: 'ritual', entry, title, tags
+        }).subscribe({
+          next: () => {
+            this.toastr.success('Ritual entry updated');
+            this.router.navigate(['/journals']);
+          },
+          error: () => {
+            this.toastr.error('Failed to update ritual entry. Please try again.');
+          }
+        });
+      } else {
+        this.journalService.createJournalEntry({
+          journal_type: 'ritual', entry, title, tags
+        }).subscribe({
+          next: () => {
+            this.toastr.success('Ritual entry created');
+            this.router.navigate(['/journals']);
+          },
+          error: () => {
+            this.toastr.error('Ritual entry failed to create. Please try again.');
+          }
+        });
+      }
+      console.log({title, entry, tags});
     }
   }
 }

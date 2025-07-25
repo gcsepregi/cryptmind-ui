@@ -45,9 +45,12 @@ export const routes: Routes = [
   {path: 'journals', component: JournalListComponent, canActivate: [AuthGuard]},
   {path: 'journals/diary/new', component: NewDiaryEntryComponent, canActivate: [AuthGuard]},
   {path: 'journals/diary/:id', component: ViewDiaryEntryComponent, canActivate: [AuthGuard]},
+  {path: 'journals/diary/:id/edit', component: NewDiaryEntryComponent, canActivate: [AuthGuard]},
   {path: 'journals/dream/new', component: NewDreamEntryComponent, canActivate: [AuthGuard]},
   {path: 'journals/dream/:id', component: ViewDreamEntryComponent, canActivate: [AuthGuard]},
+  {path: 'journals/dream/:id/edit', component: NewDreamEntryComponent, canActivate: [AuthGuard]},
   {path: 'journals/ritual/new', component: NewRitualEntryComponent, canActivate: [AuthGuard]},
   {path: 'journals/ritual/:id', component: ViewRitualEntryComponent, canActivate: [AuthGuard]},
+  {path: 'journals/ritual/:id/edit', component: NewRitualEntryComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: ''},
 ];

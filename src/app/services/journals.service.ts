@@ -23,6 +23,10 @@ export class JournalsService {
     return this.http.post(`${this.baseUrl}/journals/${entry.journal_type}/`, {journal_entry: entry});
   }
 
+  updateJournalEntry(id: string, journal_type: "diary" | "dream" | "ritual" | "divination", entry: Partial<NewJournal>) {
+    return this.http.patch(`${this.baseUrl}/journals/${journal_type}/${id}`, {journal_entry: entry});
+  }
+
   deleteJournalEntry(id: string, journal_type: "diary" | "dream" | "ritual" | "divination") {
     return this.http.delete(`${this.baseUrl}/journals/${journal_type}/${id}`);
   }

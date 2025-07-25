@@ -90,7 +90,7 @@
               <span class="journals-card-type">{{ journal.journal_type }}</span>
               <span class="journals-card-private"><fa-icon [icon]="faEyeSlash" class="my-icon" /></span>
               <div class="journals-card-actions">
-                <button class="journals-card-edit" type="button">
+                <button class="journals-card-edit" type="button" (click)="editJournal(journal); $event.stopPropagation();">
                   <fa-icon [icon]="faEdit" class="my-icon" />
                 </button>
                 <button class="journals-card-delete" type="button" (click)="deleteJournal(journal); $event.stopPropagation();">

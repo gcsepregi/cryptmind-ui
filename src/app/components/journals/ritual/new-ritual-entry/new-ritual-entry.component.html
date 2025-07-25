@@ -6,7 +6,12 @@
     </button>
     <h1 class="diary-entry-title">
       <fa-icon [icon]="faStar" class="my-icon" />
-      New Ritual Entry
+      @if (entryId) {
+        Update
+      } @else {
+        New
+      }
+      Ritual Entry
     </h1>
     <form class="diary-entry-form" [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="diary-entry-group">
@@ -33,7 +38,11 @@
       </div>
       <button type="submit" class="diary-entry-submit" [disabled]="form.invalid">
         <fa-icon [icon]="faStar" class="my-icon" />
-        Create Entry
+        @if (entryId) {
+          Update Entry
+        } @else {
+          Create Entry
+        }
       </button>
     </form>
   </div>
