@@ -5,15 +5,14 @@ import {SignupData} from '../../../models/signup.model';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 import {FormsModule} from '@angular/forms';
-import {NgIf} from '@angular/common';
+
 
 @Component({
   selector: 'app-register',
   imports: [
     LucideAngularModule,
-    FormsModule,
-    NgIf
-  ],
+    FormsModule
+],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })

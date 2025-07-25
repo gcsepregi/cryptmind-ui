@@ -9,7 +9,7 @@ import {
   SearchIcon,
   StarIcon, TagIcon, Trash2Icon
 } from 'lucide-angular';
-import {NgIf, NgClass, NgForOf, AsyncPipe, DatePipe} from '@angular/common';
+import { NgClass, AsyncPipe, DatePipe } from '@angular/common';
 import {JournalsService} from '../../../services/journals.service';
 import {BehaviorSubject} from 'rxjs';
 import {Journal} from '../../../models/journal.model';
@@ -19,13 +19,11 @@ import {RouterLink} from '@angular/router';
   selector: 'app-journal-list',
   imports: [
     LucideAngularModule,
-    NgIf,
     NgClass,
-    NgForOf,
     AsyncPipe,
     DatePipe,
     RouterLink
-  ],
+],
   templateUrl: './journal-list.component.html',
   styleUrl: './journal-list.component.scss'
 })

@@ -1,5 +1,5 @@
 <!-- Overlay (hidden by default) -->
-<ng-container *ngIf="!isCollapsed">
+@if (!isCollapsed) {
   <div class="sidebar-overlay" (click)="toggleSidebar()"></div>
   <!-- Sidebar -->
   <aside class="sidebar">
@@ -48,10 +48,10 @@
       </div>
     </nav>
   </aside>
-</ng-container>
+}
 <!-- Hamburger Button -->
-<ng-container *ngIf="isCollapsed">
+@if (isCollapsed) {
   <button class="sidebar-hamburger" type="button" (click)="toggleSidebar()">
     <lucide-icon [img]="MenuIcon" class="my-icon" size="24"/>
   </button>
-</ng-container>
+}

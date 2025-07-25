@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {ArrowLeftIcon, BookAIcon, LucideAngularModule, XIcon} from 'lucide-angular';
 import {FormBuilder, FormGroup, FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
-import {NgForOf} from '@angular/common';
+
 import {RouterLink} from '@angular/router';
 import {JournalsService} from '../../../../services/journals.service';
 import {Tag} from '../../../../models/tag.model';
@@ -12,9 +12,8 @@ import {ToastrService} from 'ngx-toastr';
   imports: [
     LucideAngularModule,
     ReactiveFormsModule,
-    NgForOf,
     RouterLink
-  ],
+],
   templateUrl: './new-diary-entry.component.html',
   styleUrl: './new-diary-entry.component.scss'
 })

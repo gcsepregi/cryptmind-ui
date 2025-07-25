@@ -14,12 +14,12 @@
         <label for="password">Password</label>
         <input type="password" id="password" name="password" autocomplete="current-password" [(ngModel)]="loginData.password" required/>
       </div>
-      <ng-container *ngIf="errorMessage">
+      @if (errorMessage) {
         <div class="error font-bold">
           <lucide-icon [img]="AlertCircleIcon" class="my-icon" size="24" />
           Invalid email or password.
         </div>
-      </ng-container>
+      }
       <button class="login-btn" (click)="signIn()">
         <!-- LogIn Icon Placeholder -->
         <lucide-icon [img]="LogInIcon" class="my-icon" size="16" />

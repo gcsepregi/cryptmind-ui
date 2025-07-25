@@ -11,7 +11,7 @@ import {
   XIcon
 } from 'lucide-angular';
 import {ThemeService} from '../../services/theme.service';
-import {NgIf} from '@angular/common';
+
 import {UserService} from '../../services/user.service';
 import {Router, RouterLink} from '@angular/router';
 import {User} from '../../models/user.model';
@@ -20,9 +20,8 @@ import {User} from '../../models/user.model';
   selector: 'app-sidebar',
   imports: [
     LucideAngularModule,
-    NgIf,
     RouterLink
-  ],
+],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })

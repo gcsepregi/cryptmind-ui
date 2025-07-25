@@ -20,12 +20,14 @@
       <div class="diary-entry-group">
         <label for="tags">Tags <span class="diary-entry-tags-hint">(press Enter or comma)</span></label>
         <div class="diary-entry-tags-box">
-          <span class="diary-entry-tag" *ngFor="let tag of tags">
-            {{ tag }}
-            <button type="button" class="diary-entry-tag-remove" (click)="removeTag(tag)">
-              <lucide-icon [img]="XIcon" class="my-icon" size="18"/>
-            </button>
-          </span>
+          @for (tag of tags; track tag) {
+            <span class="diary-entry-tag">
+              {{ tag }}
+              <button type="button" class="diary-entry-tag-remove" (click)="removeTag(tag)">
+                <lucide-icon [img]="XIcon" class="my-icon" size="18"/>
+              </button>
+            </span>
+          }
           <input type="text" class="diary-entry-tag-input" placeholder="Add tag..." aria-label="Add tag" formControlName="tagInput" (keydown)="addTag($event)"/>
         </div>
       </div>

@@ -6,16 +6,15 @@ import {LoginData} from '../../../models/login.model';
 import {ActivatedRoute, Navigation, Router, RouterLink} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {catchError} from 'rxjs';
-import {NgIf} from '@angular/common';
+
 
 @Component({
   selector: 'app-login',
   imports: [
     LucideAngularModule,
     FormsModule,
-    RouterLink,
-    NgIf,
-  ],
+    RouterLink
+],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
