@@ -93,7 +93,7 @@
                 <button class="journals-card-edit" type="button">
                   <fa-icon [icon]="faEdit" class="my-icon" />
                 </button>
-                <button class="journals-card-delete" type="button" (click)="deleteJournal(journal)">
+                <button class="journals-card-delete" type="button" (click)="deleteJournal(journal); $event.stopPropagation();">
                   <fa-icon [icon]="faTrash" class="my-icon" />
                 </button>
               </div>
