@@ -10,6 +10,7 @@ import {NewDiaryEntryComponent} from './components/journals/diary/new-diary-entr
 import {NewDreamEntryComponent} from './components/journals/dream/new-dream-entry/new-dream-entry.component';
 import {NewRitualEntryComponent} from './components/journals/ritual/new-ritual-entry/new-ritual-entry.component';
 import {ViewDiaryEntryComponent} from './components/journals/diary/view-diary-entry/view-diary-entry.component';
+import {ViewDreamEntryComponent} from './components/journals/dream/view-dream-entry/view-dream-entry.component';
 
 @Injectable(
   {
@@ -44,6 +45,7 @@ export const routes: Routes = [
   {path: 'journals/diaries/new', component: NewDiaryEntryComponent, canActivate: [AuthGuard]},
   {path: 'journals/diary/:id', component: ViewDiaryEntryComponent, canActivate: [AuthGuard]},
   {path: 'journals/dreams/new', component: NewDreamEntryComponent, canActivate: [AuthGuard]},
+  {path: 'journals/dream/:id', component: ViewDreamEntryComponent, canActivate: [AuthGuard]},
   {path: 'journals/rituals/new', component: NewRitualEntryComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: ''},
 ];
