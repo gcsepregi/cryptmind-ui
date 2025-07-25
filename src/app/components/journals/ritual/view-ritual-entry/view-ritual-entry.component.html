@@ -1,0 +1,32 @@
+<div class="view-entry-root">
+  <div class="view-entry-container">
+    <button [routerLink]="['/journals']" class="view-entry-back" type="button">
+      <fa-icon [icon]="faArrowLeft" class="my-icon"/>
+      Back to Journals
+    </button>
+    @if (entry$ | async; as entry) {
+      <div class="view-entry-header">
+        <fa-icon [icon]="faStar" class="my-icon"/>
+        <h1 class="view-entry-title">{{ entry.title }}</h1>
+      </div>
+      <div class="view-entry-meta">
+      <span class="view-entry-meta-item">
+        <fa-icon [icon]="faCalendar" class="my-icon"/>
+        {{ entry.created_at | date:'medium' }}
+      </span>
+        <span class="view-entry-meta-item">
+        <fa-icon [icon]="faTag" class="my-icon"/>
+          {{ entry.journal_type }}
+      </span>
+      </div>
+      <div class="view-entry-content">{{ entry.entry }}</div>
+      @if (entry.tags && entry.tags.length) {
+        <div class="view-entry-tags">
+          @for (tag of entry.tags; track tag) {
+            <span class="view-entry-tag">{{ tag.name }}</span>
+          }
+        </div>
+      }
+    }
+  </div>
+</div>
