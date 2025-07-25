@@ -81,15 +81,15 @@
       <ng-container *ngFor="let journal of journals | async">
         <div class="journals-card journals-card-{{journal.journal_type}}">
           <div class="journals-card-header">
-            <span class="journals-card-type-icon"><lucide-icon [img]="icon(journal.journal_type)" class="my-icon" size="24"/></span>
+            <span class="journals-card-type-icon"><lucide-icon [img]="icon(journal.journal_type)" class="my-icon" size="18"/></span>
             <span class="journals-card-type">{{ journal.journal_type }}</span>
-            <span class="journals-card-private"><lucide-icon [img]="EyeOffIcon" class="my-icon" size="24"/></span>
+            <span class="journals-card-private"><lucide-icon [img]="EyeOffIcon" class="my-icon" size="18"/></span>
             <div class="journals-card-actions">
               <button class="journals-card-edit" type="button">
-                <lucide-icon [img]="EditIcon" class="my-icon" size="24"/>
+                <lucide-icon [img]="EditIcon" class="my-icon" size="18"/>
               </button>
               <button class="journals-card-delete" type="button">
-                <lucide-icon [img]="Trash2Icon" class="my-icon" size="24"/>
+                <lucide-icon [img]="Trash2Icon" class="my-icon" size="18"/>
               </button>
             </div>
           </div>
