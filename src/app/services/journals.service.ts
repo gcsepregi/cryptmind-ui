@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Journal, NewJournal} from '../models/journal.model';
+import {Journal, JournalStats, NewJournal} from '../models/journal.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +33,9 @@ export class JournalsService {
 
   getRecents() {
     return this.http.get<Journal[]>(`${this.baseUrl}/journals/recents`);
+  }
+
+  getStats() {
+    return this.http.get<JournalStats>(`${this.baseUrl}/journals/stats`);
   }
 }

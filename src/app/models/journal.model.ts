@@ -16,3 +16,13 @@ export interface NewJournal {
   entry: string;
   tags: string[];
 }
+
+export interface JournalStats {
+  stats: {
+    diary: number;
+    dream: number;
+    ritual: number;
+    divination: number;
+  }
+  total: number;
+}

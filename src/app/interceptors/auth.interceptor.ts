@@ -1,9 +1,12 @@
-import { HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {HttpEvent, HttpEventType, HttpHandlerFn, HttpInterceptorFn, HttpRequest, HttpErrorResponse} from '@angular/common/http';
+import {Observable, tap, catchError, throwError} from 'rxjs';
+import {inject} from '@angular/core';
+import {Router} from '@angular/router';
 
 // Define the interceptor as a function instead of a class
 export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> => {
   // Functional interceptors do not need @Injectable()
+  const router = inject(Router);
 
   const token = localStorage.getItem('crypt-token');
 
@@ -13,11 +16,17 @@ export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: 
     const clonedReq = req.clone({
       headers: req.headers.set('Authorization', 'Bearer ' + token)
     });
-    console.log('Request intercepted, token added:', clonedReq);
-    return next(clonedReq);
+    return next(clonedReq).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 401) {
+          localStorage.removeItem('crypt-token');
+          router.navigate(['/login']);
+        }
+        return throwError(() => error);
+      })
+    );
   }
 
   // If no token, pass the original request along
-  console.log('Request intercepted, no token found.');
   return next(req);
 };

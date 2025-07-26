@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {faFire, faBook, faMoon, faStar, faCrown, faPlus, faCalendar, faList, faCheckCircle, faBell, faQuoteLeft, faUserCircle, faArrowRight} from '@fortawesome/free-solid-svg-icons';
+import {faFire, faBook, faMoon, faStar, faCrown, faPlus, faCalendar, faList, faCheckCircle, faBell, faQuoteLeft, faUserCircle, faArrowRight, faChevronLeft, faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import {NgClass, DatePipe} from '@angular/common';
 import {UserService} from '../../services/user.service';
 import {RouterLink} from '@angular/router';
 import {JournalsService} from '../../services/journals.service';
-import {Journal} from '../../models/journal.model';
+import {Journal, JournalStats} from '../../models/journal.model';
+import { CalendarService, CalendarDay } from '../../services/calendar.service';
 
 @Component({
   selector: 'app-home',
@@ -21,28 +22,22 @@ export class HomeComponent {
   streak = 3;
   quote = 'The journey inward is the most important journey you will ever take.';
   recentEntries: Journal[] = [];
-  stats = {
+  stats: JournalStats = {
+    stats: {
+      diary: 21,
+      dream: 12,
+      ritual: 7,
+      divination: 2
+    },
     total: 42,
-    diary: 21,
-    dream: 12,
-    ritual: 7,
-    divination: 2
   };
   reminders = [
     { text: 'Log a dream today!', icon: faMoon },
     { text: 'Meditate 10 min', icon: faStar },
     { text: 'Pull a tarot card', icon: faCrown }
   ];
-  calendar = [
-    // Dummy calendar: array of { date, hasEntry }
-    { date: '2025-07-20', hasEntry: true },
-    { date: '2025-07-21', hasEntry: false },
-    { date: '2025-07-22', hasEntry: true },
-    { date: '2025-07-23', hasEntry: true },
-    { date: '2025-07-24', hasEntry: true },
-    { date: '2025-07-25', hasEntry: false },
-    { date: '2025-07-26', hasEntry: false },
-  ];
+  calendar = [];
+
   faFire = faFire;
   faBook = faBook;
   faMoon = faMoon;
@@ -56,14 +51,56 @@ export class HomeComponent {
   faQuoteLeft = faQuoteLeft;
   faUserCircle = faUserCircle;
   faArrowRight = faArrowRight;
+  faChevronLeft = faChevronLeft;
+  faChevronRight = faChevronRight;
+  calendarDays: CalendarDay[] = [];
+  currentMonth: number = new Date().getMonth();
+  currentYear: number = new Date().getFullYear();
+
+  get monthName(): string {
+    return new Date(this.currentYear, this.currentMonth).toLocaleString('default', { month: 'long' });
+  }
+
+  prevMonth() {
+    if (this.currentMonth === 0) {
+      this.currentMonth = 11;
+      this.currentYear--;
+    } else {
+      this.currentMonth--;
+    }
+    this.updateCalendarDays();
+  }
+
+  nextMonth() {
+    if (this.currentMonth === 11) {
+      this.currentMonth = 0;
+      this.currentYear++;
+    } else {
+      this.currentMonth++;
+    }
+    this.updateCalendarDays();
+  }
 
   constructor(private readonly userService: UserService,
-              private readonly journalService: JournalsService) {
+              private readonly journalService: JournalsService,
+              private readonly calendarService: CalendarService) {
     userService.getMe().subscribe(res => {
       this.user.nickname = res.nickname;
     });
     journalService.getRecents().subscribe(res => {
       this.recentEntries = res;
-    })
+      this.updateCalendarDays();
+    });
+    journalService.getStats().subscribe(res => {
+      this.stats = res;
+    });
+  }
+
+  updateCalendarDays() {
+    this.calendarDays = this.calendarService.getMonthCalendar(
+      this.currentYear,
+      this.currentMonth,
+      this.recentEntries
+    );
   }
 }

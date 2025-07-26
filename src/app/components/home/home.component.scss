@@ -192,7 +192,8 @@
   margin-top: 1rem;
 }
 .home-calendar-cell {
-  background: var(--color-primary-400, #23233a);
+  background: none;
+  border: none;
   border-radius: 0.5rem;
   min-height: 2.5rem;
   display: flex;
@@ -201,12 +202,50 @@
   justify-content: center;
   font-size: 1rem;
   color: var(--foreground, #ededed);
-  box-shadow: 0 1px 4px 0 rgba(30,20,40,0.08);
+  box-shadow: none;
   &.has-entry {
     background: var(--color-accent-400, #a259f7);
     color: #fff;
     font-weight: 700;
+    border-radius: 0.5rem;
   }
+  &.not-current {
+    color: var(--color-primary-400, #5a5a8a);
+    opacity: 0.45;
+    background: none;
+    font-weight: 400;
+  }
+}
+.home-calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+.calendar-stepper {
+  background: none;
+  border: none;
+  color: var(--color-accent-400, #a259f7);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:hover {
+    background: var(--color-accent-400, #a259f7);
+    color: #fff;
+    transform: scale(1.1);
+  }
+}
+.calendar-month-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-primary-400, #5a5a8a);
+  letter-spacing: 0.03em;
 }
 
 .home-bottom-grid {
