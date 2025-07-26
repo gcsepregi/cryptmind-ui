@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {faFire, faBook, faMoon, faStar, faCrown, faPlus, faCalendar, faList, faCheckCircle, faBell, faQuoteLeft, faUserCircle} from '@fortawesome/free-solid-svg-icons';
+import {faFire, faBook, faMoon, faStar, faCrown, faPlus, faCalendar, faList, faCheckCircle, faBell, faQuoteLeft, faUserCircle, faArrowRight} from '@fortawesome/free-solid-svg-icons';
 import {NgClass, DatePipe} from '@angular/common';
 import {UserService} from '../../services/user.service';
 import {RouterLink} from '@angular/router';
+import {JournalsService} from '../../services/journals.service';
+import {Journal} from '../../models/journal.model';
 
 @Component({
   selector: 'app-home',
@@ -18,11 +20,7 @@ export class HomeComponent {
   };
   streak = 3;
   quote = 'The journey inward is the most important journey you will ever take.';
-  recentEntries = [
-    { type: 'dream', title: 'Flying over the city', date: '2025-07-24', snippet: 'I soared above the skyline...' },
-    { type: 'diary', title: 'Morning Reflection', date: '2025-07-23', snippet: 'Today I felt grateful for...' },
-    { type: 'ritual', title: 'Full Moon Ritual', date: '2025-07-22', snippet: 'Lit candles and meditated...' },
-  ];
+  recentEntries: Journal[] = [];
   stats = {
     total: 42,
     diary: 21,
@@ -57,10 +55,15 @@ export class HomeComponent {
   faBell = faBell;
   faQuoteLeft = faQuoteLeft;
   faUserCircle = faUserCircle;
+  faArrowRight = faArrowRight;
 
-  constructor(private readonly userService: UserService) {
+  constructor(private readonly userService: UserService,
+              private readonly journalService: JournalsService) {
     userService.getMe().subscribe(res => {
       this.user.nickname = res.nickname;
+    });
+    journalService.getRecents().subscribe(res => {
+      this.recentEntries = res;
     })
   }
 }

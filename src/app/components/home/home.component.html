@@ -40,17 +40,23 @@
     <div class="home-recent-entries">
       <div class="home-section-title">Recent Entries</div>
       @for (entry of recentEntries; track entry) {
-        <div class="home-entry-card scale-up" [ngClass]="{'neon-glow': entry.type === 'diary'}">
+        <div class="home-entry-card scale-up" [ngClass]="{'neon-glow-hover': entry.journal_type === 'diary', 'neon-glow-purple-hover': entry.journal_type === 'dream', 'neon-glow-green-hover': entry.journal_type === 'ritual', 'neon-glow-pink-hover': entry.journal_type === 'divination'}"
+        [routerLink]="['/journals', entry.journal_type, entry.id]"
+        type="button">
           <fa-icon
-            [icon]="entry.type === 'diary' ? faBook : entry.type === 'dream' ? faMoon : entry.type === 'ritual' ? faStar : faCrown"
+            [icon]="entry.journal_type === 'diary' ? faBook : entry.journal_type === 'dream' ? faMoon : entry.journal_type === 'ritual' ? faStar : faCrown"
             class="my-icon-sm"/>
           <div class="home-entry-info">
             <div class="home-entry-title">{{ entry.title }}</div>
-            <div class="home-entry-date">{{ entry.date | date: 'dd MMM yyyy, HH:mm'}}</div>
-            <div class="home-entry-snippet">{{ entry.snippet }}</div>
+            <div class="home-entry-date">{{ entry.created_at | date: 'dd MMM yyyy, HH:mm'}}</div>
+            <div class="home-entry-snippet">{{ entry.entry }}</div>
           </div>
         </div>
       }
+      <a routerLink="/journals" class="home-view-all-link">
+        View All Entries
+        <fa-icon [icon]="faArrowRight" class="my-icon-sm"/>
+      </a>
     </div>
     <div class="home-calendar">
       <div class="home-section-title">Calendar</div>

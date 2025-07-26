@@ -30,4 +30,8 @@ export class JournalsService {
   deleteJournalEntry(id: string, journal_type: "diary" | "dream" | "ritual" | "divination") {
     return this.http.delete(`${this.baseUrl}/journals/${journal_type}/${id}`);
   }
+
+  getRecents() {
+    return this.http.get<Journal[]>(`${this.baseUrl}/journals/recents`);
+  }
 }

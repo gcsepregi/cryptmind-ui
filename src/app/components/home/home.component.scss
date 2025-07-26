@@ -28,7 +28,6 @@
   align-items: center;
   gap: 0.5rem;
   font-size: 1rem;
-  color: var(--color-accent-400, #a259f7);
   margin-top: 0.5rem;
 }
 .home-streak {
@@ -138,7 +137,6 @@
   border-radius: 0.75rem;
   border: 1px solid var(--color-primary-400, #23233a);
   padding: 1rem;
-  box-shadow: 0 1px 4px 0 rgba(30,20,40,0.08);
 }
 .home-entry-info {
   display: flex;
@@ -156,7 +154,29 @@
 }
 .home-entry-snippet {
   font-size: 0.95rem;
-  color: var(--color-accent-400, #a259f7);
+  margin-top: 0.5rem;
+  max-height: 2.4rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.home-view-all-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--color-primary-400, #5a5a8a);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.2s;
+  &:hover {
+    background: var(--color-accent-400, #a259f7);
+    transform: scale(1.02);
+  }
 }
 
 .home-calendar {

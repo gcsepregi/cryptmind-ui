@@ -172,6 +172,18 @@ body {
 .neon-glow-pink {
   box-shadow: 0 0 16px var(--neon-pink), 0 0 32px var(--neon-pink);
 }
+.neon-glow-hover:hover {
+  box-shadow: 0 0 16px var(--neon-cyan), 0 0 32px var(--color-primary-400);
+}
+.neon-glow-purple-hover:hover {
+  box-shadow: 0 0 16px var(--neon-purple), 0 0 32px var(--color-secondary-400);
+}
+.neon-glow-green-hover:hover {
+  box-shadow: 0 0 16px var(--neon-green), 0 0 32px var(--color-accent-400);
+}
+.neon-glow-pink-hover:hover {
+  box-shadow: 0 0 16px var(--neon-pink), 0 0 32px var(--neon-pink);
+}
 .scale-up:hover {
   animation: scaleUp 0.2s forwards;
 }
