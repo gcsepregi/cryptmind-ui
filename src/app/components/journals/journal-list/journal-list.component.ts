@@ -72,6 +72,10 @@ export class JournalListComponent {
   currentMonth: number = new Date().getMonth();
   currentYear: number = new Date().getFullYear();
 
+  get monthName(): string {
+    return new Date(this.currentYear, this.currentMonth).toLocaleString('default', { month: 'long' });
+  }
+
   today = new Date();
 
   updateCalendarDays() {
