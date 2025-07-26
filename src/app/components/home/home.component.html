@@ -1,1 +1,104 @@
-<p>home works!</p>
+<div class="home-dashboard">
+  <div class="home-header">
+    <div class="home-greeting">
+      <fa-icon [icon]="faUserCircle" class="my-icon-lg"/>
+      <div>
+        <div class="home-welcome">Welcome back, {{ user.nickname }}!</div>
+        <div class="home-quote">
+          <fa-icon [icon]="faQuoteLeft" class="my-icon-sm"/>
+          <span>{{ quote }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="home-streak">
+      <fa-icon [icon]="faFire" class="my-icon-lg"/>
+      <span class="home-streak-label">Streak:</span>
+      <span class="home-streak-count">{{ streak }} days</span>
+    </div>
+  </div>
+
+  <div class="home-quick-entry">
+    <button class="home-quick-btn neon-cyan" [routerLink]="['/journals/diary/new']" type="button">
+      <fa-icon [icon]="faBook" class="my-icon-md"/>
+      New Diary
+    </button>
+    <button class="home-quick-btn neon-purple" [routerLink]="['/journals/dream/new']" type="button">
+      <fa-icon [icon]="faMoon" class="my-icon-md"/>
+      New Dream
+    </button>
+    <button class="home-quick-btn neon-green" [routerLink]="['/journals/ritual/new']" type="button">
+      <fa-icon [icon]="faStar" class="my-icon-md"/>
+      New Ritual
+    </button>
+    <button class="home-quick-btn neon-pink">
+      <fa-icon [icon]="faCrown" class="my-icon-md"/>
+      New Divination
+    </button>
+  </div>
+
+  <div class="home-main-grid">
+    <div class="home-recent-entries">
+      <div class="home-section-title">Recent Entries</div>
+      @for (entry of recentEntries; track entry) {
+        <div class="home-entry-card scale-up" [ngClass]="{'neon-glow': entry.type === 'diary'}">
+          <fa-icon
+            [icon]="entry.type === 'diary' ? faBook : entry.type === 'dream' ? faMoon : entry.type === 'ritual' ? faStar : faCrown"
+            class="my-icon-sm"/>
+          <div class="home-entry-info">
+            <div class="home-entry-title">{{ entry.title }}</div>
+            <div class="home-entry-date">{{ entry.date | date: 'dd MMM yyyy, HH:mm'}}</div>
+            <div class="home-entry-snippet">{{ entry.snippet }}</div>
+          </div>
+        </div>
+      }
+    </div>
+    <div class="home-calendar">
+      <div class="home-section-title">Calendar</div>
+      <div class="home-calendar-grid">
+        @for (day of calendar; track day) {
+          <div class="home-calendar-cell" [ngClass]="{'has-entry': day.hasEntry}">
+            <span>{{ day.date | date:'dd' }}</span>
+            @if (day.hasEntry) {
+              <fa-icon [icon]="faCheckCircle" class="my-icon-sm"/>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="home-bottom-grid">
+    <div class="home-stats">
+      <div class="home-section-title">Stats & Insights</div>
+      <div class="home-stats-row">
+        <div class="home-stat">
+          <fa-icon [icon]="faBook" class="my-icon-sm"/>
+          {{ stats.diary }} Diaries
+        </div>
+        <div class="home-stat">
+          <fa-icon [icon]="faMoon" class="my-icon-sm"/>
+          {{ stats.dream }} Dreams
+        </div>
+        <div class="home-stat">
+          <fa-icon [icon]="faStar" class="my-icon-sm"/>
+          {{ stats.ritual }} Rituals
+        </div>
+        <div class="home-stat">
+          <fa-icon [icon]="faCrown" class="my-icon-sm"/>
+          {{ stats.divination }} Divinations
+        </div>
+        <div class="home-stat">
+          <fa-icon [icon]="faList" class="my-icon-sm"/>
+          {{ stats.total }} Total
+        </div>
+      </div>
+    </div>
+    <div class="home-reminders">
+      <div class="home-section-title">Reminders & To-Dos</div>
+      <div *ngFor="let reminder of reminders" class="home-reminder">
+        <fa-icon [icon]="reminder.icon" class="my-icon-sm"/>
+        <span>{{ reminder.text }}</span>
+      </div>
+    </div>
+  </div>
+</div>
