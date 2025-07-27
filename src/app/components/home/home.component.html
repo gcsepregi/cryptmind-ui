@@ -61,13 +61,7 @@
     <div class="home-calendar">
       <div class="home-section-title">Calendar</div>
       <div class="home-calendar-header">
-        <button class="calendar-stepper" (click)="prevMonth()">
-          <fa-icon [icon]="faChevronLeft" class="my-icon-sm"/>
-        </button>
         <span class="calendar-month-label">{{ monthName }} {{ currentYear }}</span>
-        <button class="calendar-stepper" (click)="nextMonth()">
-          <fa-icon [icon]="faChevronRight" class="my-icon-sm"/>
-        </button>
       </div>
       <div class="home-calendar-grid">
         @for (day of calendarDays; track day.date.toISOString()) {

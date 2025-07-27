@@ -56,29 +56,10 @@ export class HomeComponent {
   calendarDays: CalendarDay[] = [];
   currentMonth: number = new Date().getMonth();
   currentYear: number = new Date().getFullYear();
+  private calendarEntries: Journal[] = [];
 
   get monthName(): string {
     return new Date(this.currentYear, this.currentMonth).toLocaleString('default', { month: 'long' });
-  }
-
-  prevMonth() {
-    if (this.currentMonth === 0) {
-      this.currentMonth = 11;
-      this.currentYear--;
-    } else {
-      this.currentMonth--;
-    }
-    this.updateCalendarDays();
-  }
-
-  nextMonth() {
-    if (this.currentMonth === 11) {
-      this.currentMonth = 0;
-      this.currentYear++;
-    } else {
-      this.currentMonth++;
-    }
-    this.updateCalendarDays();
   }
 
   constructor(private readonly userService: UserService,
@@ -94,13 +75,19 @@ export class HomeComponent {
     journalService.getStats().subscribe(res => {
       this.stats = res;
     });
+    journalService.getJournals({
+      fromDate: new Date(this.currentYear, this.currentMonth, 1),
+      toDate: new Date(this.currentYear, this.currentMonth + 1, 0),
+    }).subscribe(res => {
+      this.calendarEntries = res;
+    })
   }
 
   updateCalendarDays() {
     this.calendarDays = this.calendarService.getMonthCalendar(
       this.currentYear,
       this.currentMonth,
-      this.recentEntries
+      this.calendarEntries
     );
   }
 }
