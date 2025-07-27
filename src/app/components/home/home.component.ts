@@ -16,7 +16,7 @@ import { CalendarService, CalendarDay } from '../../services/calendar.service';
 })
 export class HomeComponent {
   user = {
-    nickname: 'MysticSeeker',
+    nickname: '',
     avatar: '',
   };
   streak = 3;
@@ -70,7 +70,6 @@ export class HomeComponent {
     });
     journalService.getRecents().subscribe(res => {
       this.recentEntries = res;
-      this.updateCalendarDays();
     });
     journalService.getStats().subscribe(res => {
       this.stats = res;
@@ -80,6 +79,7 @@ export class HomeComponent {
       toDate: new Date(this.currentYear, this.currentMonth + 1, 0),
     }).subscribe(res => {
       this.calendarEntries = res;
+      this.updateCalendarDays();
     })
   }
 

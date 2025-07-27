@@ -1,48 +1,41 @@
 <div class="home-dashboard">
-  <div class="home-header">
-    <div class="home-greeting">
-      <fa-icon [icon]="faUserCircle" class="my-icon-lg"/>
-      <div>
-        <div class="home-welcome">Welcome back, {{ user.nickname }}!</div>
-        <div class="home-quote">
-          <fa-icon [icon]="faQuoteLeft" class="my-icon-sm"/>
-          <span>{{ quote }}</span>
+  <div class="home-main-content">
+    <div class="home-header">
+      <div class="home-greeting">
+        <fa-icon [icon]="faUserCircle" class="my-icon-lg"/>
+        <div>
+          <div class="home-welcome">Welcome back, {{ user.nickname }}!</div>
+          <div class="home-quote">
+            <fa-icon [icon]="faQuoteLeft" class="my-icon-sm"/>
+            <span>{{ quote }}</span>
+          </div>
         </div>
       </div>
     </div>
-    <div class="home-streak">
-      <fa-icon [icon]="faFire" class="my-icon-lg"/>
-      <span class="home-streak-label">Streak:</span>
-      <span class="home-streak-count">{{ streak }} days</span>
+    <div class="home-quick-entry">
+      <button class="home-quick-btn neon-cyan" [routerLink]="['/journals/diary/new']" type="button">
+        <fa-icon [icon]="faBook" class="my-icon-md"/>
+        New Diary
+      </button>
+      <button class="home-quick-btn neon-purple" [routerLink]="['/journals/dream/new']" type="button">
+        <fa-icon [icon]="faMoon" class="my-icon-md"/>
+        New Dream
+      </button>
+      <button class="home-quick-btn neon-green" [routerLink]="['/journals/ritual/new']" type="button">
+        <fa-icon [icon]="faStar" class="my-icon-md"/>
+        New Ritual
+      </button>
+      <button class="home-quick-btn neon-pink">
+        <fa-icon [icon]="faCrown" class="my-icon-md"/>
+        New Divination
+      </button>
     </div>
-  </div>
-
-  <div class="home-quick-entry">
-    <button class="home-quick-btn neon-cyan" [routerLink]="['/journals/diary/new']" type="button">
-      <fa-icon [icon]="faBook" class="my-icon-md"/>
-      New Diary
-    </button>
-    <button class="home-quick-btn neon-purple" [routerLink]="['/journals/dream/new']" type="button">
-      <fa-icon [icon]="faMoon" class="my-icon-md"/>
-      New Dream
-    </button>
-    <button class="home-quick-btn neon-green" [routerLink]="['/journals/ritual/new']" type="button">
-      <fa-icon [icon]="faStar" class="my-icon-md"/>
-      New Ritual
-    </button>
-    <button class="home-quick-btn neon-pink">
-      <fa-icon [icon]="faCrown" class="my-icon-md"/>
-      New Divination
-    </button>
-  </div>
-
-  <div class="home-main-grid">
     <div class="home-recent-entries">
       <div class="home-section-title">Recent Entries</div>
       @for (entry of recentEntries; track entry) {
         <div class="home-entry-card scale-up" [ngClass]="{'neon-glow-hover': entry.journal_type === 'diary', 'neon-glow-purple-hover': entry.journal_type === 'dream', 'neon-glow-green-hover': entry.journal_type === 'ritual', 'neon-glow-pink-hover': entry.journal_type === 'divination'}"
-        [routerLink]="['/journals', entry.journal_type, entry.id]"
-        type="button">
+             [routerLink]="['/journals', entry.journal_type, entry.id]"
+             type="button">
           <fa-icon
             [icon]="entry.journal_type === 'diary' ? faBook : entry.journal_type === 'dream' ? faMoon : entry.journal_type === 'ritual' ? faStar : faCrown"
             class="my-icon-sm"/>
@@ -58,6 +51,19 @@
         <fa-icon [icon]="faArrowRight" class="my-icon-sm"/>
       </a>
     </div>
+
+  </div>
+  <div class="home-sidebar">
+    <div class="home-reminders">
+      <div class="home-section-title">Reminders & To-Dos</div>
+      @for (reminder of reminders; track reminder) {
+        <div class="home-reminder">
+          <fa-icon [icon]="reminder.icon" class="my-icon-sm"/>
+          <span>{{ reminder.text }}</span>
+        </div>
+      }
+    </div>
+
     <div class="home-calendar">
       <div class="home-section-title">Calendar</div>
       <div class="home-calendar-header">
@@ -74,9 +80,7 @@
         }
       </div>
     </div>
-  </div>
 
-  <div class="home-bottom-grid">
     <div class="home-stats">
       <div class="home-section-title">Stats & Insights</div>
       <div class="home-stats-row">
@@ -102,14 +106,7 @@
         </div>
       </div>
     </div>
-    <div class="home-reminders">
-      <div class="home-section-title">Reminders & To-Dos</div>
-      @for (reminder of reminders; track reminder) {
-      <div class="home-reminder">
-        <fa-icon [icon]="reminder.icon" class="my-icon-sm"/>
-        <span>{{ reminder.text }}</span>
-      </div>
-      }
-    </div>
+
   </div>
+
 </div>
