@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {NgClass, AsyncPipe, DatePipe} from '@angular/common';
-import {JournalsService} from '../../../services/journals.service';
-import {BehaviorSubject} from 'rxjs';
+import {JournalFilter, JournalsService} from '../../../services/journals.service';
+import {BehaviorSubject, combineLatest, debounceTime, distinctUntilChanged, switchMap} from 'rxjs';
 import {Journal} from '../../../models/journal.model';
 import {Router, RouterLink} from '@angular/router';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
@@ -57,6 +57,9 @@ export class JournalListComponent {
   protected newEntryDropDownOpen = false;
   view: 'grid' | 'list' | 'calendar' = 'grid';
 
+  search$ = new BehaviorSubject<string>('');
+  type$ = new BehaviorSubject<string>('all');
+
   calendarDays: CalendarDay[] = [];
 
   constructor(private readonly journalsService: JournalsService,
@@ -67,6 +70,25 @@ export class JournalListComponent {
       this.journals.next(res);
       this.updateCalendarDays();
     });
+  }
+
+  ngOnInit() {
+    combineLatest([
+      this.search$.pipe(debounceTime(200), distinctUntilChanged()),
+      this.type$.pipe(distinctUntilChanged())
+    ])
+      .pipe(
+        switchMap(([search, type]) => {
+          const filter: JournalFilter = {};
+          if (search) filter.search = search;
+          if (type) filter.type = type;
+          return this.journalsService.getJournals(filter);
+        })
+      )
+      .subscribe(res => {
+        this.journals.next(res);
+        this.updateCalendarDays();
+      });
   }
 
   currentMonth: number = new Date().getMonth();
@@ -173,5 +195,17 @@ export class JournalListComponent {
 
   editJournal(journal: Journal) {
     this.router.navigate([`/journals/${journal.journal_type}`, journal.id, 'edit']).then(() => {})
+  }
+
+  search($event: Event) {
+    const input = $event.target as HTMLInputElement;
+    const value = input.value.trim();
+    this.search$.next(value);
+  }
+
+  filterType($event: Event) {
+    const input = $event.target as HTMLSelectElement;
+    const value = input.value;
+    this.type$.next(value);
   }
 }

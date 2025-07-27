@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Journal, JournalStats, NewJournal} from '../models/journal.model';
 
 export interface JournalFilter {
-  type?: "diary" | "dream" | "ritual" | "divination";
+  type?: string;
   fromDate?: Date;
   toDate?: Date;
   search?: string;
@@ -23,8 +23,10 @@ export class JournalsService {
   constructor(private readonly http: HttpClient) { }
 
   getJournals(filter?: JournalFilter) {
+    const params = this.toParams(filter);
+    console.log(params);
     return this.http.get<Journal[]>(`${this.baseUrl}/journals`, {
-      params: this.toParams(filter)
+      params: params
     });
   }
 
@@ -53,19 +55,17 @@ export class JournalsService {
   }
 
   private toParams(filter?: JournalFilter): HttpParams {
-    const params = new HttpParams();
-
-    if (filter) {
-      if (filter.type) {
-        params.set('type', filter.type);
+    return new HttpParams({
+      fromObject: {
+        'type': filter?.type || '',
+        'from_date': filter?.fromDate?.toISOString() || '',
+        'to_date': filter?.toDate?.toISOString() || '',
+        'search': filter?.search || '',
+        'limit': filter?.limit?.toString() || '',
+        'offset': filter?.offset?.toString() || '',
+        'sort': filter?.sort || '',
+        'order': filter?.order || ''
       }
-      if (filter.fromDate) {
-        params.set('from_date', filter.fromDate.toISOString());
-      }
-      if (filter.toDate) {
-        params.set('to_date', filter.toDate.toISOString());
-      }
-    }
-    return params;
+    });
   }
 }

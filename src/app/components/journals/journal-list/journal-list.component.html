@@ -45,21 +45,16 @@
         <!-- Search -->
         <div class="journals-search">
           <span class="journals-search-icon"><fa-icon [icon]="faSearch" class="my-icon" /></span>
-          <input type="text" class="journals-search-input" placeholder="Search entries..."/>
+          <input type="text" class="journals-search-input" placeholder="Search entries..." (keydown.enter)="search($event)" />
         </div>
         <!-- Type Filter -->
-        <select class="journals-type-filter">
+        <select class="journals-type-filter" (change)="filterType($event)">
           <option value="all">All Types</option>
           <option value="diary">Diary</option>
           <option value="dream">Dream</option>
           <option value="ritual">Ritual</option>
           <option value="divination">Divination</option>
         </select>
-        <!-- Privacy Toggle -->
-        <button class="journals-privacy-toggle" type="button">
-          <fa-icon [icon]="faEye" class="my-icon" />
-          Show Private
-        </button>
         <!-- View Mode Toggle -->
         <div class="journals-view-toggle">
           <button class="journals-view-btn" type="button" (click)="toggleView('grid')"
