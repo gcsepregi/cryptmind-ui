@@ -13,7 +13,7 @@
         <div class="journals-dropdown">
           <button class="journals-dropdown-btn" type="button" (click)="toggleNewEntryDropDown()">
             <fa-icon [icon]="faPlus" class="my-icon" />
-            New Entry
+            <span class="d-desktop">New Entry</span>
             <span [ngClass]="{'chevron-open': newEntryDropDownOpen}" class="chevron-wrapper">
               <fa-icon [icon]="faChevronDown" class="my-icon chevron" />
             </span>
@@ -41,7 +41,6 @@
           }
         </div>
       </div>
-      <p class="journals-header-count">2 of 2 entries</p>
       <div class="journals-header-actions">
         <!-- Search -->
         <div class="journals-search">

@@ -253,3 +253,12 @@ body {
 .my-icon-sm {
   font-size: 1rem;
 }
+
+.d-desktop {
+  display: none;
+}
+@media (min-width: 900px) {
+  .d-desktop {
+    display: block;
+  }
+}
