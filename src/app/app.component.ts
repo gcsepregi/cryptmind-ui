@@ -6,10 +6,11 @@ import {LucideAngularModule} from 'lucide-angular';
 import {LandingPageComponent} from './components/landing-page/landing-page.component';
 import {ThemeSwitcherComponent} from './components/theme-switcher/theme-switcher.component';
 import {UserService} from './services/user.service';
+import {HeaderComponent} from './components/header/header.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, SidebarComponent, LucideAngularModule, ThemeSwitcherComponent],
+  imports: [RouterOutlet, SidebarComponent, LucideAngularModule, ThemeSwitcherComponent, HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

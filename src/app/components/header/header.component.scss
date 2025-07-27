@@ -1,0 +1,54 @@
+$background: var(--background, #18181b);
+$foreground: var(--foreground, #ededed);
+$primary: var(--color-primary-400, #5a5a8a);
+$accent: var(--neon-purple, #a259f7);
+$radius: 1rem;
+$shadow: 0 10px 30px -3px rgba(128,128,128,0.35), 0 4px 16px -4px rgba(128,128,128,0.25);
+
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  padding: 1rem;
+  max-height: 4rem;
+  background: var(--background);
+  box-shadow: $shadow;
+  color: var(--foreground);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .app-header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .sidebar-hamburger {
+      border: none;
+      background: none;
+      color: var(--foreground);
+      cursor: pointer;
+      transition: color 0.2s;
+      &:hover {
+        color: var(--neon-purple);
+      }
+    }
+
+    .app-header-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      .app-header-skull {
+        width: 1.5rem;
+        height: 1.5rem;
+        display: inline-block;
+      }
+      .app-header-title {
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+    }
+  }
+}

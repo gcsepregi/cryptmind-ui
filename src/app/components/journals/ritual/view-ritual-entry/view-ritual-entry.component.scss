@@ -1,33 +1,24 @@
 $background: var(--background, #18181b);
 $foreground: var(--foreground, #ededed);
 $primary: var(--color-primary-400, #5a5a8a);
-$accent: var(--neon-green, #0ea5e9); // Use a blue accent for diary entries
+$accent: var(--neon-green); // Use a blue accent for diary entries
 $radius: 1rem;
 $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.25);
 
 .view-entry-root {
-  min-height: 100vh;
   background: $background;
   color: $foreground;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem 0;
 }
 
 .view-entry-container {
-  width: 100%;
-  max-width: 40rem;
-  border-radius: $radius;
-  border: 1px solid $primary;
-  box-shadow: $shadow;
+  max-width: 50rem;
   padding: 2.5rem 2rem;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  animation: fadeIn 0.8s ease-in;
+  @media (min-width: 900px) {
+    animation: fadeIn 0.8s ease-in;
+  }
 }
 
 .view-entry-back {
@@ -125,7 +116,8 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
     min-height: 0;
     height: 100%;
     padding: 1.25rem 0.5rem;
-    border-radius: 0.5rem;
+    border: none;
     box-shadow: none;
+    margin: 1rem;
   }
 }

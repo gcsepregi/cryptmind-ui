@@ -54,16 +54,6 @@
 
   </div>
   <div class="home-sidebar">
-    <div class="home-reminders">
-      <div class="home-section-title">Reminders & To-Dos</div>
-      @for (reminder of reminders; track reminder) {
-        <div class="home-reminder">
-          <fa-icon [icon]="reminder.icon" class="my-icon-sm"/>
-          <span>{{ reminder.text }}</span>
-        </div>
-      }
-    </div>
-
     <div class="home-calendar">
       <div class="home-section-title">Calendar</div>
       <div class="home-calendar-header">

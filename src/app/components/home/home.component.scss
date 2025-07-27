@@ -6,6 +6,11 @@
   grid-template-columns: 2.5fr 1fr;
   gap: 2rem;
 
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
   .home-main-content {
     flex: 1 1 auto;
     display: flex;
@@ -49,6 +54,11 @@
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 
   .home-quick-btn {
     display: flex;

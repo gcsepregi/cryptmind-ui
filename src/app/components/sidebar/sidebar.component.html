@@ -1,17 +1,8 @@
 <!-- Overlay (hidden by default) -->
-@if (!isCollapsed) {
+@if (isOpen) {
   <div class="sidebar-overlay" (click)="toggleSidebar()"></div>
   <!-- Sidebar -->
   <aside class="sidebar">
-    <div class="sidebar-header">
-      <div class="sidebar-brand">
-        <fa-icon [icon]="faSkull" class="my-icon" />
-        <span class="sidebar-title">CryptMind</span>
-      </div>
-      <button class="sidebar-close" type="button" (click)="toggleSidebar()">
-        <fa-icon [icon]="faXmark" class="my-icon" />
-      </button>
-    </div>
     <div class="sidebar-user">
       <fa-icon [icon]="faUser" class="my-icon" />
       <div>
@@ -48,10 +39,4 @@
       </div>
     </nav>
   </aside>
-}
-<!-- Hamburger Button -->
-@if (isCollapsed) {
-  <button class="sidebar-hamburger" type="button" (click)="toggleSidebar()">
-    <fa-icon [icon]="faBars" class="my-icon" />
-  </button>
 }
