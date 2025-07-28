@@ -103,6 +103,10 @@
     @media (min-width: 768px) {
       grid-template-columns: 1fr 1fr;
     }
+
+    @media (min-width: 1200px) {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
   }
 }
 
@@ -123,6 +127,14 @@
 
   &-pink {
     box-shadow: 0 0 24px var(--neon-pink);
+  }
+
+  &-orange {
+    box-shadow: 0 0 24px var(--neon-orange);
+  }
+
+  &-teal {
+    box-shadow: 0 0 24px var(--neon-cyan);
   }
 
   &.landing-feature-card-active {
@@ -171,6 +183,16 @@
     &-pink {
       color: var(--neon-pink);
       text-shadow: 0 0 8px var(--neon-pink);
+    }
+
+    &-orange {
+      color: var(--neon-orange);
+      text-shadow: 0 0 8px var(--neon-orange);
+    }
+
+    &-teal {
+      color: var(--neon-cyan);
+      text-shadow: 0 0 8px var(--neon-cyan);
     }
   }
 
