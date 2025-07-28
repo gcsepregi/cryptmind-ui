@@ -58,8 +58,8 @@ export class JournalsService {
     return new HttpParams({
       fromObject: {
         'type': filter?.type || '',
-        'from_date': filter?.fromDate?.toISOString() || '',
-        'to_date': filter?.toDate?.toISOString() || '',
+        'from_date': filter?.fromDate?.toLocaleString() || '',
+        'to_date': filter?.toDate?.toLocaleString() || '',
         'search': filter?.search || '',
         'limit': filter?.limit?.toString() || '',
         'offset': filter?.offset?.toString() || '',
