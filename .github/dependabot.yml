@@ -1,0 +1,35 @@
+version: 2
+updates:
+  # Configuration for npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 10
+    versioning-strategy: "auto"
+    labels:
+      - "dependencies"
+      - "npm"
+    commit-message:
+      prefix: "npm"
+      include: "scope"
+    groups:
+      angular:
+        patterns:
+          - "@angular*"
+        update-types:
+          - "minor"
+          - "patch"
+      fontawesome:
+        patterns:
+          - "@fortawesome*"
+        update-types:
+          - "minor"
+          - "patch"
+    ignore:
+      # Ignore major updates for Angular packages as they might require significant changes
+      - dependency-name: "@angular/*"
+        update-types: ["version-update:semver-major"]
+      # Ignore major updates for other dependencies that might cause breaking changes
+      - dependency-name: "rxjs"
+        update-types: ["version-update:semver-major"]
