@@ -33,10 +33,6 @@
                 <fa-icon [icon]="faStar" class="my-icon neon-text-green" />
                 New Ritual Entry
               </button>
-              <button class="journals-dropdown-item" type="button">
-                <fa-icon [icon]="faCrown" class="my-icon neon-text-pink" />
-                New Divination Entry
-              </button>
             </div>
           }
         </div>
@@ -45,7 +41,15 @@
         <!-- Search -->
         <div class="journals-search">
           <span class="journals-search-icon"><fa-icon [icon]="faSearch" class="my-icon" /></span>
-          <input type="text" class="journals-search-input" placeholder="Search entries..." (keydown.enter)="search($event)" />
+          <input type="text" class="journals-search-input" placeholder="Type to search entries..."
+                 [(ngModel)]="searchTerm"
+                 (input)="onSearchInput($event)"
+                 (keydown.enter)="search($event)" />
+          @if (searchTerm) {
+            <button class="journals-search-clear" type="button" (click)="clearSearch()">
+              <fa-icon [icon]="faTimes" class="my-icon" />
+            </button>
+          }
         </div>
         <!-- Type Filter -->
         <select class="journals-type-filter" (change)="filterType($event)">
@@ -53,7 +57,6 @@
           <option value="diary">Diary</option>
           <option value="dream">Dream</option>
           <option value="ritual">Ritual</option>
-          <option value="divination">Divination</option>
         </select>
         <!-- View Mode Toggle -->
         <div class="journals-view-toggle">
@@ -82,7 +85,6 @@
             <div class="journals-card-header">
               <span class="journals-card-type-icon"><fa-icon [icon]="icon(journal.journal_type)" class="my-icon" /></span>
               <span class="journals-card-type">{{ journal.journal_type }}</span>
-              <span class="journals-card-private"><fa-icon [icon]="faEyeSlash" class="my-icon" /></span>
               <div class="journals-card-actions">
                 <button class="journals-card-edit" type="button" (click)="editJournal(journal); $event.stopPropagation();">
                   <fa-icon [icon]="faEdit" class="my-icon" />
@@ -127,7 +129,7 @@
           <div class="calendar-day-label">Sat</div>
         </div>
         <div class="calendar-grid">
-          @for (day of calendarDays; track day.date.toISOString(); let i = $index) {
+          @for (day of calendarDays; track day.date.toISOString()) {
             <div class="calendar-cell" [ngClass]="{'calendar-cell-other': !day.isCurrentMonth, 'calendar-cell-today': day.date.toDateString() === (today | date:'fullDate')}">
               <span class="calendar-cell-day-number" [ngClass]="{'calendar-cell-has-entry': hasEntryForDay(day.date)}">{{ day.date.getDate() }}</span>
               @if (getEntryTypesForDay(day.date).length > 0) {

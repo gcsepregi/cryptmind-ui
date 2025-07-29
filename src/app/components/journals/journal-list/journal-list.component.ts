@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {NgClass, AsyncPipe, DatePipe} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 import {JournalFilter, JournalsService} from '../../../services/journals.service';
 import {BehaviorSubject, combineLatest, debounceTime, distinctUntilChanged, switchMap} from 'rxjs';
 import {Journal} from '../../../models/journal.model';
@@ -21,6 +22,7 @@ import {
   faStar,
   faTag,
   faTrash,
+  faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 import {ToastrService} from 'ngx-toastr';
 import { CalendarService, CalendarDay } from '../../../services/calendar.service';
@@ -32,7 +34,8 @@ import { CalendarService, CalendarDay } from '../../../services/calendar.service
     NgClass,
     AsyncPipe,
     DatePipe,
-    RouterLink
+    RouterLink,
+    FormsModule
   ],
   templateUrl: './journal-list.component.html',
   styleUrl: './journal-list.component.scss'
@@ -53,9 +56,11 @@ export class JournalListComponent {
   protected readonly faCalendar = faCalendar;
   protected readonly faTag = faTag;
   protected readonly faTrash = faTrash;
+  protected readonly faTimes = faTimes;
 
   protected newEntryDropDownOpen = false;
   view: 'grid' | 'list' | 'calendar' = 'grid';
+  searchTerm: string = '';
 
   search$ = new BehaviorSubject<string>('');
   type$ = new BehaviorSubject<string>('all');
@@ -202,6 +207,17 @@ export class JournalListComponent {
     const input = $event.target as HTMLInputElement;
     const value = input.value.trim();
     this.search$.next(value);
+  }
+
+  onSearchInput($event: Event) {
+    const input = $event.target as HTMLInputElement;
+    const value = input.value.trim();
+    this.search$.next(value);
+  }
+
+  clearSearch() {
+    this.searchTerm = '';
+    this.search$.next('');
   }
 
   filterType($event: Event) {
