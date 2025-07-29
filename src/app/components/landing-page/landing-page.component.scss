@@ -1,5 +1,28 @@
 /* CryptMind Landing Page Styles (SCSS version) */
 
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(32px);}
+  to   { opacity: 1; transform: none;}
+}
+
+@keyframes neonPulse {
+  0% { filter: drop-shadow(0 0 8px var(--neon-cyan)); }
+  50% { filter: drop-shadow(0 0 24px var(--neon-cyan)); }
+  100% { filter: drop-shadow(0 0 8px var(--neon-cyan)); }
+}
+
+.landing-title-row {
+  animation: fadeInUp 1s cubic-bezier(0.4,0,0.2,1) 0.1s both;
+}
+
+.landing-title .my-icon-lg {
+  animation: neonPulse 1.5s infinite alternate;
+}
+
+.landing-subtitle {
+  animation: fadeInUp 1.2s cubic-bezier(0.4,0,0.2,1) 0.3s both;
+}
+
 .landing-root {
   min-height: 100vh;
   background: var(--background);
@@ -219,6 +242,7 @@
     background: var(--neon-cyan, #00ffff);
     color: #18181b;
     box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    animation: neonPulse 1.5s infinite alternate;
   }
 
   &.landing-feature-badge-upcoming {
