@@ -1,6 +1,7 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Inject} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Journal, JournalStats, NewJournal} from '../models/journal.model';
+import {BASE_URL} from '../app.config';
 
 export interface JournalFilter {
   type?: string;
@@ -18,9 +19,10 @@ export interface JournalFilter {
 })
 export class JournalsService {
 
-  private readonly baseUrl = 'http://localhost:3000';
-
-  constructor(private readonly http: HttpClient) { }
+  constructor(
+    private readonly http: HttpClient,
+    @Inject(BASE_URL) private readonly baseUrl: string
+  ) { }
 
   getJournals(filter?: JournalFilter) {
     const params = this.toParams(filter);

@@ -1,21 +1,23 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { SignupData } from '../models/signup.model';
 import { LoginData } from '../models/login.model';
-import {BehaviorSubject, catchError, map, Observable, Subject, tap} from 'rxjs';
+import {BehaviorSubject, map, tap} from 'rxjs';
 import {User} from '../models/user.model';
+import {BASE_URL} from '../app.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private readonly baseUrl = 'http://localhost:3000';
-
   private readonly authenticated = new BehaviorSubject<boolean>(false);
   authenticated$ = this.authenticated.asObservable();
 
-  constructor(private readonly http: HttpClient) {
+  constructor(
+    private readonly http: HttpClient,
+    @Inject(BASE_URL) private readonly baseUrl: string
+  ) {
     this.loadToken();
   }
 
