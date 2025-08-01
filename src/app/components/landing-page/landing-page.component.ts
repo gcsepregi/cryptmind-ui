@@ -2,12 +2,14 @@ import { Component } from '@angular/core';
 import {RouterLink} from '@angular/router';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {faBook, faLock, faRightToBracket, faPen, faMagnifyingGlass, faSkull, faUserPlus, faUsers, faEye, faBrain} from '@fortawesome/free-solid-svg-icons';
+import {FooterComponent} from '../footer/footer.component';
 
 @Component({
   selector: 'app-landing-page',
   imports: [
     FontAwesomeModule,
-    RouterLink
+    RouterLink,
+    FooterComponent
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.scss'

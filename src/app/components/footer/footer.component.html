@@ -1,0 +1,95 @@
+<footer class="footer">
+  <!-- Main Footer Content -->
+  <div class="footer-main">
+    <div class="footer-container">
+
+      <!-- Left Column: Brand & Notices -->
+      <div class="footer-column footer-column-main">
+        <div class="footer-brand">
+          <h3 class="footer-title">
+            <fa-icon [icon]="faSkull" class="footer-icon"></fa-icon>
+            CryptMind
+          </h3>
+          <p class="footer-tagline">
+            Your spiritual sanctuary in the digital realm
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Links & Contact -->
+      <div class="footer-column footer-column-links">
+        <div class="footer-links-grid">
+          <!-- Quick Links Section -->
+          <div class="footer-links-section">
+            <h4 class="footer-section-title">Quick Links</h4>
+            <nav class="footer-nav">
+              <a [routerLink]="['/register']" class="footer-link">Get Started</a>
+              <a [routerLink]="['/login']" class="footer-link">Sign In</a>
+              <a [routerLink]="['/about']" class="footer-link">About</a>
+              <a [routerLink]="['/features']" class="footer-link">Features</a>
+              <a [routerLink]="['/support']" class="footer-link">Support</a>
+            </nav>
+          </div>
+
+          <!-- Legal Links Section -->
+          <div class="footer-links-section">
+            <h4 class="footer-section-title">Legal</h4>
+            <nav class="footer-nav">
+              <a [routerLink]="link.route" class="footer-link" *ngFor="let link of legalLinks">
+                {{ link.name }}
+              </a>
+            </nav>
+          </div>
+
+          <!-- Contact Section -->
+          <div class="footer-links-section">
+            <h4 class="footer-section-title">Contact</h4>
+            <div class="footer-contact">
+              <a [href]="'mailto:' + companyInfo.email" class="footer-contact-link">
+                <fa-icon [icon]="faEnvelope" class="contact-icon"></fa-icon>
+                {{ companyInfo.email }}
+              </a>
+              <a [href]="'tel:' + companyInfo.phone" class="footer-contact-link">
+                <fa-icon [icon]="faGear" class="contact-icon"></fa-icon>
+                {{ companyInfo.phone }}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- UK Law Compliance Section -->
+  <div class="footer-legal">
+    <div class="footer-container">
+      <div class="legal-content">
+
+        <!-- Company Registration Info -->
+        <div class="legal-info">
+          <p class="legal-text">
+            <strong>{{ companyInfo.name }}</strong> |
+            {{ companyInfo.address }} |
+            {{ companyInfo.registration }}
+          </p>
+        </div>
+
+        <!-- Copyright and Rights -->
+        <div class="legal-rights">
+          <p class="copyright">
+            &copy; {{ currentYear }} {{ companyInfo.name }}. All rights reserved.
+          </p>
+          <p class="legal-disclaimer">
+            Made with <fa-icon [icon]="faHeart" class="heart-icon"></fa-icon> for the spiritual community
+          </p>
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+
+</footer>
