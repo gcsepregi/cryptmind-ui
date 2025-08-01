@@ -36,9 +36,9 @@ export class FooterComponent {
 
   // Company information
   companyInfo = {
-    name: '4Shards Ltd.',
+    name: '4Shards Ltd',
     address: '5 South Charlotte Street, Edinburgh, EH2 4AN, UK',
-    email: 'contact@cryptmind.com',
+    email: 'contact@4shards.org',
     phone: '+44 20 1234 5678',
     registration: 'Company No: 12345678'
   };
