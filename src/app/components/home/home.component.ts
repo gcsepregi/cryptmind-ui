@@ -75,8 +75,8 @@ export class HomeComponent {
       this.stats = res;
     });
     journalService.getJournals({
-      fromDate: new Date(this.currentYear, this.currentMonth, 1),
-      toDate: new Date(this.currentYear, this.currentMonth + 1, 0),
+      fromDate: new Date(this.currentYear, this.currentMonth-1, 23),
+      toDate: new Date(this.currentYear, this.currentMonth + 1, 7),
     }).subscribe(res => {
       this.calendarEntries = res;
       this.updateCalendarDays();
