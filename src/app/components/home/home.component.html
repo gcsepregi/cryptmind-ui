@@ -38,7 +38,7 @@
           <div class="home-entry-info">
             <div class="home-entry-title">{{ entry.title }}</div>
             <div class="home-entry-date">{{ entry.created_at | date: 'dd MMM yyyy, HH:mm'}}</div>
-            <div class="home-entry-snippet">{{ entry.entry }}</div>
+            <div class="home-entry-snippet" [innerHTML]="entry.entry | markdown"></div>
           </div>
         </div>
       }

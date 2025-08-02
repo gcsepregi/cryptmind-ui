@@ -7,10 +7,11 @@ import {RouterLink} from '@angular/router';
 import {JournalsService} from '../../services/journals.service';
 import {Journal, JournalStats} from '../../models/journal.model';
 import { CalendarService, CalendarDay } from '../../services/calendar.service';
+import {MarkdownPipe} from '../../pipes/markdown.pipe';
 
 @Component({
   selector: 'app-home',
-  imports: [FontAwesomeModule, NgClass, DatePipe, RouterLink],
+  imports: [FontAwesomeModule, NgClass, DatePipe, RouterLink, MarkdownPipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
