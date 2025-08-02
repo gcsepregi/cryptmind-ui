@@ -39,8 +39,7 @@ export class FooterComponent {
     name: '4Shards Ltd',
     address: '5 South Charlotte Street, Edinburgh, EH2 4AN, UK',
     email: 'contact@4shards.org',
-    phone: '+44 20 1234 5678',
-    registration: 'Company No: 12345678'
+    registration: 'Company No: SC769653'
   };
 
   // Privacy and legal links
