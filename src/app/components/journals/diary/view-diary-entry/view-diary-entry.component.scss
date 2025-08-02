@@ -78,6 +78,44 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
   color: $foreground;
   margin-bottom: 2rem;
   white-space: pre-line;
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--neon-cyan);
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  // Links
+  a {
+    color: var(--neon-purple);
+    text-decoration: none;
+
+    &:hover {
+      text-shadow: 0 0 4px var(--neon-purple);
+    }
+  }
+
+  // Blockquotes
+  blockquote {
+    border-left: 4px solid var(--neon-cyan);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    background: rgba(0, 255, 255, 0.05);
+  }
+
+  // Lists
+  ul, ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+  }
+
+  // Code
+  code {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-family: var(--font-mono);
+  }
 }
 
 .view-entry-tags {

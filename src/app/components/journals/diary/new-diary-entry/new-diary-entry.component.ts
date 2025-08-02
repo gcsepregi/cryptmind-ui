@@ -1,19 +1,22 @@
 import { Component } from '@angular/core';
-import {FormBuilder, FormGroup, FormControl, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, FormControl, ReactiveFormsModule, Validators, FormsModule} from '@angular/forms';
 import {RouterLink, ActivatedRoute, Router} from '@angular/router';
 import {JournalsService} from '../../../../services/journals.service';
 import {Tag} from '../../../../models/tag.model';
 import {ToastrService} from 'ngx-toastr';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {faArrowLeft, faBook, faXmark} from '@fortawesome/free-solid-svg-icons';
+import {MarkdownEditorComponent} from '../../../tools/markdown-editor/markdown-editor.component';
 
 @Component({
   selector: 'app-new-diary-entry',
   imports: [
     FontAwesomeModule,
     ReactiveFormsModule,
-    RouterLink
-],
+    RouterLink,
+    MarkdownEditorComponent,
+    FormsModule
+  ],
   templateUrl: './new-diary-entry.component.html',
   styleUrl: './new-diary-entry.component.scss'
 })
@@ -99,5 +102,9 @@ export class NewDiaryEntryComponent {
       }
       console.log({title, entry, tags});
     }
+  }
+
+  entryContentChanged(content: string) {
+    this.form.patchValue({entry: content});
   }
 }

@@ -96,21 +96,21 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
     }
 
   }
-  textarea {
-    min-height: 180px;
-    max-height: none;
-    resize: vertical;
-  }
   &.diary-entry-group-textarea {
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
     min-height: 0;
-  }
-  &.diary-entry-group-textarea textarea {
-    flex: 1 1 auto;
-    min-height: 0;
-    max-height: none;
+
+    app-markdown-editor {
+      display: flex;
+      flex: 1 1 auto;
+      min-height: 0;
+      max-height: none;
+      border-radius: $radius;
+      border: 1px solid $primary;
+      overflow: hidden;
+    }
   }
 }
 

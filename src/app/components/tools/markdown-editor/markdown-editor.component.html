@@ -1,0 +1,42 @@
+<div class="markdown-editor" [class.fullscreen]="fullscreen">
+  @if (showHeader) {
+      <div class="editor-header">
+        <div class="toolbar">
+          <button (click)="$event.preventDefault(); insertMarkdown('**', '**')" title="Bold">B</button>
+          <button (click)="$event.preventDefault(); insertMarkdown('*', '*')" title="Italic">I</button>
+          <button (click)="$event.preventDefault(); insertMarkdown('### ', '')" title="Heading">H</button>
+          <button (click)="$event.preventDefault(); insertMarkdown('- ', '')" title="List">•</button>
+          <button (click)="$event.preventDefault(); insertMarkdown('> ', '')" title="Quote">"</button>
+          <button (click)="$event.preventDefault(); insertMarkdown('`', '`')" title="Code">`</button>
+          <button (click)="$event.preventDefault(); toggleFullscreen()">
+            <fa-icon [icon]="fullscreen ? faCompress : faExpand"></fa-icon>
+          </button>
+          <button (click)="$event.preventDefault(); togglePreview()">
+            <fa-icon [icon]="showPreview ? faEyeSlash : faEye"></fa-icon>
+          </button>
+        </div>
+    </div>
+  }
+
+  <div class="editor-layout">
+    @if (!showPreview) {
+    <!-- Markdown Input -->
+    <div class="markdown-input">
+      <textarea
+        [(ngModel)]="content"
+        (input)="onContentChange()"
+        placeholder="Write your thoughts in Markdown..."
+        class="markdown-textarea"
+        [attr.rows]="rows">
+          </textarea>
+    </div>
+
+    }
+    <!-- Live Preview -->
+    @if (showPreview) {
+      <div class="markdown-preview">
+        <div class="preview-content" [innerHTML]="renderedContent"></div>
+      </div>
+    }
+  </div>
+</div>
