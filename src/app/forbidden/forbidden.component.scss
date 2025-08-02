@@ -1,0 +1,54 @@
+$accent: var(--neon-cyan, #00ffff);
+$background: var(--background, #18181b);
+$foreground: var(--foreground, #ededed);
+$radius: 0.75rem;
+$shadow: 0 10px 30px -3px rgba(0,255,255,0.15);
+
+.forbidden-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  background: $background;
+}
+
+.forbidden-card {
+  background: rgba(24, 24, 27, 0.95);
+  border-radius: $radius;
+  padding: 2.5rem 2rem;
+  box-shadow: $shadow;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1.5px solid $accent;
+}
+
+.forbidden-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1.3rem;
+  color: $accent;
+  filter: drop-shadow(0 0 8px $accent);
+}
+
+.forbidden-title {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: $foreground;
+  letter-spacing: 1px;
+}
+
+.forbidden-message {
+  color: $foreground;
+  opacity: 0.85;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.forbidden-link {
+  text-decoration: none;
+  color: $accent;
+  font-weight: 600;
+  border-bottom: 1px solid $accent;
+  transition: color 0.15s;
+}

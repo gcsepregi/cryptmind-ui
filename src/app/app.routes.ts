@@ -1,4 +1,4 @@
-import {Routes} from '@angular/router';
+import {ActivatedRouteSnapshot, Route, Routes} from '@angular/router';
 import {HomeComponent} from './components/home/home.component';
 import {LoginComponent} from './components/users/login/login.component';
 import {LandingPageComponent} from './components/landing-page/landing-page.component';
@@ -12,28 +12,33 @@ import {NewRitualEntryComponent} from './components/journals/ritual/new-ritual-e
 import {ViewDiaryEntryComponent} from './components/journals/diary/view-diary-entry/view-diary-entry.component';
 import {ViewDreamEntryComponent} from './components/journals/dream/view-dream-entry/view-dream-entry.component';
 import {ViewRitualEntryComponent} from './components/journals/ritual/view-ritual-entry/view-ritual-entry.component';
+import {ForbiddenComponent} from './forbidden/forbidden.component';
 
-@Injectable(
-  {
-    providedIn: 'root'
-  }
-)
-class AuthGuard {
+@Injectable({providedIn: 'root'})
+export class AuthGuard {
+  private authenticated = false;
 
-  private authenticated: boolean = false;
-
-  constructor(userService: UserService) {
-    userService.authenticated$.subscribe(res => {
+  constructor(private userService: UserService) {
+    userService.authenticated$.subscribe((res) => {
       this.authenticated = res;
-    })
+    });
   }
 
-  canActivate() {
-    return this.authenticated;
+  canActivate(route: ActivatedRouteSnapshot): boolean {
+    return this.checkAccess(route.data?.['roles']);
   }
 
-  canMatch() {
-    return this.authenticated;
+  canMatch(route: Route): boolean {
+    return this.checkAccess(route.data?.['roles']);
+  }
+
+  private checkAccess(allowedRoles?: string[]): boolean {
+    if (!this.authenticated) return false;
+
+    if (!allowedRoles || allowedRoles.length === 0) return true;
+
+    const userRoles = this.userService.roles;
+    return allowedRoles.some(role => userRoles.includes(role));
   }
 }
 
@@ -52,5 +57,12 @@ export const routes: Routes = [
   {path: 'journals/ritual/new', component: NewRitualEntryComponent, canActivate: [AuthGuard]},
   {path: 'journals/ritual/:id', component: ViewRitualEntryComponent, canActivate: [AuthGuard]},
   {path: 'journals/ritual/:id/edit', component: NewRitualEntryComponent, canActivate: [AuthGuard]},
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+    canActivate: [AuthGuard],
+    data: {roles: ['admin']}
+  },
+  {path: 'forbidden', component: ForbiddenComponent},
   {path: '**', redirectTo: ''},
 ];

@@ -14,6 +14,13 @@ export class UserService {
   private readonly authenticated = new BehaviorSubject<boolean>(false);
   authenticated$ = this.authenticated.asObservable();
 
+  get roles(): string[] {
+    const token = localStorage.getItem('crypt-token');
+    if (!token) return [];
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.roles || [];
+  }
+
   constructor(
     private readonly http: HttpClient,
     @Inject(BASE_URL) private readonly baseUrl: string
@@ -52,5 +59,9 @@ export class UserService {
     if (token) {
       this.authenticated.next(true);
     }
+  }
+
+  markUnAuthenticated() {
+    this.authenticated.next(false);
   }
 }

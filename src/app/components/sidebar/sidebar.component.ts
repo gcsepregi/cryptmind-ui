@@ -4,7 +4,18 @@ import {UserService} from '../../services/user.service';
 import {Router, RouterLink} from '@angular/router';
 import {User} from '../../models/user.model';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {faBook, faHome, faSignOutAlt, faBars, faMoon, faSkull, faSun, faUser, faXmark} from '@fortawesome/free-solid-svg-icons';
+import {
+  faBook,
+  faHome,
+  faSignOutAlt,
+  faBars,
+  faMoon,
+  faSkull,
+  faSun,
+  faUser,
+  faXmark,
+  faDashboard
+} from '@fortawesome/free-solid-svg-icons';
 import {SidebarService} from '../../services/sidebar.service';
 
 @Component({
@@ -25,6 +36,7 @@ export class SidebarComponent {
   protected readonly faSignOutAlt = faSignOutAlt;
   protected readonly faXmark = faXmark;
   protected user: User | undefined;
+  protected roles: string[] = [];
 
   constructor(private readonly themeService: ThemeService,
               private readonly userService: UserService,
@@ -32,6 +44,7 @@ export class SidebarComponent {
               private readonly sidebarService: SidebarService) {
     this.userService.getMe().subscribe(res => {
       this.user = res;
+      this.roles = userService.roles;
     });
   }
 
@@ -58,4 +71,6 @@ export class SidebarComponent {
   toggleTheme() {
     this.themeService.toggle();
   }
+
+  protected readonly faDashboard = faDashboard;
 }
