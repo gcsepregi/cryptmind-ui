@@ -19,7 +19,7 @@
           {{ entry.journal_type }}
       </span>
       </div>
-      <div class="view-entry-content">{{ entry.entry }}</div>
+      <div class="view-entry-content" [innerHTML]="entry.entry | markdown"></div>
       @if (entry.tags && entry.tags.length) {
         <div class="view-entry-tags">
           @for (tag of entry.tags; track tag) {

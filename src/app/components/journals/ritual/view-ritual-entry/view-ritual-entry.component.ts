@@ -6,6 +6,7 @@ import {faArrowLeft, faCalendar, faStar, faTag} from '@fortawesome/free-solid-sv
 import {BehaviorSubject} from 'rxjs';
 import {Journal} from '../../../../models/journal.model';
 import {JournalsService} from '../../../../services/journals.service';
+import {MarkdownPipe} from '../../../../pipes/markdown.pipe';
 
 @Component({
   selector: 'app-view-ritual-entry',
@@ -13,7 +14,8 @@ import {JournalsService} from '../../../../services/journals.service';
     AsyncPipe,
     DatePipe,
     FaIconComponent,
-    RouterLink
+    RouterLink,
+    MarkdownPipe
   ],
   templateUrl: './view-ritual-entry.component.html',
   styleUrl: './view-ritual-entry.component.scss'

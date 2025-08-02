@@ -6,6 +6,7 @@ import {faArrowLeft, faCalendar, faMoon, faTag} from '@fortawesome/free-solid-sv
 import {JournalsService} from '../../../../services/journals.service';
 import {BehaviorSubject} from 'rxjs';
 import {Journal} from '../../../../models/journal.model';
+import {MarkdownPipe} from '../../../../pipes/markdown.pipe';
 
 @Component({
   selector: 'app-view-dream-entry',
@@ -13,7 +14,8 @@ import {Journal} from '../../../../models/journal.model';
     AsyncPipe,
     DatePipe,
     FaIconComponent,
-    RouterLink
+    RouterLink,
+    MarkdownPipe
   ],
   templateUrl: './view-dream-entry.component.html',
   styleUrl: './view-dream-entry.component.scss'

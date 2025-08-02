@@ -20,7 +20,7 @@
       </div>
       <div class="diary-entry-group diary-entry-group-textarea">
         <label for="entry">Entry</label>
-        <textarea id="entry" name="entry" placeholder="Describe your dream..." formControlName="entry" required></textarea>
+        <app-markdown-editor (contentChange)="entryContentChanged($event)" [content]="form.value['entry']" [showHeader]="true"></app-markdown-editor>
       </div>
       <div class="diary-entry-group">
         <label for="tags">Tags <span class="diary-entry-tags-hint">(press Enter or comma)</span></label>

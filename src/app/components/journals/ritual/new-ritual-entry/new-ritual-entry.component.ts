@@ -5,13 +5,15 @@ import {JournalsService} from '../../../../services/journals.service';
 import {ToastrService} from 'ngx-toastr';
 import {FaIconComponent} from '@fortawesome/angular-fontawesome';
 import {faArrowLeft, faStar, faXmark} from '@fortawesome/free-solid-svg-icons';
+import {MarkdownEditorComponent} from '../../../tools/markdown-editor/markdown-editor.component';
 
 @Component({
   selector: 'app-new-ritual-entry',
   imports: [
     RouterLink,
     FaIconComponent,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MarkdownEditorComponent
   ],
   templateUrl: './new-ritual-entry.component.html',
   styleUrl: './new-ritual-entry.component.scss'
@@ -98,4 +100,9 @@ export class NewRitualEntryComponent {
       console.log({title, entry, tags});
     }
   }
+
+  entryContentChanged(content: string) {
+    this.form.patchValue({entry: content});
+  }
+
 }
