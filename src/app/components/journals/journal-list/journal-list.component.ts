@@ -26,6 +26,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {ToastrService} from 'ngx-toastr';
 import { CalendarService, CalendarDay } from '../../../services/calendar.service';
+import {MarkdownPipe} from '../../../pipes/markdown.pipe';
 
 @Component({
   selector: 'app-journal-list',
@@ -35,7 +36,8 @@ import { CalendarService, CalendarDay } from '../../../services/calendar.service
     AsyncPipe,
     DatePipe,
     RouterLink,
-    FormsModule
+    FormsModule,
+    MarkdownPipe
   ],
   templateUrl: './journal-list.component.html',
   styleUrl: './journal-list.component.scss'

@@ -95,7 +95,7 @@
               </div>
             </div>
             <h3 class="journals-card-title">{{ journal.title }}</h3>
-            <p class="journals-card-content">{{ journal.entry }}</p>
+            <div class="journals-card-content" [innerHTML]="journal.entry | markdown"></div>
             <div class="journals-card-tags">
               @for (tag of journal.tags.slice(0,2); track tag) {
                 <span class="journals-card-tag">{{ tag.name }}</span>

@@ -6,7 +6,7 @@ import {JournalsService} from '../../../../services/journals.service';
 import {BehaviorSubject} from 'rxjs';
 import {Journal} from '../../../../models/journal.model';
 import {AsyncPipe, DatePipe} from '@angular/common';
-import {MarkdownSafePipe} from '../../../../pipes/markdown-safe.pipe';
+import {MarkdownPipe} from '../../../../pipes/markdown.pipe';
 
 @Component({
   selector: 'app-view-diary-entry',
@@ -15,7 +15,7 @@ import {MarkdownSafePipe} from '../../../../pipes/markdown-safe.pipe';
     FaIconComponent,
     AsyncPipe,
     DatePipe,
-    MarkdownSafePipe
+    MarkdownPipe
   ],
   templateUrl: './view-diary-entry.component.html',
   styleUrl: './view-diary-entry.component.scss'
