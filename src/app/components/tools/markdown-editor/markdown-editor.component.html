@@ -2,12 +2,14 @@
   @if (showHeader) {
       <div class="editor-header">
         <div class="toolbar">
-          <button (click)="$event.preventDefault(); insertMarkdown('**', '**')" title="Bold">B</button>
-          <button (click)="$event.preventDefault(); insertMarkdown('*', '*')" title="Italic">I</button>
-          <button (click)="$event.preventDefault(); insertMarkdown('### ', '')" title="Heading">H</button>
-          <button (click)="$event.preventDefault(); insertMarkdown('- ', '')" title="List">•</button>
-          <button (click)="$event.preventDefault(); insertMarkdown('> ', '')" title="Quote">"</button>
-          <button (click)="$event.preventDefault(); insertMarkdown('`', '`')" title="Code">`</button>
+          <button (click)="$event.preventDefault(); insertMarkdown('**', '**')" title="Bold"><fa-icon [icon]="faBold"></fa-icon> </button>
+          <button (click)="$event.preventDefault(); insertMarkdown('*', '*')" title="Italic"><fa-icon [icon]="faItalic"></fa-icon></button>
+          <button (click)="$event.preventDefault(); insertMarkdown('~', '~')" title="Italic"><fa-icon [icon]="faStrikethrough"></fa-icon></button>
+          <button (click)="$event.preventDefault(); insertMarkdown('### ', '')" title="Heading"><fa-icon [icon]="faH"></fa-icon> </button>
+          <button (click)="$event.preventDefault(); insertMarkdown('- ', '')" title="List"><fa-icon [icon]="faListDots"></fa-icon></button>
+          <button (click)="$event.preventDefault(); insertMarkdown('1. ', '')" title="List"><fa-icon [icon]="faListNumeric"></fa-icon></button>
+          <button (click)="$event.preventDefault(); insertMarkdown('> ', '')" title="Quote"><fa-icon [icon]="faQuoteLeft"></fa-icon></button>
+          <button (click)="$event.preventDefault(); insertMarkdown('`', '`')" title="Code"><fa-icon [icon]="faCode"></fa-icon> </button>
           <button (click)="$event.preventDefault(); toggleFullscreen()">
             <fa-icon [icon]="fullscreen ? faCompress : faExpand"></fa-icon>
           </button>
@@ -19,7 +21,7 @@
   }
 
   <div class="editor-layout">
-    @if (!showPreview) {
+    @if (!showPreview || fullscreen) {
     <!-- Markdown Input -->
     <div class="markdown-input">
       <textarea
@@ -33,7 +35,7 @@
 
     }
     <!-- Live Preview -->
-    @if (showPreview) {
+    @if (showPreview || fullscreen) {
       <div class="markdown-preview">
         <div class="preview-content" [innerHTML]="renderedContent"></div>
       </div>

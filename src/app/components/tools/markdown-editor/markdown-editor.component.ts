@@ -1,6 +1,15 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormsModule} from '@angular/forms';
-import {faCompress, faExpand, faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
+import {
+  faBold, faCode,
+  faCompress,
+  faExpand,
+  faEye,
+  faEyeSlash,
+  faH,
+  faItalic,
+  faListDots, faListNumeric, faQuoteLeft, faStrikethrough
+} from '@fortawesome/free-solid-svg-icons';
 import {FaIconComponent} from '@fortawesome/angular-fontawesome';
 import {MarkdownService} from '../../../services/markdown.service';
 
@@ -65,4 +74,13 @@ export class MarkdownEditorComponent {
   protected onContentChange() {
     this.contentChange.emit(this.content);
   }
+
+  protected readonly faBold = faBold;
+  protected readonly faItalic = faItalic;
+  protected readonly faH = faH;
+  protected readonly faListDots = faListDots;
+  protected readonly faQuoteLeft = faQuoteLeft;
+  protected readonly faCode = faCode;
+  protected readonly faListNumeric = faListNumeric;
+  protected readonly faStrikethrough = faStrikethrough;
 }
