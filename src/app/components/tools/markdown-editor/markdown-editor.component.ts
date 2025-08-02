@@ -1,14 +1,18 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {
-  faBold, faCode,
+  faBold,
+  faCode,
   faCompress,
   faExpand,
   faEye,
   faEyeSlash,
   faH,
   faItalic,
-  faListDots, faListNumeric, faQuoteLeft, faStrikethrough
+  faListDots,
+  faListNumeric,
+  faQuoteLeft,
+  faStrikethrough
 } from '@fortawesome/free-solid-svg-icons';
 import {FaIconComponent} from '@fortawesome/angular-fontawesome';
 import {MarkdownService} from '../../../services/markdown.service';
@@ -44,18 +48,16 @@ export class MarkdownEditorComponent {
     const end = textarea.selectionEnd;
     const selectedText = this.content.substring(start, end);
 
-    const newContent = this.content.substring(0, start) +
+    this.content = this.content.substring(0, start) +
       before + selectedText + after +
       this.content.substring(end);
-
-    this.content = newContent;
     this.onContentChange();
 
     // Restore cursor position
     setTimeout(() => {
       textarea.focus();
       textarea.setSelectionRange(start + before.length, end + before.length);
-    });
+    }, 100);
   }
 
   protected readonly faCompress = faCompress;
