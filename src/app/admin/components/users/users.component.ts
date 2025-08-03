@@ -79,9 +79,7 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  protected readonly faUserCircle = faUserCircle;
   protected readonly faPen = faPen;
   protected readonly faTrash = faTrash;
-  protected readonly faClock = faClock;
   protected readonly faBook = faBook;
 }
