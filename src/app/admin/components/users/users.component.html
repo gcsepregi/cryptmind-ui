@@ -3,54 +3,8 @@
     <h1>Users</h1>
   </header>
   <div class="users-table-wrapper">
-    <table class="users-table">
-      <thead>
-      <tr>
-        @for (col of columns; track col) {
-          <th>{{ col.header }}</th>
-        }
-      </tr>
-      </thead>
-      <tbody>
-        @for (user of users$ | async; track user) {
-          <tr>
-            @for (col of columns; track col) {
-              @if (!col.isActions) {
-                <td>
-                  @if (col.isDecorated) {
-                    @if (col.link) {
-                      <div class="decorated-cell link-cell" [routerLink]="[col.link.prefix, user.id, col.link.suffix]">
-                        <fa-icon [icon]="col.icon" class="icon"></fa-icon>
-                        <span>{{ user[col.property] }}</span>
-                      </div>
-                    } @else {
-                      <div class="decorated-cell">
-                        <fa-icon [icon]="col.icon" class="icon"></fa-icon>
-                        <span>{{ user[col.property] }}</span>
-                      </div>
-                    }
-                  } @else {
-                    @if (col.isDate) {
-                      <span>{{ user[col.property] | date }}</span>
-                    } @else {
-                      <span>{{ user[col.property] }}</span>
-                    }
-                  }
-                </td>
-              } @else {
-                <td>
-                  <button class="icon-button" title="Edit">
-                    <fa-icon [icon]="faPen"></fa-icon>
-                  </button>
-                  <button class="icon-button danger" title="Delete">
-                    <fa-icon [icon]="faTrash"></fa-icon>
-                  </button>
-                </td>
-              }
-            }
-          </tr>
-        }
-      </tbody>
-    </table>
+    @if (users$ | async; as users) {
+      <app-dynamic-table [columns]="columns" [items]="users"></app-dynamic-table>
+    }
   </div>
 </section>

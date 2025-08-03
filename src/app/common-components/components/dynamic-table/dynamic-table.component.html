@@ -1,0 +1,55 @@
+<table class="users-table">
+  <thead>
+  <tr>
+    @for (col of columns; track col) {
+      <th>{{ col.header }}</th>
+    }
+  </tr>
+  </thead>
+  <tbody>
+    @if (items && items.length > 0) {
+      @for (item of items; track item) {
+        <tr>
+          @for (col of columns; track col) {
+            @if (!col.isActions) {
+              <td>
+                @if (col.isDecorated) {
+                  @if (col.link) {
+                    <div class="decorated-cell link-cell" [routerLink]="[col.link.prefix, item['id'], col.link.suffix]">
+                      <fa-icon [icon]="col.icon!" class="icon"></fa-icon>
+                      <span>{{ item[col.property] }}</span>
+                    </div>
+                  } @else {
+                    <div class="decorated-cell">
+                      <fa-icon [icon]="col.icon!" class="icon"></fa-icon>
+                      <span>{{ item[col.property] }}</span>
+                    </div>
+                  }
+                } @else {
+                  @if (col.isDate) {
+                    <span>{{ item[col.property] | date }}</span>
+                  } @else {
+                    <span>{{ item[col.property] }}</span>
+                  }
+                }
+              </td>
+            } @else {
+              <td>
+                @if (actionsTemplate) {
+                  <ng-container [ngTemplateOutlet]="actionsTemplate"
+                                [ngTemplateOutletContext]="{ item: item }"></ng-container>
+                }
+              </td>
+            }
+          }
+        </tr>
+      }
+    } @else {
+      <tr>
+        <td [attr.colspan]="columns.length">
+          <div class="users-empty">No entries found.</div>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>

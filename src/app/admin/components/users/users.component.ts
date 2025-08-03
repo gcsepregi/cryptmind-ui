@@ -2,18 +2,15 @@ import {Component, OnInit} from '@angular/core';
 import {UsersService} from '../../services/users.service';
 import {BehaviorSubject} from 'rxjs';
 import {User} from '../../models/user';
-import {FaIconComponent} from '@fortawesome/angular-fontawesome';
-import {AsyncPipe, DatePipe} from '@angular/common';
+import {AsyncPipe} from '@angular/common';
 import {faBook, faClock, faPen, faTrash, faUserCircle} from '@fortawesome/free-solid-svg-icons';
-import {RouterLink} from '@angular/router';
+import {DynamicTableComponent} from '../../../common-components/components/dynamic-table/dynamic-table.component';
 
 @Component({
   selector: 'app-users',
   imports: [
-    FaIconComponent,
     AsyncPipe,
-    DatePipe,
-    RouterLink
+    DynamicTableComponent
   ],
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss'
