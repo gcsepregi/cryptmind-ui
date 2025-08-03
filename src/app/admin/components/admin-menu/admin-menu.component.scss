@@ -1,0 +1,45 @@
+$background: var(--background, #18181b);
+$foreground: var(--foreground, #ededed);
+$primary: var(--color-primary-400, #5a5a8a);
+$accent: var(--neon-purple, #a259f7);
+$radius: 1rem;
+$shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.25);
+
+.sidebar-section {
+  .sidebar-section-title {
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    opacity: 0.6;
+    color: $foreground;
+  }
+  .sidebar-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.5rem;
+      background: none;
+      border: none;
+      color: $foreground;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      &:hover {
+        background: $primary;
+        color: #fff;
+      }
+      &-logout {
+        color: #ff6b35;
+        &:hover {
+          background: #ff6b35;
+          color: #fff;
+        }
+      }
+    }
+  }
+}

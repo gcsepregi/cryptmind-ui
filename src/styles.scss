@@ -90,6 +90,8 @@
 
   --landing-page-hero-gradient: linear-gradient(to bottom, #e0f2fe, #f3e8ff, transparent);
   --landing-page-footer-gradient: linear-gradient(to top, #e0f2fe, #f3e8ff, transparent);
+
+  --dashboard-widget-bg: #212126;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -100,20 +102,22 @@
 
     --landing-page-hero-gradient: linear-gradient(to bottom, #0a0a0a, #171717, transparent);
     --landing-page-footer-gradient: linear-gradient(to top, #0a0a0a, #171717, transparent);
+
+    --dashboard-widget-bg: #232334;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans);
+  font-family: var(--font-sans), sans-serif;
   padding: 0;
   margin: 0;
   transition: transform 0.2s;
 }
 
 .btn-crypt {
-  font-family: var(--font-sans);
+  font-family: var(--font-sans), sans-serif;
   border: none;
   border-radius: var(--radius-md);
   padding: var(--spacing-sm) var(--spacing-lg);

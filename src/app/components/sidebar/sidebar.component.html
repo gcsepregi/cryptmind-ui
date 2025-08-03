@@ -25,15 +25,7 @@
         </div>
       </div>
       @if (roles.includes( 'admin' )) {
-      <div class="sidebar-section">
-        <div class="sidebar-section-title">Admin</div>
-        <div class="sidebar-links">
-          <button class="sidebar-link" type="button" routerLink="/admin/dashboard">
-            <fa-icon [icon]="faDashboard" class="my-icon" />
-            <span>Dashboard</span>
-          </button>
-        </div>
-      </div>
+        <app-admin-menu></app-admin-menu>
       }
       <div class="sidebar-section">
         <div class="sidebar-section-title">Account</div>

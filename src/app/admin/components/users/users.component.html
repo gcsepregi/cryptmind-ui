@@ -1,0 +1,44 @@
+<section class="admin-users">
+  <header class="users-header">
+    <h1>Users</h1>
+  </header>
+  <div class="users-table-wrapper">
+    <table class="users-table">
+      <thead>
+      <tr>
+        <th>User</th>
+        <th>Email</th>
+        <th>Created</th>
+        <th>Updated</th>
+        <th style="width:100px"></th>
+      </tr>
+      </thead>
+      <tbody>
+      @for (user of users$ | async; track user) {
+      <tr>
+        <td>
+          <div class="user-cell">
+            <fa-icon [icon]="faUserCircle" class="user-avatar"></fa-icon>
+            <span>{{ user.nickname }}</span>
+          </div>
+        </td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.created_at | date  }}</td>
+        <td>{{ user.updated_at | date }}</td>
+        <td>
+          <button class="icon-button" title="Edit">
+            <fa-icon [icon]="faPen"></fa-icon>
+          </button>
+          <button class="icon-button danger" title="Delete">
+            <fa-icon [icon]="faTrash"></fa-icon>
+          </button>
+        </td>
+      </tr>
+      }
+      </tbody>
+    </table>
+    @if ((users$ | async)!.length === 0) {
+      <div class="users-empty">No users found.</div>
+    }
+  </div>
+</section>
