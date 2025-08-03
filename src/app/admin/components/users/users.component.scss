@@ -1,10 +1,8 @@
 .admin-users {
   margin: 2rem auto;
-  max-width: 900px;
   padding: 2rem 1.5rem;
-  background: var(--background, #22232b);
+  max-width: 100%;
   border-radius: 1.25rem;
-  box-shadow: 0 1px 12px 0 rgba(34,39,64,0.03);
 
   .users-header {
     display: flex;
@@ -13,7 +11,6 @@
     margin-bottom: 2rem;
     h1 {
       font-size: 1.6rem;
-      color: var(--color-primary-400, #5a5a8a);
       font-weight: 700;
       letter-spacing: 0.01em;
       margin: 0;
@@ -42,11 +39,12 @@
   }
 
   .users-table-wrapper {
-    background: var(--table-bg, #1d1e23);
     border-radius: 0.75rem;
     overflow-x: auto;
-    border: 1px solid rgba(0,250,255,0.04);
-    padding: 0.5rem 0;
+    border: 1px solid var(--table-border-color);
+    box-shadow: var(--shadow-lg);
+
+    padding: 0 0;
 
     .users-table {
       width: 100%;
@@ -59,9 +57,8 @@
       }
 
       th {
-        color: var(--color-primary-400, #5a5a8a);
+        background: var(--table-header-bg, #22232b);
         font-weight: 700;
-        background: none;
         border-bottom: 1px solid rgba(0,0,0,0.08);
       }
 
@@ -74,14 +71,17 @@
         border-bottom: none;
       }
 
-      .user-cell {
+      tr:hover {
+        background: var(--table-row-hover-bg);
+      }
+
+      .decorated-cell {
         display: flex;
         align-items: center;
         gap: 0.65em;
 
-        .user-avatar {
-          color: var(--color-primary-400, #5a5a8a);
-          font-size: 1.6em;
+        .icon {
+          font-size: 1.2em;
           opacity: 0.85;
         }
       }
@@ -110,7 +110,6 @@
     transition: background 0.16s, color 0.16s, border-color 0.16s;
 
     &:hover, &:focus {
-      background: var(--table-bg, #2e2f37);
       border-color: var(--color-primary-400, #5a5a8a);
       color: var(--accent, #06b6d4);
       outline: none;
@@ -118,7 +117,6 @@
     &.danger {
       color: #ff6262;
       &:hover, &:focus {
-        background: #ffeded;
         color: #b91c1c;
         border-color: #ff6262;
       }
