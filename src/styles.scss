@@ -294,3 +294,24 @@ body {
 .link-cell {
   cursor: pointer;
 }
+
+.link-back {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  font-size: 1rem;
+  color: var(--foreground);
+  opacity: 0.7;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  .login-back-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    display: inline-block;
+    color: var(--foreground);
+  }
+  &:hover {
+    opacity: 1;
+  }
+}

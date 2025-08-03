@@ -1,1 +1,17 @@
-<p>user-sessions works!</p>
+<section class="admin-users">
+  <header class="users-header">
+    <div>
+      <h1>Sessions for user</h1>
+      <a [routerLink]="['/admin/users']" class="link-back">
+        <!-- Home Icon Placeholder -->
+        <fa-icon [icon]="faArrowLeft" class="my-icon"></fa-icon>
+        Back to Users
+      </a>
+    </div>
+  </header>
+  <div class="users-table-wrapper">
+    @if (items$ | async; as items) {
+      <app-dynamic-table [columns]="columns" [items]="items"></app-dynamic-table>
+    }
+  </div>
+</section>

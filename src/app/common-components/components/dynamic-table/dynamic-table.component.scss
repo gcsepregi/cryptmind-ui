@@ -27,6 +27,10 @@ table {
     background: var(--table-row-hover-bg);
   }
 
+  tr.no-hover:hover {
+    background: none;
+  }
+
   .decorated-cell {
     display: flex;
     align-items: center;
