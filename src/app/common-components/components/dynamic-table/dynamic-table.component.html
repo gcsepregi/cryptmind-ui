@@ -3,7 +3,23 @@
     <thead>
     <tr>
       @for (col of columns; track col) {
-        <th>{{ col.header }}</th>
+        <th
+          [class.sortable]="!col.isActions && col.isSortable"
+          (click)="!col.isActions && toggleSort(col.property)"
+        >
+          {{ col.header }}
+
+          <!-- sort indicator -->
+          @if (!col.isActions && col.isSortable) {
+          <fa-icon [icon]="
+                       sortColumn !== col.property ? icoSort :
+                       sortDirection === 'asc'      ? icoUp   :
+                       sortDirection === 'desc'     ? icoDown : icoSort
+                     "
+                   class="sort-icon"
+          ></fa-icon>
+          }
+        </th>
       }
     </tr>
     </thead>

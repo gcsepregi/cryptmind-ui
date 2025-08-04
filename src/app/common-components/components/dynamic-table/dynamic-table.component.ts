@@ -3,9 +3,12 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import {FaIconComponent} from '@fortawesome/angular-fontawesome';
 import {RouterLink} from '@angular/router';
 import {DatePipe, NgTemplateOutlet} from '@angular/common';
-import {faChevronLeft, faChevronRight} from '@fortawesome/free-solid-svg-icons';
+import {faChevronLeft, faChevronRight, faSort, faSortDown, faSortUp} from '@fortawesome/free-solid-svg-icons';
 
 type ColumnLink = { prefix: string; suffix: string };
+
+export type SortDirection = 'asc' | 'desc' | null | undefined;
+export interface SortEvent { property: string | null; direction: SortDirection }
 
 export interface PageEvent { pageIndex: number; pageSize: number }
 
@@ -27,6 +30,7 @@ export class DynamicTableComponent<T extends { [prop: string]: any }> {
     property: string;
     header: string;
     isDecorated?: boolean;
+    isSortable?: boolean;
     icon?: IconDefinition;
     isDate?: boolean;
     isActions?: boolean;
@@ -36,6 +40,25 @@ export class DynamicTableComponent<T extends { [prop: string]: any }> {
   @Input() items: T[] = [];
 
   @Input() actionsTemplate: any = null;
+
+  @Input() sortColumn: string | null | undefined = null;
+  @Input() sortDirection: SortDirection = null;
+  @Output() sortChange = new EventEmitter<SortEvent>();
+
+  toggleSort(col: string): void {
+    let next: SortDirection = 'asc';
+    if (this.sortColumn === col) {
+      next = this.sortDirection === 'asc' ? 'desc'
+        : this.sortDirection === 'desc' ? null
+          : 'asc';
+    }
+    this.sortChange.emit({ property: next ? col : null, direction: next });
+  }
+
+  /* icons used in template */
+  protected readonly icoSort = faSort;
+  protected readonly icoUp   = faSortUp;
+  protected readonly icoDown = faSortDown;
 
   /* ----------- paging ----------- */
   /** current page index (zero-based) */

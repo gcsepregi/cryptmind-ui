@@ -9,7 +9,11 @@
         [totalItems]="users.total"
         [pageSize]="users.pageSize"
         [pageIndex]="users.pageIndex"
+        [sortColumn]="(sorting$ | async)?.property"
+        [sortDirection]="(sorting$ | async)?.direction"
         (pageChange)="onPageChange($event)"
+        (sortChange)="onSortChange($event)"
       ></app-dynamic-table>
     }
 </section>
+

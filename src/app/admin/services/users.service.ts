@@ -13,11 +13,13 @@ export class UsersService {
               @Inject(BASE_URL) private readonly baseUrl: string) {
   }
 
-  getUsers(pageIndex?: number, pageSize?: number) {
+  getUsers(pageIndex?: number, pageSize?: number, orderBy?: string, orderDirection?: string) {
     return this.http.get<DynamicTableData<User>>(`${this.baseUrl}/admin/users`, {
       params: {
         page_index: pageIndex || 0,
-        page_size: pageSize || 10
+        page_size: pageSize || 10,
+        order_by: orderBy || 'email',
+        order_direction: orderDirection || 'asc'
       }
     });
   }
