@@ -29,7 +29,7 @@ export class UsersService {
       params: {
         page_index: pageIndex || 0,
         page_size: pageSize || 10,
-        order_by: orderBy || 'last_active',
+        order_by: orderBy || 'last_seen_at',
         order_direction: orderDirection || 'desc'
       }
     });

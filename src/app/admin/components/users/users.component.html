@@ -2,7 +2,7 @@
   <header class="users-header">
     <h1>Users</h1>
   </header>
-    @if (users$ | async; as users) {
+    @if (items$ | async; as users) {
       <app-dynamic-table
         [columns]="columns"
         [items]="users.data"

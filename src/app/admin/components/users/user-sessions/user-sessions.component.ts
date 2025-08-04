@@ -1,14 +1,15 @@
 import {Component} from '@angular/core';
 import {AsyncPipe} from '@angular/common';
 import {
-  DynamicTableComponent,
-  PageEvent, SortEvent
+  DynamicTableComponent, TableComponentBase
 } from '../../../../common-components/components/dynamic-table/dynamic-table.component';
 import {UsersService} from '../../../services/users.service';
-import {BehaviorSubject, combineLatest, switchMap} from 'rxjs';
+import {Observable} from 'rxjs';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {FaIconComponent} from '@fortawesome/angular-fontawesome';
 import {faArrowLeft, faTrash} from '@fortawesome/free-solid-svg-icons';
+import {UserSessions} from '../../../models/user';
+import {DynamicTableData} from '../../../models/dynamic-table-data';
 
 @Component({
   selector: 'app-user-sessions',
@@ -21,9 +22,9 @@ import {faArrowLeft, faTrash} from '@fortawesome/free-solid-svg-icons';
   templateUrl: './user-sessions.component.html',
   styleUrl: './user-sessions.component.scss'
 })
-export class UserSessionsComponent {
+export class UserSessionsComponent extends TableComponentBase<UserSessions> {
 
-  protected readonly columns = [
+  override columns = [
     {
       property: 'user_agent',
       header: 'User Agent',
@@ -58,21 +59,12 @@ export class UserSessionsComponent {
     }
   ];
 
-  private readonly paging$ = new BehaviorSubject<PageEvent>({pageIndex: 0, pageSize: 10});
-  protected readonly sorting$ = new BehaviorSubject<SortEvent>({property: 'updated_at', direction: 'desc'});
-
-  protected readonly items$ = combineLatest([this.paging$, this.sorting$])
-    .pipe(
-      switchMap(([{pageIndex, pageSize}, {property, direction}]) =>
-        this.usersService.getSessions(this.userId, pageIndex, pageSize, property ?? undefined, direction ?? undefined)
-      )
-    );
-
   protected readonly faArrowLeft = faArrowLeft;
   private readonly userId: string;
 
   constructor(private readonly usersService: UsersService,
               private readonly activatedRoute: ActivatedRoute) {
+    super();
     this.userId = this.activatedRoute.snapshot.params['id'];
   }
 
@@ -85,11 +77,7 @@ export class UserSessionsComponent {
 
   protected readonly faTrash = faTrash;
 
-  onPageChange($event: PageEvent) {
-    this.paging$.next($event);
-  }
-
-  onSortChange($event: SortEvent) {
-    this.sorting$.next($event);
+  protected override load(pageIndex: number, pageSize: number, orderBy?: string, direction?: string): Observable<DynamicTableData<UserSessions>> {
+    return this.usersService.getSessions(this.userId, pageIndex, pageSize, orderBy, direction);
   }
 }

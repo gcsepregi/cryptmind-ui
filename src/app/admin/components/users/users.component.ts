@@ -1,12 +1,11 @@
 import {Component} from '@angular/core';
 import {UsersService} from '../../services/users.service';
-import {BehaviorSubject, combineLatest, switchMap} from 'rxjs';
 import {AsyncPipe} from '@angular/common';
 import {faBook, faClock, faUserCircle} from '@fortawesome/free-solid-svg-icons';
 import {
-  DynamicTableComponent,
-  PageEvent, SortEvent
+  DynamicTableComponent, TableComponentBase
 } from '../../../common-components/components/dynamic-table/dynamic-table.component';
+import {User} from '../../models/user';
 
 @Component({
   selector: 'app-users',
@@ -17,21 +16,13 @@ import {
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss'
 })
-export class UsersComponent {
-  private paging$ = new BehaviorSubject<PageEvent>({pageIndex: 0, pageSize: 10});
-  protected sorting$ = new BehaviorSubject<SortEvent>({property: null, direction: null});
-
-  protected users$ = combineLatest([this.paging$, this.sorting$])
-    .pipe(
-      switchMap(([{pageIndex, pageSize}, {property, direction}]) =>
-        this.usersService.getUsers(pageIndex, pageSize, property ?? undefined, direction ?? undefined)
-      )
-    );
+export class UsersComponent extends TableComponentBase<User> {
 
   constructor(private readonly usersService: UsersService) {
+    super();
   }
 
-  columns = [
+  override columns = [
     {
       property: 'nickname',
       header: 'User',
@@ -83,13 +74,11 @@ export class UsersComponent {
     },
   ];
 
-  protected readonly faBook = faBook;
-
-  onPageChange($event: PageEvent) {
-    this.paging$.next($event);
+  protected override load(pageIndex:  number,
+                          pageSize:   number,
+                          orderBy?:   string,
+                          direction?: string,) {
+    return this.usersService.getUsers(pageIndex, pageSize, orderBy, direction);
   }
 
-  onSortChange($event: SortEvent) {
-    this.sorting$.next($event);
-  }
 }

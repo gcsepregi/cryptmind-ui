@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import {AsyncPipe} from '@angular/common';
 import {
-  DynamicTableComponent,
-  PageEvent, SortEvent
+  DynamicTableComponent, TableComponentBase
 } from '../../../../common-components/components/dynamic-table/dynamic-table.component';
 import {FaIconComponent} from '@fortawesome/angular-fontawesome';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
-import {BehaviorSubject, combineLatest, switchMap} from 'rxjs';
+import {Observable} from 'rxjs';
 import {JournalService} from '../../../services/journal.service';
+import {Journal} from '../../../models/journal';
+import {DynamicTableData} from '../../../models/dynamic-table-data';
 
 @Component({
   selector: 'app-user-journal-entries',
@@ -21,9 +22,9 @@ import {JournalService} from '../../../services/journal.service';
   templateUrl: './user-journal-entries.component.html',
   styleUrl: './user-journal-entries.component.scss'
 })
-export class UserJournalEntriesComponent {
+export class UserJournalEntriesComponent extends TableComponentBase<Journal> {
 
-  protected readonly columns = [
+  override columns = [
     {
       property: 'title',
       header: 'Title',
@@ -43,28 +44,17 @@ export class UserJournalEntriesComponent {
     }
   ];
 
-  private readonly paging$ = new BehaviorSubject<PageEvent>({pageIndex: 0, pageSize: 10});
-  protected readonly sorting$ = new BehaviorSubject<SortEvent>({property: 'updated_at', direction: 'desc'});
-
-  protected readonly items$ = combineLatest([this.paging$, this.sorting$])
-    .pipe(
-      switchMap(([{pageIndex, pageSize}, {property, direction}]) =>
-        this.journalService.getEntries(this.userId, pageIndex, pageSize, property ?? 'updated_at', direction ?? 'desc')
-      )
-    )
-  protected readonly faArrowLeft = faArrowLeft;
-  private userId: any;
+  private readonly userId: any;
 
   constructor(private readonly journalService: JournalService,
               private readonly activatedRoute: ActivatedRoute) {
+    super();
     this.userId = this.activatedRoute.snapshot.params['id'];
   }
 
-  onPageChange($event: PageEvent) {
-    this.paging$.next($event);
+  protected override load(pageIndex: number, pageSize: number, orderBy?: string, direction?: string): Observable<DynamicTableData<Journal>> {
+    return this.journalService.getEntries(this.userId, pageIndex, pageSize, orderBy, direction);
   }
 
-  onSortChange($event: SortEvent) {
-    this.sorting$.next($event);
-  }
+  protected readonly faArrowLeft = faArrowLeft;
 }

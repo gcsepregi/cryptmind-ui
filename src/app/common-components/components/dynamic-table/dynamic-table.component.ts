@@ -4,6 +4,8 @@ import {FaIconComponent} from '@fortawesome/angular-fontawesome';
 import {RouterLink} from '@angular/router';
 import {DatePipe, NgTemplateOutlet} from '@angular/common';
 import {faChevronLeft, faChevronRight, faSort, faSortDown, faSortUp} from '@fortawesome/free-solid-svg-icons';
+import {BehaviorSubject, combineLatest, Observable, shareReplay, switchMap} from 'rxjs';
+import {DynamicTableData} from '../../../admin/models/dynamic-table-data';
 
 type ColumnLink = { prefix: string; suffix: string };
 
@@ -11,6 +13,50 @@ export type SortDirection = 'asc' | 'desc' | null | undefined;
 export interface SortEvent { property: string | null; direction: SortDirection }
 
 export interface PageEvent { pageIndex: number; pageSize: number }
+
+export interface TableLoader<T> {
+  (
+    pageIndex: number,
+    pageSize:  number,
+    orderBy:   string | undefined,
+    direction: string | undefined
+  ): Observable<DynamicTableData<T>>;
+}
+
+/**
+ * Mixin-style base class that provides paging, sorting and single HTTP call
+ * behaviour.  Extend it from any component that embeds <app-dynamic-table>.
+ */
+export abstract class TableComponentBase<T> {
+
+  /** Columns are left for the concrete component to expose */
+  abstract columns: any[];
+
+  /** Concrete component supplies the loader in its constructor or ngOnInit */
+  protected abstract load(
+    pageIndex:  number,
+    pageSize:   number,
+    orderBy?:   string,
+    direction?: string,
+  ): Observable<DynamicTableData<T>>;
+
+
+  /* ---------------- shared reactive state ---------------- */
+  private readonly paging$  = new BehaviorSubject<PageEvent>({ pageIndex: 0, pageSize: 10 });
+  protected readonly sorting$ = new BehaviorSubject<SortEvent>({ property: null, direction: null });
+
+  /** Public stream consumed by the template */
+  protected readonly items$ = combineLatest([this.paging$, this.sorting$]).pipe(
+    switchMap(([{ pageIndex, pageSize }, { property, direction }]) =>
+      this.load(pageIndex, pageSize, property ?? undefined, direction ?? undefined)
+    ),
+    shareReplay({ bufferSize: 1, refCount: true })   // <- single HTTP request
+  );
+
+  /* ---------------- event handlers for the table ---------------- */
+  onPageChange(e: PageEvent) { this.paging$.next(e); }
+  onSortChange(e: SortEvent) { this.sorting$.next(e); }
+}
 
 @Component({
   selector: 'app-dynamic-table',
