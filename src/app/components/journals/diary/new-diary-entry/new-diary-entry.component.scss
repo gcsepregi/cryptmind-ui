@@ -16,7 +16,7 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
 
 .diary-entry-container {
   width: 100%;
-  max-width: 32rem;
+  max-width: 64rem;
   border-radius: $radius;
   border: 1px solid $primary;
   box-shadow: $shadow;
@@ -60,7 +60,6 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
   flex-direction: column;
   gap: 1.5rem;
   flex: 1 1 auto;
-  min-height: 0;
 }
 
 .diary-entry-group {
@@ -100,12 +99,10 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
-    min-height: 0;
 
     app-markdown-editor {
       display: flex;
       flex: 1 1 auto;
-      min-height: 0;
       max-height: none;
       border-radius: $radius;
       border: 1px solid $primary;
@@ -192,14 +189,13 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
   to { opacity: 1; transform: none; }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .diary-entry-root {
     padding: 0.5rem 0;
     min-height: 100vh;
     height: 100vh;
   }
   .diary-entry-container {
-    min-height: 0;
     border: none;
     box-shadow: none;
     padding: 0;
@@ -208,15 +204,134 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
   .diary-entry-form {
     gap: 1rem;
     flex: 1 1 auto;
-    min-height: 0;
   }
   .diary-entry-group.diary-entry-group-textarea {
     flex: 1 1 auto;
-    min-height: 0;
   }
   .diary-entry-group textarea {
     flex: 1 1 auto;
-    min-height: 0;
     max-height: none;
+  }
+}
+
+.diary-entry-metadata {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.diary-entry-list-box {
+  background-color: var(--input-background);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.diary-entry-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  background-color: var(--card-background);
+  border-radius: 0.25rem;
+
+  span {
+    flex: 1;
+  }
+}
+
+.diary-entry-item-remove {
+  background: none;
+  border: none;
+  color: var(--foreground-muted);
+  cursor: pointer;
+  padding: 0.25rem;
+
+  &:hover {
+    color: var(--destructive);
+  }
+}
+
+.diary-entry-list-input-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.diary-entry-list-input {
+  flex: 1;
+  background-color: var(--input-background);
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  color: var(--foreground);
+}
+
+.diary-entry-item-add {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--primary-dark);
+  }
+}
+
+/* Mood Selector Styles */
+.mood-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.mood-icon {
+  background: var(--card-background);
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  .my-icon {
+    font-size: 1.5rem;
+    color: var(--foreground-muted);
+  }
+
+  &:hover {
+    border-color: var(--primary);
+    transform: scale(1.05);
+
+    .my-icon {
+      color: var(--primary);
+    }
+  }
+
+  &.selected {
+    border-color: var(--primary);
+    border-width: 3px;
+    background-color: var(--primary-light);
+    box-shadow: 0 0 12px var(--primary);
+    transform: scale(1.1);
+    z-index: 1;
+
+    .my-icon {
+      color: var(--primary);
+      font-size: 1.7rem;
+    }
   }
 }

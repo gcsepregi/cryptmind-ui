@@ -18,10 +18,103 @@
         <label for="title">Title</label>
         <input type="text" id="title" name="title" placeholder="Entry title" formControlName="title" required/>
       </div>
+
+      <!-- Metadata Fields -->
+      <div class="diary-entry-metadata">
+        <div class="diary-entry-group">
+          <label for="diary_date">
+            <fa-icon [icon]="faCalendarAlt" class="my-icon" />
+            Date
+          </label>
+          <input type="date" id="diary_date" name="diary_date" formControlName="diary_date"/>
+        </div>
+
+        <div class="diary-entry-group">
+          <label>
+            <fa-icon [icon]="faSmile" class="my-icon" />
+            Mood
+          </label>
+          <div class="mood-selector">
+            @for (option of moodOptions; track option.value) {
+              <button
+                type="button"
+                class="mood-icon"
+                [class.selected]="selectedMood === option.value"
+                (click)="selectMood(option.value)"
+                [title]="option.label">
+                <fa-icon [icon]="option.icon" class="my-icon" />
+              </button>
+            }
+          </div>
+          <!-- Hidden input to maintain form binding -->
+          <input type="hidden" formControlName="mood"/>
+        </div>
+
+        <div class="diary-entry-group">
+          <label for="location">
+            <fa-icon [icon]="faMapMarkerAlt" class="my-icon" />
+            Location
+          </label>
+          <input type="text" id="location" name="location" placeholder="Where are you?" formControlName="location"/>
+        </div>
+      </div>
+
       <div class="diary-entry-group diary-entry-group-textarea">
         <label for="entry">Entry</label>
         <app-markdown-editor (contentChange)="entryContentChanged($event)" [content]="form.value['entry']" [showHeader]="true"></app-markdown-editor>
       </div>
+
+      <!-- Gratitude List -->
+      <div class="diary-entry-group">
+        <label>
+          <fa-icon [icon]="faListUl" class="my-icon" />
+          Gratitude List
+        </label>
+        <div class="diary-entry-list-box">
+          @for (item of gratitudeList.controls; let i = $index; track item) {
+            <div class="diary-entry-list-item">
+              <span>{{ item.value }}</span>
+              <button type="button" class="diary-entry-item-remove" (click)="removeGratitudeItem(i)">
+                <fa-icon [icon]="faXmark" class="my-icon" />
+              </button>
+            </div>
+          }
+          <div class="diary-entry-list-input-row">
+            <input type="text" class="diary-entry-list-input" placeholder="Add gratitude item..."
+                  [(ngModel)]="gratitudeInput" [ngModelOptions]="{standalone: true}"/>
+            <button type="button" class="diary-entry-item-add" (click)="addGratitudeItem()">
+              <fa-icon [icon]="faPlus" class="my-icon" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Achievements -->
+      <div class="diary-entry-group">
+        <label>
+          <fa-icon [icon]="faTrophy" class="my-icon" />
+          Achievements
+        </label>
+        <div class="diary-entry-list-box">
+          @for (item of achievements.controls; let i = $index; track item) {
+            <div class="diary-entry-list-item">
+              <span>{{ item.value }}</span>
+              <button type="button" class="diary-entry-item-remove" (click)="removeAchievementItem(i)">
+                <fa-icon [icon]="faXmark" class="my-icon" />
+              </button>
+            </div>
+          }
+          <div class="diary-entry-list-input-row">
+            <input type="text" class="diary-entry-list-input" placeholder="Add achievement..."
+                  [(ngModel)]="achievementInput" [ngModelOptions]="{standalone: true}"/>
+            <button type="button" class="diary-entry-item-add" (click)="addAchievementItem()">
+              <fa-icon [icon]="faPlus" class="my-icon" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tags -->
       <div class="diary-entry-group">
         <label for="tags">Tags <span class="diary-entry-tags-hint">(press Enter or comma)</span></label>
         <div class="diary-entry-tags-box">
