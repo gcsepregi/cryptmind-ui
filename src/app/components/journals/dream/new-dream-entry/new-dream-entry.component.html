@@ -18,10 +18,150 @@
         <label for="title">Title</label>
         <input type="text" id="title" name="title" placeholder="Dream title" formControlName="title" required/>
       </div>
+
+      <!-- Dream Metadata Fields -->
+      <div class="diary-entry-metadata">
+        <div class="diary-entry-group">
+          <label for="dream_date">
+            <fa-icon [icon]="faCalendarAlt" class="my-icon" />
+            Dream Date
+          </label>
+          <input type="date" id="dream_date" name="dream_date" formControlName="dream_date"/>
+        </div>
+
+        <div class="diary-entry-group">
+          <label>
+            <fa-icon [icon]="faSmile" class="my-icon" />
+            Mood
+          </label>
+          <div class="mood-selector">
+            @for (option of moodOptions; track option.value) {
+              <button
+                type="button"
+                class="mood-icon"
+                [class.selected]="selectedMood === option.value"
+                (click)="selectMood(option.value)"
+                [title]="option.label">
+                <fa-icon [icon]="option.icon" class="my-icon" />
+              </button>
+            }
+          </div>
+          <!-- Hidden input to maintain form binding -->
+          <input type="hidden" formControlName="mood"/>
+        </div>
+
+        <div class="diary-entry-group">
+          <label for="location">
+            <fa-icon [icon]="faMapMarkerAlt" class="my-icon" />
+            Location
+          </label>
+          <input type="text" id="location" name="location" placeholder="Where did you dream?" formControlName="location"/>
+        </div>
+
+        <div class="diary-entry-group">
+          <label for="lucidity_level">
+            <fa-icon [icon]="faEye" class="my-icon" />
+            Lucidity Level (1-5)
+          </label>
+          <div class="slider-container">
+            <input type="range" id="lucidity_level" name="lucidity_level" min="1" max="5" step="1" formControlName="lucidity_level"/>
+            <div class="slider-value">{{ form.value.lucidity_level }}</div>
+          </div>
+        </div>
+
+        <div class="diary-entry-group">
+          <label for="dream_clarity">
+            <fa-icon [icon]="faStar" class="my-icon" />
+            Dream Clarity (1-5)
+          </label>
+          <div class="slider-container">
+            <input type="range" id="dream_clarity" name="dream_clarity" min="1" max="5" step="1" formControlName="dream_clarity"/>
+            <div class="slider-value">{{ form.value.dream_clarity }}</div>
+          </div>
+        </div>
+      </div>
+
       <div class="diary-entry-group diary-entry-group-textarea">
         <label for="entry">Entry</label>
         <app-markdown-editor (contentChange)="entryContentChanged($event)" [content]="form.value['entry']" [showHeader]="true"></app-markdown-editor>
       </div>
+
+      <!-- Dream Signs -->
+      <div class="diary-entry-group">
+        <label>
+          <fa-icon [icon]="faSignature" class="my-icon" />
+          Dream Signs
+        </label>
+        <div class="diary-entry-list-box">
+          @for (item of dreamSigns.controls; let i = $index; track item) {
+            <div class="diary-entry-list-item">
+              <span>{{ item.value }}</span>
+              <button type="button" class="diary-entry-item-remove" (click)="removeDreamSign(i)">
+                <fa-icon [icon]="faXmark" class="my-icon" />
+              </button>
+            </div>
+          }
+          <div class="diary-entry-list-input-row">
+            <input type="text" class="diary-entry-list-input" placeholder="Add dream sign..."
+                  [(ngModel)]="dreamSignInput" [ngModelOptions]="{standalone: true}"/>
+            <button type="button" class="diary-entry-item-add" (click)="addDreamSign()">
+              <fa-icon [icon]="faPlus" class="my-icon" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dream Characters -->
+      <div class="diary-entry-group">
+        <label>
+          <fa-icon [icon]="faUsers" class="my-icon" />
+          Dream Characters
+        </label>
+        <div class="diary-entry-list-box">
+          @for (item of dreamCharacters.controls; let i = $index; track item) {
+            <div class="diary-entry-list-item">
+              <span>{{ item.value }}</span>
+              <button type="button" class="diary-entry-item-remove" (click)="removeDreamCharacter(i)">
+                <fa-icon [icon]="faXmark" class="my-icon" />
+              </button>
+            </div>
+          }
+          <div class="diary-entry-list-input-row">
+            <input type="text" class="diary-entry-list-input" placeholder="Add dream character..."
+                  [(ngModel)]="dreamCharacterInput" [ngModelOptions]="{standalone: true}"/>
+            <button type="button" class="diary-entry-item-add" (click)="addDreamCharacter()">
+              <fa-icon [icon]="faPlus" class="my-icon" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dream Emotions -->
+      <div class="diary-entry-group">
+        <label>
+          <fa-icon [icon]="faSmile" class="my-icon" />
+          Dream Emotions
+        </label>
+        <div class="diary-entry-list-box">
+          @for (item of dreamEmotions.controls; let i = $index; track item) {
+            <div class="diary-entry-list-item">
+              <span>{{ item.value }}</span>
+              <button type="button" class="diary-entry-item-remove" (click)="removeDreamEmotion(i)">
+                <fa-icon [icon]="faXmark" class="my-icon" />
+              </button>
+            </div>
+          }
+          <div class="diary-entry-list-input-row">
+            <input type="text" class="diary-entry-list-input" placeholder="Add emotion..."
+                  [(ngModel)]="dreamEmotionInput" [ngModelOptions]="{standalone: true}"/>
+            <button type="button" class="diary-entry-item-add" (click)="addDreamEmotion()">
+              <fa-icon [icon]="faPlus" class="my-icon" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tags -->
       <div class="diary-entry-group">
         <label for="tags">Tags <span class="diary-entry-tags-hint">(press Enter or comma)</span></label>
         <div class="diary-entry-tags-box">
@@ -36,6 +176,7 @@
           <input type="text" class="diary-entry-tag-input" placeholder="Add tag..." aria-label="Add tag" formControlName="tagInput" (keydown)="addTag($event)"/>
         </div>
       </div>
+
       <button type="submit" class="diary-entry-submit" [disabled]="form.invalid">
         <fa-icon [icon]="faMoon" class="my-icon" />
         @if (entryId) {

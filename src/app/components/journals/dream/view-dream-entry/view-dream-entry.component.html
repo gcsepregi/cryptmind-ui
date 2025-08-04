@@ -9,17 +9,137 @@
         <fa-icon [icon]="faMoon" class="my-icon"/>
         <h1 class="view-entry-title">{{ entry.title }}</h1>
       </div>
+
+      <!-- Basic Metadata -->
       <div class="view-entry-meta">
-      <span class="view-entry-meta-item">
-        <fa-icon [icon]="faCalendar" class="my-icon"/>
-        {{ entry.created_at | date:'medium' }}
-      </span>
         <span class="view-entry-meta-item">
-        <fa-icon [icon]="faTag" class="my-icon"/>
+          <fa-icon [icon]="faCalendar" class="my-icon"/>
+          {{ entry.created_at | date:'medium' }}
+        </span>
+        <span class="view-entry-meta-item">
+          <fa-icon [icon]="faTag" class="my-icon"/>
           {{ entry.journal_type }}
-      </span>
+        </span>
+
+        <!-- Dream Date (if available) -->
+        @if (entry.dream_date) {
+          <span class="view-entry-meta-item">
+            <fa-icon [icon]="faCalendarAlt" class="my-icon"/>
+            Dream Date: {{ entry.dream_date | date:'mediumDate' }}
+          </span>
+        }
       </div>
+
+      <!-- Additional Metadata (Mood and Location) -->
+      <div class="view-entry-additional-meta">
+        <!-- Mood (if available) -->
+        @if (entry.mood) {
+          <div class="view-entry-mood">
+            <span class="mood-label">Mood:</span>
+            <span class="mood-icon">
+              <fa-icon [icon]="getMoodIcon(entry.mood)" class="my-icon"/>
+            </span>
+            <span class="mood-text">{{ entry.mood }}</span>
+          </div>
+        }
+
+        <!-- Location (if available) -->
+        @if (entry.location) {
+          <div class="view-entry-location">
+            <fa-icon [icon]="faMapMarkerAlt" class="my-icon"/>
+            <span>{{ entry.location }}</span>
+          </div>
+        }
+      </div>
+
+      <!-- Dream Specific Metadata -->
+      @if (entry.lucidity_level || entry.dream_clarity) {
+        <div class="view-entry-dream-meta">
+          <!-- Lucidity Level (if available) -->
+          @if (entry.lucidity_level) {
+            <div class="view-entry-lucidity">
+              <div class="dream-meta-label">
+                <fa-icon [icon]="faEye" class="my-icon"/>
+                <span>Lucidity Level:</span>
+              </div>
+              <div class="dream-meta-rating">
+                <div class="rating-value">{{ entry.lucidity_level }}/5</div>
+                <div class="rating-bar">
+                  <div class="rating-fill lucidity" [style.width.%]="entry.lucidity_level * 20"></div>
+                </div>
+                <div class="rating-description">{{ getLucidityDescription(entry.lucidity_level) }}</div>
+              </div>
+            </div>
+          }
+
+          <!-- Dream Clarity (if available) -->
+          @if (entry.dream_clarity) {
+            <div class="view-entry-clarity">
+              <div class="dream-meta-label">
+                <fa-icon [icon]="faStar" class="my-icon"/>
+                <span>Dream Clarity:</span>
+              </div>
+              <div class="dream-meta-rating">
+                <div class="rating-value">{{ entry.dream_clarity }}/5</div>
+                <div class="rating-bar">
+                  <div class="rating-fill clarity" [style.width.%]="entry.dream_clarity * 20"></div>
+                </div>
+                <div class="rating-description">{{ getClarityDescription(entry.dream_clarity) }}</div>
+              </div>
+            </div>
+          }
+        </div>
+      }
+
+      <!-- Main Content -->
       <div class="view-entry-content" [innerHTML]="entry.entry | markdown"></div>
+
+      <!-- Dream Signs (if available) -->
+      @if (entry.dream_signs && entry.dream_signs.length > 0) {
+        <div class="view-entry-section">
+          <div class="view-entry-section-header">
+            <fa-icon [icon]="faSignature" class="my-icon"/>
+            <h2>Dream Signs</h2>
+          </div>
+          <ul class="view-entry-list">
+            @for (item of entry.dream_signs; track item) {
+              <li class="view-entry-list-item">{{ item }}</li>
+            }
+          </ul>
+        </div>
+      }
+
+      <!-- Dream Characters (if available) -->
+      @if (entry.dream_characters && entry.dream_characters.length > 0) {
+        <div class="view-entry-section">
+          <div class="view-entry-section-header">
+            <fa-icon [icon]="faUsers" class="my-icon"/>
+            <h2>Dream Characters</h2>
+          </div>
+          <ul class="view-entry-list">
+            @for (item of entry.dream_characters; track item) {
+              <li class="view-entry-list-item">{{ item }}</li>
+            }
+          </ul>
+        </div>
+      }
+
+      <!-- Dream Emotions (if available) -->
+      @if (entry.dream_emotions && entry.dream_emotions.length > 0) {
+        <div class="view-entry-section">
+          <div class="view-entry-section-header">
+            <fa-icon [icon]="faSmile" class="my-icon"/>
+            <h2>Dream Emotions</h2>
+          </div>
+          <ul class="view-entry-list">
+            @for (item of entry.dream_emotions; track item) {
+              <li class="view-entry-list-item">{{ item }}</li>
+            }
+          </ul>
+        </div>
+      }
+
+      <!-- Tags (if available) -->
       @if (entry.tags && entry.tags.length) {
         <div class="view-entry-tags">
           @for (tag of entry.tags; track tag) {
