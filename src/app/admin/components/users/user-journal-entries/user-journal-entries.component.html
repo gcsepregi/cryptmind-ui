@@ -13,11 +13,14 @@
     @if (items$ | async; as items) {
       <app-dynamic-table
         [columns]="columns"
-        [items]="items['data']"
-        [totalItems]="items['total']"
-        [pageSize]="items['pageSize']"
-        [pageIndex]="items['pageIndex']"
+        [items]="items.data"
+        [totalItems]="items.total"
+        [pageSize]="items.pageSize"
+        [pageIndex]="items.pageIndex"
+        [sortColumn]="(sorting$ | async)?.property"
+        [sortDirection]="(sorting$ | async)?.direction"
         (pageChange)="onPageChange($event)"
+        (sortChange)="onSortChange($event)"
       ></app-dynamic-table>
     }
   </div>
