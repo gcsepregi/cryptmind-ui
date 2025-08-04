@@ -18,10 +18,136 @@
         <label for="title">Title</label>
         <input type="text" id="title" name="title" placeholder="Ritual title" formControlName="title" required/>
       </div>
+
+      <!-- Ritual Metadata Fields -->
+      <div class="diary-entry-metadata">
+        <div class="diary-entry-group">
+          <label for="ritual_date">
+            <fa-icon [icon]="faCalendarAlt" class="my-icon" />
+            Ritual Date
+          </label>
+          <input type="date" id="ritual_date" name="ritual_date" formControlName="ritual_date"/>
+        </div>
+
+        <div class="diary-entry-group">
+          <label>
+            <fa-icon [icon]="faSmile" class="my-icon" />
+            Mood
+          </label>
+          <div class="mood-selector">
+            @for (option of moodOptions; track option.value) {
+              <button
+                type="button"
+                class="mood-icon"
+                [class.selected]="selectedMood === option.value"
+                (click)="selectMood(option.value)"
+                [title]="option.label">
+                <fa-icon [icon]="option.icon" class="my-icon" />
+              </button>
+            }
+          </div>
+          <!-- Hidden input to maintain form binding -->
+          <input type="hidden" formControlName="mood"/>
+        </div>
+
+        <div class="diary-entry-group">
+          <label for="location">
+            <fa-icon [icon]="faMapMarkerAlt" class="my-icon" />
+            Location
+          </label>
+          <input type="text" id="location" name="location" placeholder="Where was the ritual performed?" formControlName="location"/>
+        </div>
+
+        <div class="diary-entry-group">
+          <label for="ritual_type">
+            <fa-icon [icon]="faPray" class="my-icon" />
+            Ritual Type
+          </label>
+          <input type="text" id="ritual_type" name="ritual_type" placeholder="e.g., meditation, offering, etc." formControlName="ritual_type"/>
+        </div>
+
+        <div class="diary-entry-group">
+          <label for="ritual_duration">
+            <fa-icon [icon]="faClock" class="my-icon" />
+            Duration (minutes)
+          </label>
+          <input type="number" id="ritual_duration" name="ritual_duration" min="0" formControlName="ritual_duration"/>
+        </div>
+      </div>
+
       <div class="diary-entry-group diary-entry-group-textarea">
         <label for="entry">Entry</label>
         <app-markdown-editor (contentChange)="entryContentChanged($event)" [content]="form.value['entry']" [showHeader]="true"></app-markdown-editor>
       </div>
+
+      <!-- Ritual Tools -->
+      <div class="diary-entry-group">
+        <label>
+          <fa-icon [icon]="faTools" class="my-icon" />
+          Ritual Tools
+        </label>
+        <div class="diary-entry-list-box">
+          @for (item of ritualTools.controls; let i = $index; track item) {
+            <div class="diary-entry-list-item">
+              <span>{{ item.value }}</span>
+              <button type="button" class="diary-entry-item-remove" (click)="removeRitualTool(i)">
+                <fa-icon [icon]="faXmark" class="my-icon" />
+              </button>
+            </div>
+          }
+          <div class="diary-entry-list-input-row">
+            <input type="text" class="diary-entry-list-input" placeholder="Add ritual tool..."
+                  [(ngModel)]="ritualToolInput" [ngModelOptions]="{standalone: true}"/>
+            <button type="button" class="diary-entry-item-add" (click)="addRitualTool()">
+              <fa-icon [icon]="faPlus" class="my-icon" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ritual Deities -->
+      <div class="diary-entry-group">
+        <label>
+          <fa-icon [icon]="faPray" class="my-icon" />
+          Deities/Entities Invoked
+        </label>
+        <div class="diary-entry-list-box">
+          @for (item of ritualDeities.controls; let i = $index; track item) {
+            <div class="diary-entry-list-item">
+              <span>{{ item.value }}</span>
+              <button type="button" class="diary-entry-item-remove" (click)="removeRitualDeity(i)">
+                <fa-icon [icon]="faXmark" class="my-icon" />
+              </button>
+            </div>
+          }
+          <div class="diary-entry-list-input-row">
+            <input type="text" class="diary-entry-list-input" placeholder="Add deity or entity..."
+                  [(ngModel)]="ritualDeityInput" [ngModelOptions]="{standalone: true}"/>
+            <button type="button" class="diary-entry-item-add" (click)="addRitualDeity()">
+              <fa-icon [icon]="faPlus" class="my-icon" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ritual Purpose and Outcome -->
+      <div class="diary-entry-group">
+        <label for="ritual_purpose">
+          <fa-icon [icon]="faPenFancy" class="my-icon" />
+          Ritual Purpose/Intent
+        </label>
+        <input type="text" id="ritual_purpose" name="ritual_purpose" placeholder="What was the purpose of this ritual?" formControlName="ritual_purpose"/>
+      </div>
+
+      <div class="diary-entry-group">
+        <label for="ritual_outcome">
+          <fa-icon [icon]="faCheckCircle" class="my-icon" />
+          Ritual Outcome/Results
+        </label>
+        <input type="text" id="ritual_outcome" name="ritual_outcome" placeholder="What were the results or effects?" formControlName="ritual_outcome"/>
+      </div>
+
+      <!-- Tags -->
       <div class="diary-entry-group">
         <label for="tags">Tags <span class="diary-entry-tags-hint">(press Enter or comma)</span></label>
         <div class="diary-entry-tags-box">
@@ -36,6 +162,7 @@
           <input type="text" class="diary-entry-tag-input" placeholder="Add tag..." aria-label="Add tag" formControlName="tagInput" (keydown)="addTag($event)"/>
         </div>
       </div>
+
       <button type="submit" class="diary-entry-submit" [disabled]="form.invalid">
         <fa-icon [icon]="faStar" class="my-icon" />
         @if (entryId) {

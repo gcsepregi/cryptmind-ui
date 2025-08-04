@@ -9,17 +9,132 @@
         <fa-icon [icon]="faStar" class="my-icon"/>
         <h1 class="view-entry-title">{{ entry.title }}</h1>
       </div>
+
+      <!-- Basic Metadata -->
       <div class="view-entry-meta">
-      <span class="view-entry-meta-item">
-        <fa-icon [icon]="faCalendar" class="my-icon"/>
-        {{ entry.created_at | date:'medium' }}
-      </span>
         <span class="view-entry-meta-item">
-        <fa-icon [icon]="faTag" class="my-icon"/>
+          <fa-icon [icon]="faCalendar" class="my-icon"/>
+          {{ entry.created_at | date:'medium' }}
+        </span>
+        <span class="view-entry-meta-item">
+          <fa-icon [icon]="faTag" class="my-icon"/>
           {{ entry.journal_type }}
-      </span>
+        </span>
+
+        <!-- Ritual Date (if available) -->
+        @if (entry.ritual_date) {
+          <span class="view-entry-meta-item">
+            <fa-icon [icon]="faCalendarAlt" class="my-icon"/>
+            Ritual Date: {{ entry.ritual_date | date:'mediumDate' }}
+          </span>
+        }
       </div>
+
+      <!-- Additional Metadata (Mood and Location) -->
+      <div class="view-entry-additional-meta">
+        <!-- Mood (if available) -->
+        @if (entry.mood) {
+          <div class="view-entry-mood">
+            <span class="mood-label">Mood:</span>
+            <span class="mood-icon">
+              <fa-icon [icon]="getMoodIcon(entry.mood)" class="my-icon"/>
+            </span>
+            <span class="mood-text">{{ entry.mood }}</span>
+          </div>
+        }
+
+        <!-- Location (if available) -->
+        @if (entry.location) {
+          <div class="view-entry-location">
+            <fa-icon [icon]="faMapMarkerAlt" class="my-icon"/>
+            <span>{{ entry.location }}</span>
+          </div>
+        }
+      </div>
+
+      <!-- Ritual Specific Metadata -->
+      @if (entry.ritual_type || entry.ritual_duration) {
+        <div class="view-entry-ritual-meta">
+          <!-- Ritual Type (if available) -->
+          @if (entry.ritual_type) {
+            <div class="ritual-meta-item">
+              <div class="ritual-meta-label">
+                <fa-icon [icon]="faPray" class="my-icon"/>
+                <span>Ritual Type:</span>
+              </div>
+              <div class="ritual-meta-value">{{ entry.ritual_type }}</div>
+            </div>
+          }
+
+          <!-- Ritual Duration (if available) -->
+          @if (entry.ritual_duration) {
+            <div class="ritual-meta-item">
+              <div class="ritual-meta-label">
+                <fa-icon [icon]="faClock" class="my-icon"/>
+                <span>Duration:</span>
+              </div>
+              <div class="ritual-meta-value">{{ entry.ritual_duration }} minutes</div>
+            </div>
+          }
+        </div>
+      }
+
+      <!-- Main Content -->
       <div class="view-entry-content" [innerHTML]="entry.entry | markdown"></div>
+
+      <!-- Ritual Purpose (if available) -->
+      @if (entry.ritual_purpose) {
+        <div class="view-entry-section">
+          <div class="view-entry-section-header">
+            <fa-icon [icon]="faPenFancy" class="my-icon"/>
+            <h2>Ritual Purpose/Intent</h2>
+          </div>
+          <div class="view-entry-purpose">{{ entry.ritual_purpose }}</div>
+        </div>
+      }
+
+      <!-- Ritual Outcome (if available) -->
+      @if (entry.ritual_outcome) {
+        <div class="view-entry-section">
+          <div class="view-entry-section-header">
+            <fa-icon [icon]="faCheckCircle" class="my-icon"/>
+            <h2>Ritual Outcome/Results</h2>
+          </div>
+          <div class="view-entry-outcome">{{ entry.ritual_outcome }}</div>
+        </div>
+      }
+
+      <!-- Ritual Tools (if available) -->
+      @if (entry.ritual_tools && entry.ritual_tools.length > 0) {
+        <div class="view-entry-section">
+          <div class="view-entry-section-header">
+            <fa-icon [icon]="faTools" class="my-icon"/>
+            <h2>Ritual Tools</h2>
+          </div>
+          <ul class="view-entry-list">
+            @for (item of entry.ritual_tools; track item) {
+              <li class="view-entry-list-item">{{ item }}</li>
+            }
+          </ul>
+        </div>
+      }
+
+      <!-- Ritual Deities (if available) -->
+      @if (entry.ritual_deities && entry.ritual_deities.length > 0) {
+        <div class="view-entry-section">
+          <div class="view-entry-section-header">
+            <fa-icon [icon]="faPray" class="my-icon"/>
+            <h2>Deities/Entities Invoked</h2>
+          </div>
+          <ul class="view-entry-list">
+            @for (item of entry.ritual_deities; track item) {
+              <li class="view-entry-list-item">{{ item }}</li>
+            }
+          </ul>
+        </div>
+      }
+
+      <!-- Tags (if available) -->
       @if (entry.tags && entry.tags.length) {
         <div class="view-entry-tags">
           @for (tag of entry.tags; track tag) {
