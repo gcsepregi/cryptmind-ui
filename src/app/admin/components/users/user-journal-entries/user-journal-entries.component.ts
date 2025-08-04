@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import {AsyncPipe} from '@angular/common';
 import {DynamicTableComponent} from '../../../../common-components/components/dynamic-table/dynamic-table.component';
 import {FaIconComponent} from '@fortawesome/angular-fontawesome';
-import {RouterLink} from '@angular/router';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 import {BehaviorSubject} from 'rxjs';
+import {JournalService} from '../../../services/journal.service';
 
 @Component({
   selector: 'app-user-journal-entries',
@@ -19,7 +20,30 @@ import {BehaviorSubject} from 'rxjs';
 })
 export class UserJournalEntriesComponent {
 
-  protected readonly columns = [];
+  protected readonly columns = [
+    {
+      property: 'title',
+      header: 'Title',
+    },
+    {
+      property: 'created_at',
+      header: 'Created',
+      isDate: true,
+    },
+    {
+      property: 'updated_at',
+      header: 'Updated',
+      isDate: true,
+    }
+  ];
   protected readonly items$ = new BehaviorSubject<{[prop: string]: any}[]>([]);
   protected readonly faArrowLeft = faArrowLeft;
+
+  constructor(private readonly journalService: JournalService,
+              private readonly activatedRoute: ActivatedRoute) {
+    const userId = this.activatedRoute.snapshot.params['id'];
+    journalService.getEntries(userId).subscribe(res => {
+      this.items$.next(res)
+    })
+  }
 }
