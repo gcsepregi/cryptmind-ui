@@ -9,3 +9,7 @@ export interface User {
 
   [prop: string]: any;
 }
+
+export interface UserSessions extends User {
+  user_sessions: {[prop: string]: any}[];
+}

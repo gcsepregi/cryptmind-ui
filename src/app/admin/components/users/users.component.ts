@@ -3,7 +3,7 @@ import {UsersService} from '../../services/users.service';
 import {BehaviorSubject} from 'rxjs';
 import {User} from '../../models/user';
 import {AsyncPipe} from '@angular/common';
-import {faBook, faClock, faPen, faTrash, faUserCircle} from '@fortawesome/free-solid-svg-icons';
+import {faBook, faClock, faUserCircle} from '@fortawesome/free-solid-svg-icons';
 import {DynamicTableComponent} from '../../../common-components/components/dynamic-table/dynamic-table.component';
 
 @Component({
@@ -76,7 +76,5 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  protected readonly faPen = faPen;
-  protected readonly faTrash = faTrash;
   protected readonly faBook = faBook;
 }

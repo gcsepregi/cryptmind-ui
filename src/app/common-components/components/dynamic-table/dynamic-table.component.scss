@@ -12,11 +12,17 @@ table {
     background: var(--table-header-bg, #22232b);
     font-weight: 700;
     border-bottom: 1px solid rgba(0,0,0,0.08);
+    text-wrap: nowrap;
+    max-width: 20rem;
+    text-align: left;
   }
 
   td {
     color: var(--foreground, #ededed);
     border-bottom: 1px solid rgba(0,0,0,0.04);
+    text-wrap: nowrap;
+    max-width: 20rem;
+    overflow: hidden;
   }
 
   tr:last-child td {

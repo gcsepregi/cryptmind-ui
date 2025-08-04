@@ -27,7 +27,7 @@
                   }
                 } @else {
                   @if (col.isDate) {
-                    <span>{{ item[col.property] | date }}</span>
+                    <span>{{ item[col.property] | date:'dd MMM yyyy, HH:mm' }}</span>
                   } @else {
                     <span>{{ item[col.property] }}</span>
                   }

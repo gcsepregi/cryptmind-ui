@@ -15,27 +15,6 @@
       letter-spacing: 0.01em;
       margin: 0;
     }
-
-    .btn-accent {
-      display: flex;
-      align-items: center;
-      gap: 0.5em;
-      background: var(--neon-cyan-bg, #e6fcff);
-      color: var(--color-primary-400, #5a5a8a);
-      border: none;
-      outline: none;
-      border-radius: 0.5rem;
-      padding: 0.5em 1.2em;
-      font-weight: 600;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.2s;
-
-      &:hover {
-        background: var(--color-primary-300, #81a1c1);
-        color: #fff;
-      }
-    }
   }
 
   .users-table-wrapper {
@@ -43,10 +22,7 @@
     overflow-x: auto;
     border: 1px solid var(--table-border-color);
     box-shadow: var(--shadow-lg);
-
     padding: 0 0;
-
-
   }
 
   .icon-button {

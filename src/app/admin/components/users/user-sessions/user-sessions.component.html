@@ -11,7 +11,13 @@
   </header>
   <div class="users-table-wrapper">
     @if (items$ | async; as items) {
-      <app-dynamic-table [columns]="columns" [items]="items"></app-dynamic-table>
+      <app-dynamic-table [columns]="columns" [items]="items" [actionsTemplate]="actions"></app-dynamic-table>
     }
   </div>
 </section>
+
+<ng-template #actions let-item="item">
+  <button (click)="disableSession(item)" class="icon-button">
+    <fa-icon [icon]="faTrash" class="my-icon"></fa-icon>
+  </button>
+</ng-template>

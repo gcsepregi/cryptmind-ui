@@ -1,7 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BASE_URL} from '../../app.config';
-import {User} from '../models/user';
+import {User, UserSessions} from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -16,4 +16,11 @@ export class UsersService {
     return this.http.get<User[]>(`${this.baseUrl}/admin/users`);
   }
 
+  getSessions(userId: string) {
+    return this.http.get<UserSessions>(`${this.baseUrl}/admin/users/${userId}/sessions`);
+  }
+
+  deleteSession(userId: string, jti: string) {
+    return this.http.delete(`${this.baseUrl}/admin/users/${userId}/sessions/${jti}`);
+  }
 }
