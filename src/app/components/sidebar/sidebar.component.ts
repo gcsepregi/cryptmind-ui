@@ -18,13 +18,15 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {SidebarService} from '../../services/sidebar.service';
 import {AdminMenuComponent} from '../../admin/components/admin-menu/admin-menu.component';
+import {NgClass} from '@angular/common';
 
 @Component({
   selector: 'app-sidebar',
   imports: [
     FontAwesomeModule,
     RouterLink,
-    AdminMenuComponent
+    AdminMenuComponent,
+    NgClass
   ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'

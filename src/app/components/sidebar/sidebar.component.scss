@@ -3,9 +3,10 @@ $foreground: var(--foreground, #ededed);
 $primary: var(--color-primary-400, #5a5a8a);
 $accent: var(--neon-purple, #a259f7);
 $radius: 1rem;
-$shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.25);
+$shadow: 10px 10px 30px 0px rgba(128,128,128,0.35), 4px 0px 16px 0px rgba(128,128,128,0.25);
 
 .sidebar-overlay {
+  display: none;
   position: fixed;
   top: 4rem;
   left: 0;
@@ -18,15 +19,20 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
 .sidebar {
   position: fixed;
   z-index: 50;
-  top: 4rem;
+  top: 4.15rem;
   left: 0;
   height: 100vh;
   width: 16rem;
   background: $background;
   display: flex;
   flex-direction: column;
-  transform: translateX(0); /* For toggling, add -100% for hidden */
-  transition: transform 0.2s;
+  transform: translateX(-100%); /* For toggling, add -100% for hidden */
+  transition: transform 0.3s ease-in-out;
+  border-right: 1px solid $primary;
+
+  &.sidebar-open {
+    transform: translateX(0);
+  }
 }
 
 .sidebar-header {
@@ -158,5 +164,11 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
   &:hover {
     background: $primary;
     transform: scale(1.10);
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar-overlay.sidebar-overlay-open {
+    display: block;
   }
 }

@@ -1,8 +1,7 @@
 <!-- Overlay (hidden by default) -->
-@if (isOpen) {
-  <div class="sidebar-overlay" (click)="toggleSidebar()"></div>
+<div class="sidebar-overlay" [ngClass]="{'sidebar-overlay-open': isOpen}" (click)="toggleSidebar()"></div>
   <!-- Sidebar -->
-  <aside class="sidebar">
+  <aside class="sidebar" [ngClass]="{'sidebar-open': isOpen}">
     <div class="sidebar-user">
       <fa-icon [icon]="faUser" class="my-icon" />
       <div>
@@ -42,4 +41,3 @@
       </div>
     </nav>
   </aside>
-}

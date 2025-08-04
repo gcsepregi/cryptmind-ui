@@ -14,8 +14,8 @@ $shadow: 0 10px 30px -3px rgba(128,128,128,0.35), 0 4px 16px -4px rgba(128,128,1
   padding: 1rem;
   max-height: 4rem;
   background: var(--background);
-  box-shadow: $shadow;
   color: var(--foreground);
+  border-bottom: 1px solid var(--color-primary-500);
   display: flex;
   justify-content: space-between;
   align-items: center;

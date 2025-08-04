@@ -1,3 +1,18 @@
 .app-content {
   margin-top: 4rem;
+  transition: margin-left 0.3s ease-in-out;
+
+  &.app-content-sidebar-open {
+    margin-left: 16rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-content {
+    margin-left: 0;
+
+    &.app-content-sidebar-open {
+      margin-left: 0;
+    }
+  }
 }

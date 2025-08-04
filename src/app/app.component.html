@@ -4,7 +4,7 @@
 } @else {
   <app-header></app-header>
   <app-sidebar></app-sidebar>
-  <div class="app-content">
+  <div class="app-content" [ngClass]="{ 'app-content-sidebar-open': isSidebarOpen | async }">
     <router-outlet></router-outlet>
   </div>
 }
