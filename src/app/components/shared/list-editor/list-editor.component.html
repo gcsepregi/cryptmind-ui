@@ -1,0 +1,30 @@
+<div class="diary-entry-group">
+  <label>
+    @if (icon) {
+      <fa-icon [icon]="icon" class="my-icon" />
+    }
+    {{ label }}
+  </label>
+  <div class="diary-entry-list-box">
+    @for (item of formArray.controls; let i = $index; track item) {
+      <div class="diary-entry-list-item">
+        <span>{{ item.value }}</span>
+        <button type="button" class="diary-entry-item-remove" (click)="removeItem(i)">
+          <fa-icon [icon]="faXmark" class="my-icon" />
+        </button>
+      </div>
+    }
+    <div class="diary-entry-list-input-row">
+      <input
+        type="text"
+        class="diary-entry-list-input"
+        [placeholder]="placeholder"
+        [(ngModel)]="inputValue"
+        (keydown.enter)="$event.preventDefault(); addItem()"
+      />
+      <button type="button" class="diary-entry-item-add" (click)="addItem()">
+        <fa-icon [icon]="faPlus" class="my-icon" />
+      </button>
+    </div>
+  </div>
+</div>
