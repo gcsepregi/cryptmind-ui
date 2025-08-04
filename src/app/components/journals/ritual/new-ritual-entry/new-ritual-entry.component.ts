@@ -27,6 +27,7 @@ import {
 import {MarkdownEditorComponent} from '../../../tools/markdown-editor/markdown-editor.component';
 import {CommonModule} from '@angular/common';
 import {NewJournal} from '../../../../models/journal.model';
+import {ListEditorComponent} from '../../../shared/list-editor/list-editor.component';
 
 @Component({
   selector: 'app-new-ritual-entry',
@@ -36,7 +37,8 @@ import {NewJournal} from '../../../../models/journal.model';
     ReactiveFormsModule,
     MarkdownEditorComponent,
     FormsModule,
-    CommonModule
+    CommonModule,
+    ListEditorComponent
   ],
   templateUrl: './new-ritual-entry.component.html',
   styleUrl: './new-ritual-entry.component.scss'
@@ -259,4 +261,20 @@ export class NewRitualEntryComponent {
     this.form.patchValue({entry: content});
   }
 
+  // Methods for handling list editor events
+  onRitualToolAdded(item: string) {
+    this.ritualToolInput = '';
+  }
+
+  onRitualToolRemoved(index: number) {
+    // No additional action needed, the FormArray is already updated by the list editor
+  }
+
+  onRitualDeityAdded(item: string) {
+    this.ritualDeityInput = '';
+  }
+
+  onRitualDeityRemoved(index: number) {
+    // No additional action needed, the FormArray is already updated by the list editor
+  }
 }

@@ -24,6 +24,7 @@ import {
 import {MarkdownEditorComponent} from '../../../tools/markdown-editor/markdown-editor.component';
 import {CommonModule} from '@angular/common';
 import {NewJournal} from '../../../../models/journal.model';
+import {ListEditorComponent} from '../../../shared/list-editor/list-editor.component';
 
 @Component({
   selector: 'app-new-diary-entry',
@@ -33,7 +34,8 @@ import {NewJournal} from '../../../../models/journal.model';
     RouterLink,
     MarkdownEditorComponent,
     FormsModule,
-    CommonModule
+    CommonModule,
+    ListEditorComponent
   ],
   templateUrl: './new-diary-entry.component.html',
   styleUrl: './new-diary-entry.component.scss'
@@ -236,6 +238,23 @@ export class NewDiaryEntryComponent {
   getMoodIcon() {
     const selectedOption = this.moodOptions.find(option => option.value === this.selectedMood);
     return selectedOption ? selectedOption.icon : this.faSmile;
+  }
+
+  // Methods for handling list editor events
+  onGratitudeItemAdded(item: string) {
+    this.gratitudeInput = '';
+  }
+
+  onGratitudeItemRemoved(index: number) {
+    // No additional action needed, the FormArray is already updated by the list editor
+  }
+
+  onAchievementItemAdded(item: string) {
+    this.achievementInput = '';
+  }
+
+  onAchievementItemRemoved(index: number) {
+    // No additional action needed, the FormArray is already updated by the list editor
   }
 
   protected readonly faPlus = faPlus;

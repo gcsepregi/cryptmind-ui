@@ -87,79 +87,34 @@
       </div>
 
       <!-- Dream Signs -->
-      <div class="diary-entry-group">
-        <label>
-          <fa-icon [icon]="faSignature" class="my-icon" />
-          Dream Signs
-        </label>
-        <div class="diary-entry-list-box">
-          @for (item of dreamSigns.controls; let i = $index; track item) {
-            <div class="diary-entry-list-item">
-              <span>{{ item.value }}</span>
-              <button type="button" class="diary-entry-item-remove" (click)="removeDreamSign(i)">
-                <fa-icon [icon]="faXmark" class="my-icon" />
-              </button>
-            </div>
-          }
-          <div class="diary-entry-list-input-row">
-            <input type="text" class="diary-entry-list-input" placeholder="Add dream sign..."
-                  [(ngModel)]="dreamSignInput" [ngModelOptions]="{standalone: true}"/>
-            <button type="button" class="diary-entry-item-add" (click)="addDreamSign()">
-              <fa-icon [icon]="faPlus" class="my-icon" />
-            </button>
-          </div>
-        </div>
-      </div>
+      <app-list-editor
+        [formArray]="dreamSigns"
+        [label]="'Dream Signs'"
+        [icon]="faSignature"
+        [placeholder]="'Add dream sign...'"
+        (itemAdded)="onDreamSignAdded($event)"
+        (itemRemoved)="onDreamSignRemoved($event)"
+      ></app-list-editor>
 
       <!-- Dream Characters -->
-      <div class="diary-entry-group">
-        <label>
-          <fa-icon [icon]="faUsers" class="my-icon" />
-          Dream Characters
-        </label>
-        <div class="diary-entry-list-box">
-          @for (item of dreamCharacters.controls; let i = $index; track item) {
-            <div class="diary-entry-list-item">
-              <span>{{ item.value }}</span>
-              <button type="button" class="diary-entry-item-remove" (click)="removeDreamCharacter(i)">
-                <fa-icon [icon]="faXmark" class="my-icon" />
-              </button>
-            </div>
-          }
-          <div class="diary-entry-list-input-row">
-            <input type="text" class="diary-entry-list-input" placeholder="Add dream character..."
-                  [(ngModel)]="dreamCharacterInput" [ngModelOptions]="{standalone: true}"/>
-            <button type="button" class="diary-entry-item-add" (click)="addDreamCharacter()">
-              <fa-icon [icon]="faPlus" class="my-icon" />
-            </button>
-          </div>
-        </div>
-      </div>
+      <app-list-editor
+        [formArray]="dreamCharacters"
+        [label]="'Dream Characters'"
+        [icon]="faUsers"
+        [placeholder]="'Add dream character...'"
+        (itemAdded)="onDreamCharacterAdded($event)"
+        (itemRemoved)="onDreamCharacterRemoved($event)"
+      ></app-list-editor>
 
       <!-- Dream Emotions -->
-      <div class="diary-entry-group">
-        <label>
-          <fa-icon [icon]="faSmile" class="my-icon" />
-          Dream Emotions
-        </label>
-        <div class="diary-entry-list-box">
-          @for (item of dreamEmotions.controls; let i = $index; track item) {
-            <div class="diary-entry-list-item">
-              <span>{{ item.value }}</span>
-              <button type="button" class="diary-entry-item-remove" (click)="removeDreamEmotion(i)">
-                <fa-icon [icon]="faXmark" class="my-icon" />
-              </button>
-            </div>
-          }
-          <div class="diary-entry-list-input-row">
-            <input type="text" class="diary-entry-list-input" placeholder="Add emotion..."
-                  [(ngModel)]="dreamEmotionInput" [ngModelOptions]="{standalone: true}"/>
-            <button type="button" class="diary-entry-item-add" (click)="addDreamEmotion()">
-              <fa-icon [icon]="faPlus" class="my-icon" />
-            </button>
-          </div>
-        </div>
-      </div>
+      <app-list-editor
+        [formArray]="dreamEmotions"
+        [label]="'Dream Emotions'"
+        [icon]="faSmile"
+        [placeholder]="'Add emotion...'"
+        (itemAdded)="onDreamEmotionAdded($event)"
+        (itemRemoved)="onDreamEmotionRemoved($event)"
+      ></app-list-editor>
 
       <!-- Tags -->
       <div class="diary-entry-group">

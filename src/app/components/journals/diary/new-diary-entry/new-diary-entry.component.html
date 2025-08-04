@@ -65,54 +65,24 @@
       </div>
 
       <!-- Gratitude List -->
-      <div class="diary-entry-group">
-        <label>
-          <fa-icon [icon]="faListUl" class="my-icon" />
-          Gratitude List
-        </label>
-        <div class="diary-entry-list-box">
-          @for (item of gratitudeList.controls; let i = $index; track item) {
-            <div class="diary-entry-list-item">
-              <span>{{ item.value }}</span>
-              <button type="button" class="diary-entry-item-remove" (click)="removeGratitudeItem(i)">
-                <fa-icon [icon]="faXmark" class="my-icon" />
-              </button>
-            </div>
-          }
-          <div class="diary-entry-list-input-row">
-            <input type="text" class="diary-entry-list-input" placeholder="Add gratitude item..."
-                  [(ngModel)]="gratitudeInput" [ngModelOptions]="{standalone: true}"/>
-            <button type="button" class="diary-entry-item-add" (click)="addGratitudeItem()">
-              <fa-icon [icon]="faPlus" class="my-icon" />
-            </button>
-          </div>
-        </div>
-      </div>
+      <app-list-editor
+        [formArray]="gratitudeList"
+        [label]="'Gratitude List'"
+        [icon]="faListUl"
+        [placeholder]="'Add gratitude item...'"
+        (itemAdded)="onGratitudeItemAdded($event)"
+        (itemRemoved)="onGratitudeItemRemoved($event)"
+      ></app-list-editor>
 
       <!-- Achievements -->
-      <div class="diary-entry-group">
-        <label>
-          <fa-icon [icon]="faTrophy" class="my-icon" />
-          Achievements
-        </label>
-        <div class="diary-entry-list-box">
-          @for (item of achievements.controls; let i = $index; track item) {
-            <div class="diary-entry-list-item">
-              <span>{{ item.value }}</span>
-              <button type="button" class="diary-entry-item-remove" (click)="removeAchievementItem(i)">
-                <fa-icon [icon]="faXmark" class="my-icon" />
-              </button>
-            </div>
-          }
-          <div class="diary-entry-list-input-row">
-            <input type="text" class="diary-entry-list-input" placeholder="Add achievement..."
-                  [(ngModel)]="achievementInput" [ngModelOptions]="{standalone: true}"/>
-            <button type="button" class="diary-entry-item-add" (click)="addAchievementItem()">
-              <fa-icon [icon]="faPlus" class="my-icon" />
-            </button>
-          </div>
-        </div>
-      </div>
+      <app-list-editor
+        [formArray]="achievements"
+        [label]="'Achievements'"
+        [icon]="faTrophy"
+        [placeholder]="'Add achievement...'"
+        (itemAdded)="onAchievementItemAdded($event)"
+        (itemRemoved)="onAchievementItemRemoved($event)"
+      ></app-list-editor>
 
       <!-- Tags -->
       <div class="diary-entry-group">

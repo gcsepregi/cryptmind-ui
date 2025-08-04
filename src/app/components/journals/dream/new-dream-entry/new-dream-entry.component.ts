@@ -26,6 +26,7 @@ import {
 import {MarkdownEditorComponent} from '../../../tools/markdown-editor/markdown-editor.component';
 import {CommonModule} from '@angular/common';
 import {NewJournal} from '../../../../models/journal.model';
+import {ListEditorComponent} from '../../../shared/list-editor/list-editor.component';
 
 @Component({
   selector: 'app-new-dream-entry',
@@ -35,7 +36,8 @@ import {NewJournal} from '../../../../models/journal.model';
     ReactiveFormsModule,
     MarkdownEditorComponent,
     FormsModule,
-    CommonModule
+    CommonModule,
+    ListEditorComponent
   ],
   templateUrl: './new-dream-entry.component.html',
   styleUrl: './new-dream-entry.component.scss'
@@ -278,6 +280,31 @@ export class NewDreamEntryComponent {
   getMoodIcon() {
     const selectedOption = this.moodOptions.find(option => option.value === this.selectedMood);
     return selectedOption ? selectedOption.icon : this.faSmile;
+  }
+
+  // Methods for handling list editor events
+  onDreamSignAdded(item: string) {
+    this.dreamSignInput = '';
+  }
+
+  onDreamSignRemoved(index: number) {
+    // No additional action needed, the FormArray is already updated by the list editor
+  }
+
+  onDreamCharacterAdded(item: string) {
+    this.dreamCharacterInput = '';
+  }
+
+  onDreamCharacterRemoved(index: number) {
+    // No additional action needed, the FormArray is already updated by the list editor
+  }
+
+  onDreamEmotionAdded(item: string) {
+    this.dreamEmotionInput = '';
+  }
+
+  onDreamEmotionRemoved(index: number) {
+    // No additional action needed, the FormArray is already updated by the list editor
   }
 
 }

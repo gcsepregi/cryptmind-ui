@@ -81,54 +81,24 @@
       </div>
 
       <!-- Ritual Tools -->
-      <div class="diary-entry-group">
-        <label>
-          <fa-icon [icon]="faTools" class="my-icon" />
-          Ritual Tools
-        </label>
-        <div class="diary-entry-list-box">
-          @for (item of ritualTools.controls; let i = $index; track item) {
-            <div class="diary-entry-list-item">
-              <span>{{ item.value }}</span>
-              <button type="button" class="diary-entry-item-remove" (click)="removeRitualTool(i)">
-                <fa-icon [icon]="faXmark" class="my-icon" />
-              </button>
-            </div>
-          }
-          <div class="diary-entry-list-input-row">
-            <input type="text" class="diary-entry-list-input" placeholder="Add ritual tool..."
-                  [(ngModel)]="ritualToolInput" [ngModelOptions]="{standalone: true}"/>
-            <button type="button" class="diary-entry-item-add" (click)="addRitualTool()">
-              <fa-icon [icon]="faPlus" class="my-icon" />
-            </button>
-          </div>
-        </div>
-      </div>
+      <app-list-editor
+        [formArray]="ritualTools"
+        [label]="'Ritual Tools'"
+        [icon]="faTools"
+        [placeholder]="'Add ritual tool...'"
+        (itemAdded)="onRitualToolAdded($event)"
+        (itemRemoved)="onRitualToolRemoved($event)"
+      ></app-list-editor>
 
       <!-- Ritual Deities -->
-      <div class="diary-entry-group">
-        <label>
-          <fa-icon [icon]="faPray" class="my-icon" />
-          Deities/Entities Invoked
-        </label>
-        <div class="diary-entry-list-box">
-          @for (item of ritualDeities.controls; let i = $index; track item) {
-            <div class="diary-entry-list-item">
-              <span>{{ item.value }}</span>
-              <button type="button" class="diary-entry-item-remove" (click)="removeRitualDeity(i)">
-                <fa-icon [icon]="faXmark" class="my-icon" />
-              </button>
-            </div>
-          }
-          <div class="diary-entry-list-input-row">
-            <input type="text" class="diary-entry-list-input" placeholder="Add deity or entity..."
-                  [(ngModel)]="ritualDeityInput" [ngModelOptions]="{standalone: true}"/>
-            <button type="button" class="diary-entry-item-add" (click)="addRitualDeity()">
-              <fa-icon [icon]="faPlus" class="my-icon" />
-            </button>
-          </div>
-        </div>
-      </div>
+      <app-list-editor
+        [formArray]="ritualDeities"
+        [label]="'Deities/Entities Invoked'"
+        [icon]="faPray"
+        [placeholder]="'Add deity or entity...'"
+        (itemAdded)="onRitualDeityAdded($event)"
+        (itemRemoved)="onRitualDeityRemoved($event)"
+      ></app-list-editor>
 
       <!-- Ritual Purpose and Outcome -->
       <div class="diary-entry-group">
