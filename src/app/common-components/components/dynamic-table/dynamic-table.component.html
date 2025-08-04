@@ -1,55 +1,89 @@
-<table class="users-table">
-  <thead>
-  <tr>
-    @for (col of columns; track col) {
-      <th>{{ col.header }}</th>
-    }
-  </tr>
-  </thead>
-  <tbody>
-    @if (items && items.length > 0) {
-      @for (item of items; track item) {
-        <tr>
-          @for (col of columns; track col) {
-            @if (!col.isActions) {
-              <td>
-                @if (col.isDecorated) {
-                  @if (col.link) {
-                    <div class="decorated-cell link-cell" [routerLink]="[col.link.prefix, item['id'], col.link.suffix]">
-                      <fa-icon [icon]="col.icon!" class="icon"></fa-icon>
-                      <span>{{ item[col.property] }}</span>
-                    </div>
+<div class="table-wrapper">
+  <table class="users-table">
+    <thead>
+    <tr>
+      @for (col of columns; track col) {
+        <th>{{ col.header }}</th>
+      }
+    </tr>
+    </thead>
+    <tbody>
+      @if (items && items.length > 0) {
+        @for (item of items; track item) {
+          <tr>
+            @for (col of columns; track col) {
+              @if (!col.isActions) {
+                <td>
+                  @if (col.isDecorated) {
+                    @if (col.link) {
+                      <div class="decorated-cell link-cell"
+                           [routerLink]="[col.link.prefix, item['id'], col.link.suffix]">
+                        <fa-icon [icon]="col.icon!" class="icon"></fa-icon>
+                        <span>{{ item[col.property] }}</span>
+                      </div>
+                    } @else {
+                      <div class="decorated-cell">
+                        <fa-icon [icon]="col.icon!" class="icon"></fa-icon>
+                        <span>{{ item[col.property] }}</span>
+                      </div>
+                    }
                   } @else {
-                    <div class="decorated-cell">
-                      <fa-icon [icon]="col.icon!" class="icon"></fa-icon>
+                    @if (col.isDate) {
+                      <span>{{ item[col.property] | date:'dd MMM yyyy, HH:mm' }}</span>
+                    } @else {
                       <span>{{ item[col.property] }}</span>
-                    </div>
+                    }
                   }
-                } @else {
-                  @if (col.isDate) {
-                    <span>{{ item[col.property] | date:'dd MMM yyyy, HH:mm' }}</span>
-                  } @else {
-                    <span>{{ item[col.property] }}</span>
+                </td>
+              } @else {
+                <td>
+                  @if (actionsTemplate) {
+                    <ng-container [ngTemplateOutlet]="actionsTemplate"
+                                  [ngTemplateOutletContext]="{ item: item }"></ng-container>
                   }
-                }
-              </td>
-            } @else {
-              <td>
-                @if (actionsTemplate) {
-                  <ng-container [ngTemplateOutlet]="actionsTemplate"
-                                [ngTemplateOutletContext]="{ item: item }"></ng-container>
-                }
-              </td>
+                </td>
+              }
             }
-          }
+          </tr>
+        }
+      } @else {
+        <tr class="no-hover">
+          <td [attr.colspan]="columns.length">
+            <div class="users-empty">No entries found.</div>
+          </td>
         </tr>
       }
-    } @else {
-      <tr class="no-hover">
-        <td [attr.colspan]="columns.length">
-          <div class="users-empty">No entries found.</div>
-        </td>
-      </tr>
-    }
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</div>
+<!-- paginator -->
+<nav class="table-paginator">
+  <!-- page-size selector -->
+  <div class="page-size">
+    <label>
+      Rows&nbsp;per&nbsp;page
+      <select (change)="changeSize($any($event.target).value)">
+        @for (s of [10, 25, 50, 100]; track s) {
+          <option [selected]="s === pageSize">{{ s }}</option>
+        }
+      </select>
+    </label>
+  </div>
+
+  <!-- range indicator & arrows -->
+  <div class="page-controls">
+    <span class="range">{{ rangeStart }}-{{ rangeEnd }} of {{ totalItems }}</span>
+
+    <button class="icon-btn"
+            (click)="goToPage(pageIndex - 1)"
+            [disabled]="pageIndex === 0">
+      <fa-icon [icon]="faChevronLeft" class="my-icon"></fa-icon>
+    </button>
+
+    <button class="icon-btn"
+            (click)="goToPage(pageIndex + 1)"
+            [disabled]="pageIndex >= totalPages - 1">
+      <fa-icon [icon]="faChevronRight" class="my-icon"></fa-icon>
+    </button>
+  </div>
+</nav>

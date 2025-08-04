@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import {AsyncPipe} from '@angular/common';
-import {DynamicTableComponent} from '../../../../common-components/components/dynamic-table/dynamic-table.component';
+import {
+  DynamicTableComponent,
+  PageEvent
+} from '../../../../common-components/components/dynamic-table/dynamic-table.component';
 import {UsersService} from '../../../services/users.service';
 import {BehaviorSubject} from 'rxjs';
 import {ActivatedRoute, RouterLink} from '@angular/router';
@@ -49,7 +52,7 @@ export class UserSessionsComponent {
       isActions: true
     }
   ];
-  protected readonly items$ = new BehaviorSubject<{[prop: string]: any}[]>([]);
+  protected readonly items$ = new BehaviorSubject<{[prop: string]: any}>({});
   protected readonly faArrowLeft = faArrowLeft;
   private userId: string;
 
@@ -57,16 +60,22 @@ export class UserSessionsComponent {
               private readonly activatedRoute: ActivatedRoute) {
     this.userId = this.activatedRoute.snapshot.params['id'];
     usersService.getSessions(this.userId).subscribe(res => {
-      this.items$.next(res.user_sessions)
+      this.items$.next(res)
     })
   }
 
   disableSession(item: any) {
     console.log(item);
     this.usersService.deleteSession(this.userId, item.jwt_jti).subscribe(() => {
-      this.items$.next(this.items$.value.filter(i => i['jwt_jti'] !== item.jwt_jti))
+
     })
   }
 
   protected readonly faTrash = faTrash;
+
+  onPageChange($event: PageEvent) {
+    this.usersService.getSessions(this.userId, $event.pageIndex, $event.pageSize).subscribe(res => {
+      this.items$.next(res)
+    })
+  }
 }

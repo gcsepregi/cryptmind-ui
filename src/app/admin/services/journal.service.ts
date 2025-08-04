@@ -12,7 +12,12 @@ export class JournalService {
               @Inject(BASE_URL) private readonly baseUrl: string) {
   }
 
-  getEntries(userId: string) {
-    return this.http.get<Journal[]>(`${this.baseUrl}/admin/users/${userId}/journals`);
+  getEntries(userId: string, pageIndex?: number, pageSize?: number) {
+    return this.http.get<Journal[]>(`${this.baseUrl}/admin/users/${userId}/journals`, {
+      params: {
+        page_index: pageIndex || 0,
+        page_size: pageSize || 10
+      }
+    });
   }
 }

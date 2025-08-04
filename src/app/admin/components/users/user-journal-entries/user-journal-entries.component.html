@@ -11,7 +11,14 @@
   </header>
   <div class="users-table-wrapper">
     @if (items$ | async; as items) {
-      <app-dynamic-table [columns]="columns" [items]="items"></app-dynamic-table>
+      <app-dynamic-table
+        [columns]="columns"
+        [items]="items['data']"
+        [totalItems]="items['total']"
+        [pageSize]="items['pageSize']"
+        [pageIndex]="items['pageIndex']"
+        (pageChange)="onPageChange($event)"
+      ></app-dynamic-table>
     }
   </div>
 </section>

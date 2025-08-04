@@ -2,9 +2,14 @@
   <header class="users-header">
     <h1>Users</h1>
   </header>
-  <div class="users-table-wrapper">
     @if (users$ | async; as users) {
-      <app-dynamic-table [columns]="columns" [items]="users"></app-dynamic-table>
+      <app-dynamic-table
+        [columns]="columns"
+        [items]="users.data"
+        [totalItems]="users.total"
+        [pageSize]="users.pageSize"
+        [pageIndex]="users.pageIndex"
+        (pageChange)="onPageChange($event)"
+      ></app-dynamic-table>
     }
-  </div>
 </section>

@@ -1,3 +1,10 @@
+.table-wrapper {
+  border-radius: 1rem;
+  border: 1px solid var(--table-border-color);
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  overflow: auto;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -55,4 +62,74 @@ table {
   color: #999;
   font-size: 1.1rem;
   letter-spacing: 0.02em;
+}
+
+.table-paginator {
+  padding-top: 0.75rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--foreground, #ededed);
+
+  /* ----- page-size selector ----- */
+  .page-size {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+
+    select {
+      background: transparent;
+      border: 1px solid var(--border-color, #444);
+      color: inherit;
+      padding: 0.25rem 1.25rem 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      appearance: none; /* sleek */
+      option {
+        color: initial;
+      }
+
+      /* keep native colours inside dropdown */
+    }
+  }
+
+  /* ----- arrow buttons & range text ----- */
+  .page-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    .range {
+      margin-right: 0.5rem;
+      font-variant-numeric: tabular-nums;
+      opacity: 0.85;
+    }
+
+    .icon-btn {
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      color: inherit;
+      font-size: 1rem;
+      line-height: 1;
+
+      &:hover:not([disabled]) {
+        background: var(--table-row-hover-bg);
+        border-color: var(--table-row-hover-bg);
+      }
+
+      &[disabled] {
+        opacity: 0.3;
+        cursor: default;
+      }
+    }
+  }
 }

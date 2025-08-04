@@ -4,7 +4,11 @@ import {BehaviorSubject} from 'rxjs';
 import {User} from '../../models/user';
 import {AsyncPipe} from '@angular/common';
 import {faBook, faClock, faUserCircle} from '@fortawesome/free-solid-svg-icons';
-import {DynamicTableComponent} from '../../../common-components/components/dynamic-table/dynamic-table.component';
+import {
+  DynamicTableComponent,
+  PageEvent
+} from '../../../common-components/components/dynamic-table/dynamic-table.component';
+import {DynamicTableData} from '../../models/dynamic-table-data';
 
 @Component({
   selector: 'app-users',
@@ -17,7 +21,7 @@ import {DynamicTableComponent} from '../../../common-components/components/dynam
 })
 export class UsersComponent implements OnInit {
 
-  protected users$ = new BehaviorSubject<User[]>([]);
+  protected users$ = new BehaviorSubject<DynamicTableData<User>>({data: [], total: 0, pageSize: 10, pageIndex: 0});
 
   constructor(private readonly usersService: UsersService) {
   }
@@ -35,7 +39,7 @@ export class UsersComponent implements OnInit {
     },
     {
       property: 'sessions_count',
-      header: '# of Sessions',
+      header: 'View sessions',
       isDecorated: true,
       icon: faClock,
       link: {
@@ -45,7 +49,7 @@ export class UsersComponent implements OnInit {
     },
     {
       property: 'journals_count',
-      header: '# of Entries',
+      header: 'View journals',
       isDecorated: true,
       icon: faBook,
       link: {
@@ -77,4 +81,10 @@ export class UsersComponent implements OnInit {
   }
 
   protected readonly faBook = faBook;
+
+  onPageChange($event: PageEvent) {
+    this.usersService.getUsers($event.pageIndex, $event.pageSize).subscribe(res => {
+      this.users$.next(res);
+    })
+  }
 }
