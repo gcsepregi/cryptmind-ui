@@ -24,11 +24,13 @@ export class UsersService {
     });
   }
 
-  getSessions(userId: string, pageIndex?: number, pageSize?: number) {
-    return this.http.get<UserSessions>(`${this.baseUrl}/admin/users/${userId}/sessions`, {
+  getSessions(userId: string, pageIndex?: number, pageSize?: number, orderBy?: string, orderDirection?: string) {
+    return this.http.get<DynamicTableData<UserSessions>>(`${this.baseUrl}/admin/users/${userId}/sessions`, {
       params: {
         page_index: pageIndex || 0,
-        page_size: pageSize || 10
+        page_size: pageSize || 10,
+        order_by: orderBy || 'last_active',
+        order_direction: orderDirection || 'desc'
       }
     });
   }

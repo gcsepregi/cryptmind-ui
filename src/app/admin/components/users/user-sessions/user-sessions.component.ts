@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {AsyncPipe} from '@angular/common';
 import {
   DynamicTableComponent,
-  PageEvent
+  PageEvent, SortEvent
 } from '../../../../common-components/components/dynamic-table/dynamic-table.component';
 import {UsersService} from '../../../services/users.service';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, combineLatest, switchMap} from 'rxjs';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {FaIconComponent} from '@fortawesome/angular-fontawesome';
 import {faArrowLeft, faTrash} from '@fortawesome/free-solid-svg-icons';
@@ -27,24 +27,29 @@ export class UserSessionsComponent {
     {
       property: 'user_agent',
       header: 'User Agent',
+      isSortable: true
     },
     {
       property: 'ip_address',
-      header: 'IP Address'
+      header: 'IP Address',
+      isSortable: true
     },
     {
       property: 'jwt_jti',
-      header: 'JTI'
+      header: 'JTI',
+      isSortable: true,
     },
     {
       property: 'created_at',
       header: 'Created',
       isDate: true,
+      isSortable: true,
     },
     {
       property: 'last_seen_at',
       header: 'Last activity',
       isDate: true,
+      isSortable: true,
     },
     {
       property: 'created_at',
@@ -52,16 +57,23 @@ export class UserSessionsComponent {
       isActions: true
     }
   ];
-  protected readonly items$ = new BehaviorSubject<{[prop: string]: any}>({});
+
+  private readonly paging$ = new BehaviorSubject<PageEvent>({pageIndex: 0, pageSize: 10});
+  protected readonly sorting$ = new BehaviorSubject<SortEvent>({property: 'updated_at', direction: 'desc'});
+
+  protected readonly items$ = combineLatest([this.paging$, this.sorting$])
+    .pipe(
+      switchMap(([{pageIndex, pageSize}, {property, direction}]) =>
+        this.usersService.getSessions(this.userId, pageIndex, pageSize, property ?? undefined, direction ?? undefined)
+      )
+    );
+
   protected readonly faArrowLeft = faArrowLeft;
-  private userId: string;
+  private readonly userId: string;
 
   constructor(private readonly usersService: UsersService,
               private readonly activatedRoute: ActivatedRoute) {
     this.userId = this.activatedRoute.snapshot.params['id'];
-    usersService.getSessions(this.userId).subscribe(res => {
-      this.items$.next(res)
-    })
   }
 
   disableSession(item: any) {
@@ -74,8 +86,10 @@ export class UserSessionsComponent {
   protected readonly faTrash = faTrash;
 
   onPageChange($event: PageEvent) {
-    this.usersService.getSessions(this.userId, $event.pageIndex, $event.pageSize).subscribe(res => {
-      this.items$.next(res)
-    })
+    this.paging$.next($event);
+  }
+
+  onSortChange($event: SortEvent) {
+    this.sorting$.next($event);
   }
 }
