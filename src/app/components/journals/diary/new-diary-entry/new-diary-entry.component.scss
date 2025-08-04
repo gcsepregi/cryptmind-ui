@@ -17,9 +17,6 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
 .diary-entry-container {
   width: 100%;
   max-width: 64rem;
-  border-radius: $radius;
-  border: 1px solid $primary;
-  box-shadow: $shadow;
   padding: 2.5rem 2rem;
   margin: 2rem auto;
   display: flex;
@@ -289,10 +286,8 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
 
 /* Mood Selector Styles */
 .mood-selector {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
 }
 
 .mood-icon {

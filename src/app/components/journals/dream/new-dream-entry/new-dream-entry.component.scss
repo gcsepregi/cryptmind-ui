@@ -21,9 +21,6 @@ $clarity-color: var(--neon-green, #22c55e);
 .diary-entry-container {
   width: 100%;
   max-width: 64rem;
-  border-radius: $radius;
-  border: 1px solid $primary;
-  box-shadow: $shadow;
   padding: 2.5rem 2rem;
   margin: 2rem auto;
   display: flex;
@@ -64,7 +61,6 @@ $clarity-color: var(--neon-green, #22c55e);
   flex-direction: column;
   gap: 1.5rem;
   flex: 1 1 auto;
-  min-height: 0;
 }
 
 .diary-entry-group {
@@ -109,11 +105,10 @@ $clarity-color: var(--neon-green, #22c55e);
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
-    min-height: 0;
+
     app-markdown-editor {
       display: flex;
       flex: 1 1 auto;
-      min-height: 0;
       max-height: none;
       border-radius: $radius;
       border: 1px solid $primary;
@@ -122,7 +117,6 @@ $clarity-color: var(--neon-green, #22c55e);
   }
   &.diary-entry-group-textarea textarea {
     flex: 1 1 auto;
-    min-height: 0;
     max-height: none;
   }
 }
@@ -368,10 +362,8 @@ $clarity-color: var(--neon-green, #22c55e);
 
 /* Mood Selector Styles */
 .mood-selector {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
 }
 
 .mood-icon {
@@ -422,7 +414,6 @@ $clarity-color: var(--neon-green, #22c55e);
     height: 100vh;
   }
   .diary-entry-container {
-    min-height: 0;
     border: none;
     box-shadow: none;
     padding: 0;
@@ -431,15 +422,12 @@ $clarity-color: var(--neon-green, #22c55e);
   .diary-entry-form {
     gap: 1rem;
     flex: 1 1 auto;
-    min-height: 0;
   }
   .diary-entry-group.diary-entry-group-textarea {
     flex: 1 1 auto;
-    min-height: 0;
   }
   .diary-entry-group textarea {
     flex: 1 1 auto;
-    min-height: 0;
     max-height: none;
   }
 }
