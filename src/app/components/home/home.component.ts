@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {faFire, faBook, faMoon, faStar, faCrown, faPlus, faCalendar, faList, faCheckCircle, faBell, faQuoteLeft, faUserCircle, faArrowRight, faChevronLeft, faChevronRight, faSmile, faFrown, faAngry, faMeh, faLaugh, faSadTear, faGrinHearts, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons';
 import {NgClass, DatePipe} from '@angular/common';
@@ -9,6 +9,8 @@ import {Journal, JournalStats} from '../../models/journal.model';
 import { CalendarService, CalendarDay } from '../../services/calendar.service';
 import {MarkdownPipe} from '../../pipes/markdown.pipe';
 import {ToastrService} from 'ngx-toastr';
+import {MoodService} from '../../services/mood.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +18,7 @@ import {ToastrService} from 'ngx-toastr';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {
+export class HomeComponent implements OnDestroy {
   user = {
     nickname: '',
     avatar: '',
@@ -72,6 +74,7 @@ export class HomeComponent {
   // Quick mood tracking
   selectedMood: string = '';
   moodTimestamp: Date = new Date();
+  private moodSubscription: Subscription;
 
   // Mood options for the quick mood selector
   moodOptions = [
@@ -103,7 +106,8 @@ export class HomeComponent {
               private readonly journalService: JournalsService,
               private readonly calendarService: CalendarService,
               private readonly router: Router,
-              private readonly toastr: ToastrService) {
+              private readonly toastr: ToastrService,
+              private readonly moodService: MoodService) {
     userService.getMe().subscribe(res => {
       this.user.nickname = res.nickname;
     });
@@ -121,26 +125,16 @@ export class HomeComponent {
       this.updateCalendarDays();
     });
 
-    // Load saved mood from localStorage if available
-    const savedMood = localStorage.getItem('quickMood');
-    if (savedMood) {
-      try {
-        const { mood, timestamp } = JSON.parse(savedMood);
-        this.selectedMood = mood;
-        this.moodTimestamp = new Date(timestamp);
-
-        // If mood is older than 12 hours, clear it
-        const twelveHoursAgo = new Date();
-        twelveHoursAgo.setHours(twelveHoursAgo.getHours() - 12);
-        if (this.moodTimestamp < twelveHoursAgo) {
-          this.selectedMood = '';
-          localStorage.removeItem('quickMood');
-        }
-      } catch (e) {
-        console.error('Error loading saved mood', e);
-        localStorage.removeItem('quickMood');
+    // Subscribe to mood updates from the service
+    this.moodSubscription = this.moodService.getMood().subscribe(moodData => {
+      if (moodData) {
+        this.selectedMood = moodData.mood;
+        this.moodTimestamp = moodData.timestamp;
+      } else {
+        this.selectedMood = '';
+        this.moodTimestamp = new Date();
       }
-    }
+    });
   }
 
   updateCalendarDays() {
@@ -159,21 +153,20 @@ export class HomeComponent {
 
   // Method to get the label for a given mood
   getMoodLabel(mood: string): string {
-    const option = this.moodOptions.find(opt => opt.value === mood);
-    return option ? option.label : 'Unknown';
+    return this.moodService.getMoodLabel(mood);
   }
 
   // Method to quickly set the current mood
   quickSetMood(mood: string) {
-    this.selectedMood = mood;
-    this.moodTimestamp = new Date();
+    this.moodService.setMood(mood);
     this.toastr.success(`Mood set to ${this.getMoodLabel(mood)}`);
+  }
 
-    // Save to local storage for persistence
-    localStorage.setItem('quickMood', JSON.stringify({
-      mood: this.selectedMood,
-      timestamp: this.moodTimestamp.toISOString()
-    }));
+  // Clean up subscriptions when component is destroyed
+  ngOnDestroy(): void {
+    if (this.moodSubscription) {
+      this.moodSubscription.unsubscribe();
+    }
   }
 
   // Method to edit a journal entry

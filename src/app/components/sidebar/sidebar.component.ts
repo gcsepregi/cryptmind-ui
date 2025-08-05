@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import {ThemeService} from '../../services/theme.service';
 import {UserService} from '../../services/user.service';
 import {Router, RouterLink} from '@angular/router';
@@ -26,6 +26,8 @@ import {
 import {SidebarService} from '../../services/sidebar.service';
 import {AdminMenuComponent} from '../../admin/components/admin-menu/admin-menu.component';
 import {NgClass} from '@angular/common';
+import {MoodService} from '../../services/mood.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
@@ -38,7 +40,7 @@ import {NgClass} from '@angular/common';
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss'
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnDestroy {
   protected readonly faSkull = faSkull;
   protected readonly faBars = faBars;
   protected readonly faUser = faUser;
@@ -62,28 +64,28 @@ export class SidebarComponent {
     'angry': faAngry
   };
 
-  // Mood options mapping for labels
-  protected moodOptions = [
-    { value: 'love', label: 'Love' },
-    { value: 'happy', label: 'Happy' },
-    { value: 'good', label: 'Good' },
-    { value: 'neutral', label: 'Neutral' },
-    { value: 'sad', label: 'Sad' },
-    { value: 'very-sad', label: 'Very Sad' },
-    { value: 'angry', label: 'Angry' }
-  ];
+  private moodSubscription: Subscription;
 
   constructor(private readonly themeService: ThemeService,
               private readonly userService: UserService,
               private readonly router: Router,
-              private readonly sidebarService: SidebarService) {
+              private readonly sidebarService: SidebarService,
+              private readonly moodService: MoodService) {
     this.userService.getMe().subscribe(res => {
       this.user = res;
       this.roles = userService.roles;
     });
 
-    // Load saved mood from localStorage if available
-    this.loadCurrentMood();
+    // Subscribe to mood updates from the service
+    this.moodSubscription = this.moodService.getMood().subscribe(moodData => {
+      if (moodData) {
+        this.currentMood = moodData.mood;
+        this.moodTimestamp = moodData.timestamp;
+      } else {
+        this.currentMood = '';
+        this.moodTimestamp = null;
+      }
+    });
   }
 
   get isOpen() {
@@ -110,39 +112,21 @@ export class SidebarComponent {
     this.themeService.toggle();
   }
 
-  // Method to load the current mood from localStorage
-  loadCurrentMood() {
-    const savedMood = localStorage.getItem('quickMood');
-    if (savedMood) {
-      try {
-        const { mood, timestamp } = JSON.parse(savedMood);
-        this.currentMood = mood;
-        this.moodTimestamp = new Date(timestamp);
-
-        // If mood is older than 12 hours, clear it
-        const twelveHoursAgo = new Date();
-        twelveHoursAgo.setHours(twelveHoursAgo.getHours() - 12);
-        if (this.moodTimestamp < twelveHoursAgo) {
-          this.currentMood = '';
-          this.moodTimestamp = null;
-        }
-      } catch (e) {
-        console.error('Error loading saved mood', e);
-        this.currentMood = '';
-        this.moodTimestamp = null;
-      }
-    }
-  }
-
   // Method to get the label for a given mood
   getMoodLabel(mood: string): string {
-    const option = this.moodOptions.find(opt => opt.value === mood);
-    return option ? option.label : 'Unknown';
+    return this.moodService.getMoodLabel(mood);
   }
 
   // Method to get the icon for a given mood
   getMoodIcon(mood: string) {
     return this.moodIcons[mood as keyof typeof this.moodIcons] || faSmile;
+  }
+
+  // Clean up subscriptions when component is destroyed
+  ngOnDestroy(): void {
+    if (this.moodSubscription) {
+      this.moodSubscription.unsubscribe();
+    }
   }
 
   protected readonly faDashboard = faDashboard;
