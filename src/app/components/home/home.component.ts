@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {faFire, faBook, faMoon, faStar, faCrown, faPlus, faCalendar, faList, faCheckCircle, faBell, faQuoteLeft, faUserCircle, faArrowRight, faChevronLeft, faChevronRight} from '@fortawesome/free-solid-svg-icons';
+import {faFire, faBook, faMoon, faStar, faCrown, faPlus, faCalendar, faList, faCheckCircle, faBell, faQuoteLeft, faUserCircle, faArrowRight, faChevronLeft, faChevronRight, faSmile, faFrown, faAngry, faMeh, faLaugh, faSadTear, faGrinHearts, faEdit, faTrash} from '@fortawesome/free-solid-svg-icons';
 import {NgClass, DatePipe} from '@angular/common';
 import {UserService} from '../../services/user.service';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {JournalsService} from '../../services/journals.service';
 import {Journal, JournalStats} from '../../models/journal.model';
 import { CalendarService, CalendarDay } from '../../services/calendar.service';
 import {MarkdownPipe} from '../../pipes/markdown.pipe';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -54,10 +55,30 @@ export class HomeComponent {
   faArrowRight = faArrowRight;
   faChevronLeft = faChevronLeft;
   faChevronRight = faChevronRight;
+  faSmile = faSmile;
+  faFrown = faFrown;
+  faAngry = faAngry;
+  faMeh = faMeh;
+  faLaugh = faLaugh;
+  faSadTear = faSadTear;
+  faGrinHearts = faGrinHearts;
+  faEdit = faEdit;
+  faTrash = faTrash;
   calendarDays: CalendarDay[] = [];
   currentMonth: number = new Date().getMonth();
   currentYear: number = new Date().getFullYear();
   private calendarEntries: Journal[] = [];
+
+  // Mood options mapping
+  moodIcons = {
+    'love': this.faGrinHearts,
+    'happy': this.faLaugh,
+    'good': this.faSmile,
+    'neutral': this.faMeh,
+    'sad': this.faFrown,
+    'very-sad': this.faSadTear,
+    'angry': this.faAngry
+  };
 
   get monthName(): string {
     return new Date(this.currentYear, this.currentMonth).toLocaleString('default', { month: 'long' });
@@ -65,7 +86,9 @@ export class HomeComponent {
 
   constructor(private readonly userService: UserService,
               private readonly journalService: JournalsService,
-              private readonly calendarService: CalendarService) {
+              private readonly calendarService: CalendarService,
+              private readonly router: Router,
+              private readonly toastr: ToastrService) {
     userService.getMe().subscribe(res => {
       this.user.nickname = res.nickname;
     });
@@ -90,5 +113,33 @@ export class HomeComponent {
       this.currentMonth,
       this.calendarEntries
     );
+  }
+
+  // Method to get the icon for a given mood
+  getMoodIcon(mood: string | undefined) {
+    if (!mood) return this.faSmile; // Default icon if no mood is set
+    return this.moodIcons[mood as keyof typeof this.moodIcons] || this.faSmile;
+  }
+
+  // Method to edit a journal entry
+  editJournal(event: Event, entry: Journal) {
+    event.stopPropagation(); // Prevent navigation to view page
+    this.router.navigate([`/journals/${entry.journal_type}`, entry.id, 'edit']);
+  }
+
+  // Method to delete a journal entry
+  deleteJournal(event: Event, entry: Journal) {
+    event.stopPropagation(); // Prevent navigation to view page
+    if (confirm(`Are you sure you want to delete "${entry.title}"?`)) {
+      this.journalService.deleteJournalEntry(entry.id, entry.journal_type).subscribe({
+        next: () => {
+          this.recentEntries = this.recentEntries.filter(e => e.id !== entry.id);
+          this.toastr.success('Journal entry deleted');
+        },
+        error: () => {
+          this.toastr.error('Failed to delete journal entry. Please try again.');
+        }
+      });
+    }
   }
 }

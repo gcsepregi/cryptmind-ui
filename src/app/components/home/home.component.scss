@@ -132,6 +132,7 @@
   border-radius: 0.75rem;
   border: 1px solid var(--color-primary-400, #23233a);
   padding: 1rem;
+  position: relative;
 }
 .home-entry-info {
   display: flex;
@@ -142,6 +143,94 @@
   font-weight: 600;
   font-size: 1.05rem;
   color: var(--foreground, #ededed);
+}
+
+.home-entry-mood {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, color 0.2s;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  color: var(--color-accent-400, #a259f7);
+
+  &:hover {
+    transform: scale(1.2);
+  }
+
+  &.mood-love {
+    color: #ff6b81;
+  }
+
+  &.mood-happy {
+    color: #feca57;
+  }
+
+  &.mood-good {
+    color: #1dd1a1;
+  }
+
+  &.mood-neutral {
+    color: #5f27cd;
+  }
+
+  &.mood-sad {
+    color: #54a0ff;
+  }
+
+  &.mood-very-sad {
+    color: #2e86de;
+  }
+
+  &.mood-angry {
+    color: #ee5253;
+  }
+}
+
+.home-entry-actions {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.home-entry-card:hover .home-entry-actions {
+  opacity: 1;
+}
+
+.home-entry-action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  transition: background-color 0.2s, transform 0.2s;
+
+  &.edit {
+    color: var(--neon-cyan, #0ea5e9);
+
+    &:hover {
+      background-color: rgba(14, 165, 233, 0.2);
+      transform: scale(1.1);
+    }
+  }
+
+  &.delete {
+    color: #ee5253;
+
+    &:hover {
+      background-color: rgba(238, 82, 83, 0.2);
+      transform: scale(1.1);
+    }
+  }
 }
 .home-entry-date {
   font-size: 0.95rem;
