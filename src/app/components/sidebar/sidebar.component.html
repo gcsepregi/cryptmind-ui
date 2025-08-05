@@ -7,6 +7,12 @@
       <div>
         <div class="sidebar-nickname">{{ user?.nickname }}</div>
         <div class="sidebar-status">Online</div>
+        @if (currentMood) {
+          <div class="sidebar-mood">
+            <fa-icon [icon]="getMoodIcon(currentMood)" class="mood-icon" />
+            <span>{{ getMoodLabel(currentMood) }}</span>
+          </div>
+        }
       </div>
     </div>
     <nav class="sidebar-nav">
