@@ -35,7 +35,7 @@
     "@angular/build": "^20.1.4",
     "@angular/cli": "^20.1.4",
     "@angular/compiler-cli": "^20.1.4",
-    "@types/dompurify": "^3.0.5",
+    "@types/dompurify": "^3.2.0",
     "@types/jasmine": "~5.1.0",
     "@types/marked": "^5.0.2",
     "@types/turndown": "^5.0.5",
