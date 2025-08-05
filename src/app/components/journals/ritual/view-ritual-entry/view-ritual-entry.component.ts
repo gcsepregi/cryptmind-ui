@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {AsyncPipe, DatePipe} from "@angular/common";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {
   faArrowLeft,
   faCalendar,
@@ -20,12 +20,15 @@ import {
   faMeh,
   faLaugh,
   faSadTear,
-  faGrinHearts
+  faGrinHearts,
+  faEdit,
+  faTrash
 } from '@fortawesome/free-solid-svg-icons';
 import {BehaviorSubject} from 'rxjs';
 import {Journal} from '../../../../models/journal.model';
 import {JournalsService} from '../../../../services/journals.service';
 import {MarkdownPipe} from '../../../../pipes/markdown.pipe';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-view-ritual-entry',
@@ -59,6 +62,8 @@ export class ViewRitualEntryComponent {
   protected readonly faLaugh = faLaugh;
   protected readonly faSadTear = faSadTear;
   protected readonly faGrinHearts = faGrinHearts;
+  protected readonly faEdit = faEdit;
+  protected readonly faTrash = faTrash;
 
   // Define mood options mapping
   private moodIcons = {
@@ -74,7 +79,9 @@ export class ViewRitualEntryComponent {
   protected entry$ = new BehaviorSubject<Journal>({} as Journal);
 
   constructor(private readonly route: ActivatedRoute,
-              private readonly journalService: JournalsService) {
+              private readonly journalService: JournalsService,
+              private readonly router: Router,
+              private readonly toastr: ToastrService) {
     const id = this.route.snapshot.paramMap.get('id')!;
     this.journalService.getJournalEntry(id, 'ritual').subscribe(res => {
       this.entry$.next(res);
@@ -84,5 +91,27 @@ export class ViewRitualEntryComponent {
   // Method to get the appropriate mood icon based on the mood value
   getMoodIcon(mood: string) {
     return this.moodIcons[mood as keyof typeof this.moodIcons] || this.faSmile;
+  }
+
+  // Method to edit the current journal entry
+  editEntry() {
+    const entry = this.entry$.getValue();
+    this.router.navigate([`/journals/ritual`, entry.id, 'edit']);
+  }
+
+  // Method to delete the current journal entry
+  deleteEntry() {
+    const entry = this.entry$.getValue();
+    if (confirm(`Are you sure you want to delete "${entry.title}"?`)) {
+      this.journalService.deleteJournalEntry(entry.id, 'ritual').subscribe({
+        next: () => {
+          this.toastr.success('Journal entry deleted');
+          this.router.navigate(['/journals']);
+        },
+        error: () => {
+          this.toastr.error('Failed to delete journal entry. Please try again.');
+        }
+      });
+    }
   }
 }

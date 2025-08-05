@@ -8,6 +8,14 @@
       <div class="view-entry-header">
         <fa-icon [icon]="faBook" class="my-icon"/>
         <h1 class="view-entry-title">{{ entry.title }}</h1>
+        <div class="view-entry-actions">
+          <button class="view-entry-action-btn edit" (click)="editEntry()" title="Edit">
+            <fa-icon [icon]="faEdit" class="my-icon"/>
+          </button>
+          <button class="view-entry-action-btn delete" (click)="deleteEntry()" title="Delete">
+            <fa-icon [icon]="faTrash" class="my-icon"/>
+          </button>
+        </div>
       </div>
 
       <!-- Basic Metadata -->

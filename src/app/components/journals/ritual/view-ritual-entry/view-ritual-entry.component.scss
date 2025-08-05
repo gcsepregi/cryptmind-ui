@@ -47,6 +47,7 @@ $ritual-deities-color: var(--neon-purple, #a259f7);
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 1.5rem;
+  position: relative;
   .my-icon {
     color: $accent;
     font-size: 1.7rem;
@@ -56,6 +57,43 @@ $ritual-deities-color: var(--neon-purple, #a259f7);
     font-weight: bold;
     color: $foreground;
     margin: 0;
+    flex-grow: 1;
+  }
+
+  .view-entry-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .view-entry-action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    transition: background-color 0.2s, transform 0.2s;
+
+    &.edit {
+      color: var(--neon-cyan, #0ea5e9);
+
+      &:hover {
+        background-color: rgba(14, 165, 233, 0.2);
+        transform: scale(1.1);
+      }
+    }
+
+    &.delete {
+      color: #ee5253;
+
+      &:hover {
+        background-color: rgba(238, 82, 83, 0.2);
+        transform: scale(1.1);
+      }
+    }
   }
 }
 
