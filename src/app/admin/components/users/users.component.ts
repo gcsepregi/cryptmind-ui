@@ -37,7 +37,7 @@ export class UsersComponent extends TableComponentBase<User> {
     },
     {
       property: 'sessions_count',
-      header: 'View sessions',
+      header: '# of sessions',
       isDecorated: true,
       icon: faClock,
       link: {
@@ -47,7 +47,7 @@ export class UsersComponent extends TableComponentBase<User> {
     },
     {
       property: 'journals_count',
-      header: 'View journals',
+      header: '# of journals',
       isDecorated: true,
       icon: faBook,
       link: {
