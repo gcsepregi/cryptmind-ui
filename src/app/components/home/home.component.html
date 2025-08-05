@@ -26,6 +26,28 @@
         New Ritual
       </button>
     </div>
+
+    <div class="home-quick-mood">
+      <div class="home-section-title">Quick Mood</div>
+      <div class="mood-selector">
+        @for (option of moodOptions; track option.value) {
+          <button
+            type="button"
+            class="mood-icon"
+            [class.selected]="selectedMood === option.value"
+            (click)="quickSetMood(option.value)"
+            [title]="option.label">
+            <fa-icon [icon]="option.icon" class="my-icon-md" />
+          </button>
+        }
+      </div>
+      @if (selectedMood) {
+        <div class="mood-status">
+          <span>Current mood: <strong>{{ getMoodLabel(selectedMood) }}</strong></span>
+          <span class="mood-timestamp">{{ moodTimestamp | date: 'HH:mm' }}</span>
+        </div>
+      }
+    </div>
     <div class="home-recent-entries">
       <div class="home-section-title">Recent Entries</div>
       @for (entry of recentEntries; track entry) {

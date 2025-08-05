@@ -69,6 +69,21 @@ export class HomeComponent {
   currentYear: number = new Date().getFullYear();
   private calendarEntries: Journal[] = [];
 
+  // Quick mood tracking
+  selectedMood: string = '';
+  moodTimestamp: Date = new Date();
+
+  // Mood options for the quick mood selector
+  moodOptions = [
+    { icon: this.faGrinHearts, value: 'love', label: 'Love' },
+    { icon: this.faLaugh, value: 'happy', label: 'Happy' },
+    { icon: this.faSmile, value: 'good', label: 'Good' },
+    { icon: this.faMeh, value: 'neutral', label: 'Neutral' },
+    { icon: this.faFrown, value: 'sad', label: 'Sad' },
+    { icon: this.faSadTear, value: 'very-sad', label: 'Very Sad' },
+    { icon: this.faAngry, value: 'angry', label: 'Angry' }
+  ];
+
   // Mood options mapping
   moodIcons = {
     'love': this.faGrinHearts,
@@ -104,7 +119,28 @@ export class HomeComponent {
     }).subscribe(res => {
       this.calendarEntries = res;
       this.updateCalendarDays();
-    })
+    });
+
+    // Load saved mood from localStorage if available
+    const savedMood = localStorage.getItem('quickMood');
+    if (savedMood) {
+      try {
+        const { mood, timestamp } = JSON.parse(savedMood);
+        this.selectedMood = mood;
+        this.moodTimestamp = new Date(timestamp);
+
+        // If mood is older than 12 hours, clear it
+        const twelveHoursAgo = new Date();
+        twelveHoursAgo.setHours(twelveHoursAgo.getHours() - 12);
+        if (this.moodTimestamp < twelveHoursAgo) {
+          this.selectedMood = '';
+          localStorage.removeItem('quickMood');
+        }
+      } catch (e) {
+        console.error('Error loading saved mood', e);
+        localStorage.removeItem('quickMood');
+      }
+    }
   }
 
   updateCalendarDays() {
@@ -119,6 +155,25 @@ export class HomeComponent {
   getMoodIcon(mood: string | undefined) {
     if (!mood) return this.faSmile; // Default icon if no mood is set
     return this.moodIcons[mood as keyof typeof this.moodIcons] || this.faSmile;
+  }
+
+  // Method to get the label for a given mood
+  getMoodLabel(mood: string): string {
+    const option = this.moodOptions.find(opt => opt.value === mood);
+    return option ? option.label : 'Unknown';
+  }
+
+  // Method to quickly set the current mood
+  quickSetMood(mood: string) {
+    this.selectedMood = mood;
+    this.moodTimestamp = new Date();
+    this.toastr.success(`Mood set to ${this.getMoodLabel(mood)}`);
+
+    // Save to local storage for persistence
+    localStorage.setItem('quickMood', JSON.stringify({
+      mood: this.selectedMood,
+      timestamp: this.moodTimestamp.toISOString()
+    }));
   }
 
   // Method to edit a journal entry
