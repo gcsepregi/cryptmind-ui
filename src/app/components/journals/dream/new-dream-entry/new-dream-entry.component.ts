@@ -26,7 +26,7 @@ import {
 import {MarkdownEditorComponent} from '../../../tools/markdown-editor/markdown-editor.component';
 import {CommonModule} from '@angular/common';
 import {NewJournal} from '../../../../models/journal.model';
-import {ListEditorComponent} from '../../../shared/list-editor/list-editor.component';
+import {ListEditorComponent} from '../../../../common-components/components/list-editor/list-editor.component';
 
 @Component({
   selector: 'app-new-dream-entry',

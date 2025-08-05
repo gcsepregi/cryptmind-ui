@@ -5,7 +5,6 @@ import {LandingPageComponent} from './components/landing-page/landing-page.compo
 import {Injectable} from '@angular/core';
 import {UserService} from './services/user.service';
 import {RegisterComponent} from './components/users/register/register.component';
-import {JournalListComponent} from './components/journals/journal-list/journal-list.component';
 import {NewDiaryEntryComponent} from './components/journals/diary/new-diary-entry/new-diary-entry.component';
 import {NewDreamEntryComponent} from './components/journals/dream/new-dream-entry/new-dream-entry.component';
 import {NewRitualEntryComponent} from './components/journals/ritual/new-ritual-entry/new-ritual-entry.component';
@@ -13,6 +12,7 @@ import {ViewDiaryEntryComponent} from './components/journals/diary/view-diary-en
 import {ViewDreamEntryComponent} from './components/journals/dream/view-dream-entry/view-dream-entry.component';
 import {ViewRitualEntryComponent} from './components/journals/ritual/view-ritual-entry/view-ritual-entry.component';
 import {ForbiddenComponent} from './forbidden/forbidden.component';
+import {JournalListComponent} from './components/journals/journal-list/journal-list.component';
 
 @Injectable({providedIn: 'root'})
 export class AuthGuard {
