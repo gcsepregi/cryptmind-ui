@@ -16,15 +16,15 @@ export class MoodService {
   // BehaviorSubject to track mood changes
   private moodSubject = new BehaviorSubject<MoodData | null>(null);
 
-  // Mood options mapping for labels and colors
+  // Mood options mapping for labels and CSS classes
   public readonly moodOptions = [
-    { value: 'love', label: 'Love', color: '#ff6b81' },
-    { value: 'happy', label: 'Happy', color: '#feca57' },
-    { value: 'good', label: 'Good', color: '#1dd1a1' },
-    { value: 'neutral', label: 'Neutral', color: '#5f27cd' },
-    { value: 'sad', label: 'Sad', color: '#54a0ff' },
-    { value: 'very-sad', label: 'Very Sad', color: '#2e86de' },
-    { value: 'angry', label: 'Angry', color: '#ee5253' }
+    { value: 'love', label: 'Love', colorClass: 'mood-text-love' },
+    { value: 'happy', label: 'Happy', colorClass: 'mood-text-happy' },
+    { value: 'good', label: 'Good', colorClass: 'mood-text-good' },
+    { value: 'neutral', label: 'Neutral', colorClass: 'mood-text-neutral' },
+    { value: 'sad', label: 'Sad', colorClass: 'mood-text-sad' },
+    { value: 'very-sad', label: 'Very Sad', colorClass: 'mood-text-very-sad' },
+    { value: 'angry', label: 'Angry', colorClass: 'mood-text-angry' }
   ];
 
   constructor() {
@@ -75,11 +75,11 @@ export class MoodService {
   }
 
   /**
-   * Get the color for a given mood
+   * Get the CSS class for a given mood's color
    */
   public getMoodColor(mood: string): string {
     const option = this.moodOptions.find(opt => opt.value === mood);
-    return option ? option.color : '#a259f7'; // Default to accent color if not found
+    return option ? option.colorClass : 'neon-text-purple'; // Default to accent color if not found
   }
 
   /**

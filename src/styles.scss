@@ -50,6 +50,15 @@
   --neon-pink: #ff0080;
   --neon-orange: #ff6b35;
 
+  /* Mood Colors */
+  --mood-love: #ff6b81;
+  --mood-happy: #feca57;
+  --mood-good: #1dd1a1;
+  --mood-neutral: #5f27cd;
+  --mood-sad: #54a0ff;
+  --mood-very-sad: #2e86de;
+  --mood-angry: #ee5253;
+
   /* Typography */
   --font-sans: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: JetBrains Mono, 'Fira Code', 'Consolas', monospace;
@@ -174,6 +183,29 @@ body {
 }
 .neon-text-teal {
   color: var(--neon-cyan);
+}
+
+/* Mood Text Colors */
+.mood-text-love {
+  color: var(--mood-love);
+}
+.mood-text-happy {
+  color: var(--mood-happy);
+}
+.mood-text-good {
+  color: var(--mood-good);
+}
+.mood-text-neutral {
+  color: var(--mood-neutral);
+}
+.mood-text-sad {
+  color: var(--mood-sad);
+}
+.mood-text-very-sad {
+  color: var(--mood-very-sad);
+}
+.mood-text-angry {
+  color: var(--mood-angry);
 }
 
 .neon-glow {
