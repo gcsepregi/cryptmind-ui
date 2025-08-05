@@ -16,15 +16,15 @@ export class MoodService {
   // BehaviorSubject to track mood changes
   private moodSubject = new BehaviorSubject<MoodData | null>(null);
 
-  // Mood options mapping for labels
+  // Mood options mapping for labels and colors
   public readonly moodOptions = [
-    { value: 'love', label: 'Love' },
-    { value: 'happy', label: 'Happy' },
-    { value: 'good', label: 'Good' },
-    { value: 'neutral', label: 'Neutral' },
-    { value: 'sad', label: 'Sad' },
-    { value: 'very-sad', label: 'Very Sad' },
-    { value: 'angry', label: 'Angry' }
+    { value: 'love', label: 'Love', color: '#ff6b81' },
+    { value: 'happy', label: 'Happy', color: '#feca57' },
+    { value: 'good', label: 'Good', color: '#1dd1a1' },
+    { value: 'neutral', label: 'Neutral', color: '#5f27cd' },
+    { value: 'sad', label: 'Sad', color: '#54a0ff' },
+    { value: 'very-sad', label: 'Very Sad', color: '#2e86de' },
+    { value: 'angry', label: 'Angry', color: '#ee5253' }
   ];
 
   constructor() {
@@ -72,6 +72,14 @@ export class MoodService {
   public getMoodLabel(mood: string): string {
     const option = this.moodOptions.find(opt => opt.value === mood);
     return option ? option.label : 'Unknown';
+  }
+
+  /**
+   * Get the color for a given mood
+   */
+  public getMoodColor(mood: string): string {
+    const option = this.moodOptions.find(opt => opt.value === mood);
+    return option ? option.color : '#a259f7'; // Default to accent color if not found
   }
 
   /**

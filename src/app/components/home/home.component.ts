@@ -156,6 +156,11 @@ export class HomeComponent implements OnDestroy {
     return this.moodService.getMoodLabel(mood);
   }
 
+  // Method to get the color for a given mood
+  getMoodColor(mood: string): string {
+    return this.moodService.getMoodColor(mood);
+  }
+
   // Method to quickly set the current mood
   quickSetMood(mood: string) {
     this.moodService.setMood(mood);

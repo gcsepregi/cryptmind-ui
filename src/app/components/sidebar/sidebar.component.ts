@@ -122,6 +122,11 @@ export class SidebarComponent implements OnDestroy {
     return this.moodIcons[mood as keyof typeof this.moodIcons] || faSmile;
   }
 
+  // Method to get the color for a given mood
+  getMoodColor(mood: string): string {
+    return this.moodService.getMoodColor(mood);
+  }
+
   // Clean up subscriptions when component is destroyed
   ngOnDestroy(): void {
     if (this.moodSubscription) {

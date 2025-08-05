@@ -37,7 +37,7 @@
             [class.selected]="selectedMood === option.value"
             (click)="quickSetMood(option.value)"
             [title]="option.label">
-            <fa-icon [icon]="option.icon" class="my-icon-md" />
+            <fa-icon [icon]="option.icon" class="my-icon-md" [style.color]="getMoodColor(option.value)" />
           </button>
         }
       </div>
@@ -65,8 +65,8 @@
             <div class="home-entry-snippet" [innerHTML]="entry.entry | markdown"></div>
           </div>
           @if (entry.mood) {
-            <span class="home-entry-mood" [title]="entry.mood" [ngClass]="'mood-' + entry.mood">
-              <fa-icon [icon]="getMoodIcon(entry.mood)" class="my-icon-sm"/>
+            <span class="home-entry-mood" [title]="getMoodLabel(entry.mood)">
+              <fa-icon [icon]="getMoodIcon(entry.mood)" class="my-icon-sm" [style.color]="getMoodColor(entry.mood)"/>
             </span>
           }
           <div class="home-entry-actions">

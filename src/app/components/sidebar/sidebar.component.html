@@ -9,7 +9,7 @@
         <div class="sidebar-status">Online</div>
         @if (currentMood) {
           <div class="sidebar-mood">
-            <fa-icon [icon]="getMoodIcon(currentMood)" class="mood-icon" />
+            <fa-icon [icon]="getMoodIcon(currentMood)" class="mood-icon" [style.color]="getMoodColor(currentMood)" />
             <span>{{ getMoodLabel(currentMood) }}</span>
           </div>
         }
