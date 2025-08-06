@@ -4,19 +4,20 @@
 // Mock server data - what the server will return from the sync endpoint
 const serverResponse = [
   {
+    id: 'local-1', // Server now has the local item after sync
+    mood: 'love',
+    recorded_at: '2025-08-06T09:00:00.000Z',
+    client_id: 'local-1'
+  },
+  {
     id: 'server-1',
     mood: 'happy',
-    timestamp: '2025-08-05T10:00:00.000Z'
+    recorded_at: '2025-08-05T10:00:00.000Z'
   },
   {
     id: 'server-2',
     mood: 'sad',
-    timestamp: '2025-08-04T15:30:00.000Z'
-  },
-  {
-    id: 'local-1', // Server now has the local item after sync
-    mood: 'love',
-    timestamp: '2025-08-06T09:00:00.000Z'
+    recorded_at: '2025-08-04T15:30:00.000Z'
   }
 ];
 
@@ -97,6 +98,7 @@ const mockHttp = {
 // Mock MoodService
 class MockMoodService {
   constructor() {
+    // For mood history
     this.moodHistorySubject = {
       value: localMoodHistories,
       next: (data) => {
@@ -104,8 +106,21 @@ class MockMoodService {
         console.log('Updated mood history subject with:', data.length, 'items');
       }
     };
+
+    // For current mood
+    this.moodSubject = {
+      value: null,
+      next: (data) => {
+        this.moodSubject.value = data;
+        console.log('Updated current mood subject with:', data ? data.mood : 'null');
+      }
+    };
+
     this.http = mockHttp;
     this.baseUrl = 'http://localhost:3000';
+
+    // Constants
+    this.MOOD_EXPIRY_HOURS = 12;
   }
 
   // Simplified version of the updateLocalStorageWithServerItems method
@@ -126,6 +141,28 @@ class MockMoodService {
 
     // Update the subject with server items
     this.moodHistorySubject.next(sortedItems);
+
+    // Update current mood with the most recent mood from server
+    if (sortedItems.length > 0) {
+      const mostRecentMood = sortedItems[0];
+      const expiryTime = new Date();
+      expiryTime.setHours(expiryTime.getHours() - this.MOOD_EXPIRY_HOURS);
+
+      // Only update current mood if the most recent mood is within the expiry period
+      if (mostRecentMood.timestamp >= expiryTime) {
+        const moodData = {
+          mood: mostRecentMood.mood,
+          timestamp: mostRecentMood.timestamp
+        };
+
+        // Update the mood subject
+        this.moodSubject.next(moodData);
+
+        console.log('Updated current mood from server sync:', moodData.mood);
+      } else {
+        console.log('Most recent mood is expired, not updating current mood');
+      }
+    }
 
     console.log(`Synchronized ${serverItems.length} mood history items with server`);
   }
@@ -187,9 +224,11 @@ class MockMoodService {
   testSync() {
     console.log('Starting sync test...');
     console.log('Initial local mood histories:', this.moodHistorySubject.value);
+    console.log('Initial current mood:', this.moodSubject.value);
 
     this.syncMoodHistories().subscribe(() => {
       console.log('Final local mood histories after sync:', this.moodHistorySubject.value);
+      console.log('Final current mood after sync:', this.moodSubject.value);
 
       // Verify the results
       const finalIds = new Set(this.moodHistorySubject.value.map(item => item.id));
@@ -198,6 +237,24 @@ class MockMoodService {
       // Check if all server items are in local storage
       const allServerItemsInLocal = serverResponse.every(item => finalIds.has(item.id));
       console.log('All server items in local storage:', allServerItemsInLocal);
+
+      // Verify current mood is set to the most recent mood from server
+      if (this.moodSubject.value) {
+        const mostRecentMood = this.moodHistorySubject.value[0];
+        const currentMoodMatches =
+          this.moodSubject.value.mood === mostRecentMood.mood &&
+          this.moodSubject.value.timestamp.getTime() === mostRecentMood.timestamp.getTime();
+
+        console.log('Current mood matches most recent mood from server:', currentMoodMatches);
+
+        if (!currentMoodMatches) {
+          console.error('Current mood does not match most recent mood from server!');
+          console.error('Current mood:', this.moodSubject.value);
+          console.error('Most recent mood:', mostRecentMood);
+        }
+      } else {
+        console.warn('Current mood is not set after sync!');
+      }
     });
   }
 

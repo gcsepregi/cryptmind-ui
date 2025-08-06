@@ -349,6 +349,32 @@ export class MoodService {
     // Save to localStorage
     this.saveMoodHistoryToStorage();
 
+    // Update current mood with the most recent mood from server
+    if (sortedItems.length > 0) {
+      const mostRecentMood = sortedItems[0];
+      const expiryTime = new Date();
+      expiryTime.setHours(expiryTime.getHours() - MoodService.MOOD_EXPIRY_HOURS);
+
+      // Only update current mood if the most recent mood is within the expiry period
+      if (mostRecentMood.timestamp >= expiryTime) {
+        const moodData: MoodData = {
+          mood: mostRecentMood.mood,
+          timestamp: mostRecentMood.timestamp
+        };
+
+        // Update the mood subject
+        this.moodSubject.next(moodData);
+
+        // Save to localStorage
+        localStorage.setItem(MoodService.STORAGE_KEY, JSON.stringify({
+          mood: moodData.mood,
+          timestamp: moodData.timestamp.toISOString()
+        }));
+
+        console.log('Updated current mood from server sync');
+      }
+    }
+
     console.log(`Synchronized ${serverItems.length} mood history items with server`);
   }
 
