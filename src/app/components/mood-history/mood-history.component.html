@@ -1,0 +1,29 @@
+<div class="mood-history-container">
+  <div class="mood-history-header">
+    <h1 class="mood-history-title">Mood History</h1>
+    <p class="mood-history-subtitle">Track your emotional journey over time</p>
+  </div>
+
+  <div class="mood-history-content">
+    @if (moodHistory.length === 0) {
+      <div class="mood-history-empty">
+        <p>No mood history available yet.</p>
+        <p>Set your mood on the home page to start tracking!</p>
+      </div>
+    } @else {
+      <div class="mood-history-list">
+        @for (item of moodHistory; track item.id) {
+          <div class="mood-history-item">
+            <div class="mood-history-icon" [ngClass]="getMoodColor(item.mood)">
+              <fa-icon [icon]="getMoodIcon(item.mood)" class="my-icon-md" />
+            </div>
+            <div class="mood-history-details">
+              <div class="mood-history-mood">{{ getMoodLabel(item.mood) }}</div>
+              <div class="mood-history-timestamp">{{ item.timestamp | date: 'MMM d, y, h:mm a' }}</div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

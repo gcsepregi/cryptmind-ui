@@ -1,0 +1,83 @@
+.mood-history-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.mood-history-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.mood-history-title {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: var(--neon-text-color);
+}
+
+.mood-history-subtitle {
+  font-size: 1rem;
+  color: var(--text-color-secondary);
+}
+
+.mood-history-content {
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.mood-history-empty {
+  text-align: center;
+  padding: 2rem 0;
+  color: var(--text-color-secondary);
+}
+
+.mood-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.mood-history-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: var(--bg-color-secondary);
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.mood-history-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-right: 1rem;
+  background-color: var(--bg-color);
+
+  fa-icon {
+    font-size: 1.5rem;
+  }
+}
+
+.mood-history-details {
+  flex: 1;
+}
+
+.mood-history-mood {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.mood-history-timestamp {
+  font-size: 0.9rem;
+  color: var(--text-color-secondary);
+}

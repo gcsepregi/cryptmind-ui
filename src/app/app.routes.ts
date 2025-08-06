@@ -13,6 +13,7 @@ import {ViewDreamEntryComponent} from './components/journals/dream/view-dream-en
 import {ViewRitualEntryComponent} from './components/journals/ritual/view-ritual-entry/view-ritual-entry.component';
 import {ForbiddenComponent} from './forbidden/forbidden.component';
 import {JournalListComponent} from './components/journals/journal-list/journal-list.component';
+import {MoodHistoryComponent} from './components/mood-history/mood-history.component';
 
 @Injectable({providedIn: 'root'})
 export class AuthGuard {
@@ -47,6 +48,7 @@ export const routes: Routes = [
   {path: '', component: LandingPageComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'mood-history', component: MoodHistoryComponent, canActivate: [AuthGuard]},
   {path: 'journals', component: JournalListComponent, canActivate: [AuthGuard]},
   {path: 'journals/diary/new', component: NewDiaryEntryComponent, canActivate: [AuthGuard]},
   {path: 'journals/diary/:id', component: ViewDiaryEntryComponent, canActivate: [AuthGuard]},

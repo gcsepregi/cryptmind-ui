@@ -21,7 +21,8 @@ import {
   faMeh,
   faFrown,
   faSadTear,
-  faAngry
+  faAngry,
+  faChartLine
 } from '@fortawesome/free-solid-svg-icons';
 import {SidebarService} from '../../services/sidebar.service';
 import {AdminMenuComponent} from '../../admin/components/admin-menu/admin-menu.component';
@@ -48,6 +49,7 @@ export class SidebarComponent implements OnDestroy {
   protected readonly faBook = faBook;
   protected readonly faSignOutAlt = faSignOutAlt;
   protected readonly faXmark = faXmark;
+  protected readonly faChartLine = faChartLine;
   protected user: User | undefined;
   protected roles: string[] = [];
   protected currentMood: string = '';
