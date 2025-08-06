@@ -1,7 +1,16 @@
 .mood-history-container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 2rem;
+
+  // Mood color variables
+  --mood-color-love: #ff5e94;
+  --mood-color-happy: #ffcc00;
+  --mood-color-good: #7ed957;
+  --mood-color-neutral: #a0a0a0;
+  --mood-color-sad: #5e9eff;
+  --mood-color-very-sad: #9d5eff;
+  --mood-color-angry: #ff5e5e;
 }
 
 .mood-history-header {
@@ -22,9 +31,9 @@
 
 .mood-history-content {
   background-color: var(--card-bg);
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .mood-history-empty {
@@ -33,51 +42,563 @@
   color: var(--text-color-secondary);
 }
 
-.mood-history-list {
+/* Mood Legend */
+.mood-legend {
   display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+  padding: 0.75rem;
+  background-color: var(--bg-color-secondary);
+  border-radius: 8px;
 }
 
-.mood-history-item {
+.legend-item {
   display: flex;
   align-items: center;
-  padding: 1rem;
-  border-radius: 8px;
-  background-color: var(--bg-color-secondary);
-  transition: transform 0.2s ease;
+  gap: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
 
   &:hover {
-    transform: translateY(-2px);
+    background-color: var(--bg-color);
   }
 }
 
-.mood-history-icon {
+.legend-icon {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 48px;
-  height: 48px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  margin-right: 1rem;
   background-color: var(--bg-color);
+}
 
-  fa-icon {
-    font-size: 1.5rem;
+.legend-label {
+  font-size: 0.85rem;
+}
+
+/* Calendar Controls */
+.calendar-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background-color: var(--bg-color-secondary);
+  border-radius: 8px;
+}
+
+.calendar-nav-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--bg-color);
+  border: none;
+  cursor: pointer;
+  color: var(--text-color);
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    transform: scale(1.1);
   }
 }
 
-.mood-history-details {
+.calendar-current-range {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: var(--neon-text-color);
+}
+
+/* Calendar View */
+.mood-calendar {
+  margin-bottom: 2rem;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--bg-color-secondary);
+}
+
+.calendar-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background-color: var(--bg-color);
+  padding: 0.5rem 0;
+}
+
+.weekday {
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: var(--neon-text-color);
+}
+
+.calendar-body {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+  background-color: var(--bg-color);
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  padding: 0.5rem;
+  background-color: var(--bg-color-secondary);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.2s ease;
+
+  &.today {
+    box-shadow: inset 0 0 0 2px var(--neon-text-color);
+  }
+
+  &.outside-month {
+    opacity: 0.5;
+  }
+
+  &:hover {
+    transform: scale(1.02);
+    z-index: 1;
+  }
+}
+
+.day-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.day-number {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.day-month {
+  font-size: 0.8rem;
+  color: var(--accent-color);
+}
+
+.day-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.day-mood-summary {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.dominant-mood-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.mood-count-badge {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-size: 0.75rem;
+  font-weight: bold;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 4px;
+  box-shadow: 0 0 0 1px var(--bg-color-secondary);
+}
+
+.no-mood {
+  font-size: 0.7rem;
+  color: var(--text-color-secondary);
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+/* Mood Stats */
+.mood-stats {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: var(--bg-color-secondary);
+  border-radius: 8px;
+}
+
+.stats-title {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: var(--neon-text-color);
+  font-size: 1.2rem;
+}
+
+.stats-content {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.stats-item {
+  flex: 1;
+  min-width: 150px;
+  padding: 1rem;
+  background-color: var(--bg-color);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.stats-label {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-color-secondary);
+}
+
+.stats-value {
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+/* Modal for Mood Details */
+.mood-details-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.mood-details-modal {
+  width: 90%;
+  max-width: 400px;
+  background-color: var(--card-bg);
+  z-index: 1100;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  animation: scaleIn 0.3s ease;
+
+  &.day-details-modal {
+    max-width: 500px;
+  }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--bg-color);
+
+  h3 {
+    margin: 0;
+    color: var(--neon-text-color);
+  }
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--accent-color);
+  }
+}
+
+.modal-body {
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  &.day-details-body {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.mood-details-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--bg-color);
+}
+
+.mood-details-info {
   flex: 1;
 }
 
-.mood-history-mood {
+.mood-details-label {
   font-weight: bold;
-  font-size: 1.1rem;
-  margin-bottom: 0.25rem;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
 }
 
-.mood-history-timestamp {
+.mood-details-time {
   font-size: 0.9rem;
   color: var(--text-color-secondary);
+}
+
+/* Day Details Styles */
+.day-details-summary {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--bg-color);
+}
+
+.day-details-count {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-color-secondary);
+}
+
+.day-details-moods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.day-details-mood-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 20px;
+  background-color: var(--bg-color);
+  font-size: 0.9rem;
+
+  .mood-chip-count {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: var(--text-color);
+    font-size: 0.75rem;
+    font-weight: bold;
+    min-width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 4px;
+  }
+}
+
+.day-details-entries {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.day-details-entry {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background-color: var(--bg-color-secondary);
+
+  &:hover {
+    background-color: var(--bg-color);
+  }
+}
+
+.entry-time {
+  font-size: 0.85rem;
+  color: var(--text-color-secondary);
+  min-width: 70px;
+}
+
+.entry-mood {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+/* Icon sizes */
+:host ::ng-deep .my-icon-xs {
+  font-size: 0.8rem;
+}
+
+:host ::ng-deep .my-icon-sm {
+  font-size: 1rem;
+}
+
+:host ::ng-deep .my-icon-md {
+  font-size: 1.5rem;
+}
+
+:host ::ng-deep .my-icon-lg {
+  font-size: 2rem;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .mood-history-container {
+    padding: 1rem;
+  }
+
+  .mood-history-title {
+    font-size: 1.5rem;
+  }
+
+  .mood-history-content {
+    padding: 1rem;
+  }
+
+  .mood-legend {
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+
+  .legend-item {
+    padding: 0.15rem 0.25rem;
+  }
+
+  .calendar-body {
+    grid-template-columns: repeat(7, 1fr);
+  }
+
+  .calendar-day {
+    padding: 0.25rem;
+  }
+
+  .day-number {
+    font-size: 0.8rem;
+  }
+
+  .day-month {
+    font-size: 0.7rem;
+  }
+
+  .dominant-mood-icon {
+    transform: scale(0.9);
+  }
+
+  .mood-count-badge {
+    min-width: 16px;
+    height: 16px;
+    font-size: 0.65rem;
+  }
+
+  .mood-details-modal {
+    width: 95%;
+    max-width: none;
+  }
+
+  .day-details-entries {
+    max-height: 250px;
+  }
+
+  .day-details-mood-chip {
+    padding: 0.35rem 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .entry-time {
+    min-width: 60px;
+    font-size: 0.8rem;
+  }
+
+  .entry-mood {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .mood-history-container {
+    padding: 0.5rem;
+  }
+
+  .calendar-current-range {
+    font-size: 0.9rem;
+  }
+
+  .weekday {
+    font-size: 0.75rem;
+  }
+
+  .calendar-day {
+    padding: 0.15rem;
+  }
+
+  .day-header {
+    margin-bottom: 0.25rem;
+  }
+
+  .day-number {
+    font-size: 0.7rem;
+  }
+
+  .day-month {
+    font-size: 0.6rem;
+  }
+
+  .no-mood {
+    display: none;
+  }
+
+  .stats-content {
+    flex-direction: column;
+  }
+
+  .stats-item {
+    margin-bottom: 0.5rem;
+  }
+
+  .day-details-entries {
+    max-height: 200px;
+  }
+
+  .day-details-entry {
+    padding: 0.35rem;
+    gap: 0.5rem;
+  }
 }
