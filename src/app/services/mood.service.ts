@@ -1,5 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import {
+  faGrinHearts,
+  faLaugh,
+  faSmile,
+  faMeh,
+  faFrown,
+  faSadTear,
+  faAngry
+} from '@fortawesome/free-solid-svg-icons';
 
 export interface MoodData {
   mood: string;
@@ -15,6 +24,17 @@ export class MoodService {
 
   // BehaviorSubject to track mood changes
   private moodSubject = new BehaviorSubject<MoodData | null>(null);
+
+  // Icons for different moods
+  private moodIcons = {
+    'love': faGrinHearts,
+    'happy': faLaugh,
+    'good': faSmile,
+    'neutral': faMeh,
+    'sad': faFrown,
+    'very-sad': faSadTear,
+    'angry': faAngry
+  };
 
   // Mood options mapping for labels and CSS classes
   public readonly moodOptions = [
@@ -80,6 +100,13 @@ export class MoodService {
   public getMoodColor(mood: string): string {
     const option = this.moodOptions.find(opt => opt.value === mood);
     return option ? option.colorClass : 'neon-text-purple'; // Default to accent color if not found
+  }
+
+  /**
+   * Get the icon for a given mood
+   */
+  public getMoodIcon(mood: string) {
+    return this.moodIcons[mood as keyof typeof this.moodIcons] || faSmile;
   }
 
   /**

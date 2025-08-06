@@ -16,18 +16,12 @@ import {
   faClock,
   faSmile,
   faMapMarkerAlt,
-  faFrown,
-  faAngry,
-  faMeh,
-  faLaugh,
-  faSadTear,
-  faGrinHearts,
-  faPlus
 } from '@fortawesome/free-solid-svg-icons';
 import {MarkdownEditorComponent} from '../../../tools/markdown-editor/markdown-editor.component';
 import {CommonModule} from '@angular/common';
 import {NewJournal} from '../../../../models/journal.model';
 import {ListEditorComponent} from '../../../../common-components/components/list-editor/list-editor.component';
+import {MoodService} from '../../../../services/mood.service';
 
 @Component({
   selector: 'app-new-ritual-entry',
@@ -55,24 +49,8 @@ export class NewRitualEntryComponent {
   protected readonly faClock = faClock;
   protected readonly faSmile = faSmile;
   protected readonly faMapMarkerAlt = faMapMarkerAlt;
-  protected readonly faFrown = faFrown;
-  protected readonly faAngry = faAngry;
-  protected readonly faMeh = faMeh;
-  protected readonly faLaugh = faLaugh;
-  protected readonly faSadTear = faSadTear;
-  protected readonly faGrinHearts = faGrinHearts;
-  protected readonly faPlus = faPlus;
 
-  // Define mood options
-  moodOptions = [
-    { icon: this.faGrinHearts, value: 'love', label: 'Love' },
-    { icon: this.faLaugh, value: 'happy', label: 'Happy' },
-    { icon: this.faSmile, value: 'good', label: 'Good' },
-    { icon: this.faMeh, value: 'neutral', label: 'Neutral' },
-    { icon: this.faFrown, value: 'sad', label: 'Sad' },
-    { icon: this.faSadTear, value: 'very-sad', label: 'Very Sad' },
-    { icon: this.faAngry, value: 'angry', label: 'Angry' }
-  ];
+  moodOptions: any[] = []
 
   selectedMood: string = '';
 
@@ -86,7 +64,8 @@ export class NewRitualEntryComponent {
               private readonly journalService: JournalsService,
               private readonly toastr: ToastrService,
               private readonly route: ActivatedRoute,
-              private readonly router: Router) {
+              private readonly router: Router,
+              private readonly moodService: MoodService) {
     this.form = this.fb.group({
       title: ['', Validators.required],
       entry: ['', Validators.required],
@@ -101,6 +80,12 @@ export class NewRitualEntryComponent {
       ritual_outcome: [''],
       ritual_duration: [0]
     });
+
+    this.moodOptions = this.moodService.moodOptions.map(option => ({
+      value: option.value,
+      label: option.label,
+      icon: this.getMoodIcon(option.value)
+    }));
 
     // Subscribe to mood changes in the form
     this.form.get('mood')?.valueChanges.subscribe(value => {
@@ -202,9 +187,14 @@ export class NewRitualEntryComponent {
   }
 
   // Method to get the icon for the current mood
-  getMoodIcon() {
-    const selectedOption = this.moodOptions.find(option => option.value === this.selectedMood);
-    return selectedOption ? selectedOption.icon : this.faSmile;
+  // Method to get the icon for a given mood
+  getMoodIcon(mood: string) {
+    return this.moodService.getMoodIcon(mood);
+  }
+
+  // Method to get the color class for a given mood
+  getMoodColor(mood: string): string {
+    return this.moodService.getMoodColor(mood);
   }
 
   onSubmit() {

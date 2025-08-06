@@ -42,7 +42,7 @@
                 [class.selected]="selectedMood === option.value"
                 (click)="selectMood(option.value)"
                 [title]="option.label">
-                <fa-icon [icon]="option.icon" class="my-icon" />
+                <fa-icon [icon]="option.icon" class="my-icon" [ngClass]="getMoodColor(option.value)" />
               </button>
             }
           </div>

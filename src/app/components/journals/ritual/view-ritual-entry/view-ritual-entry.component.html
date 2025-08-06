@@ -45,9 +45,9 @@
           <div class="view-entry-mood">
             <span class="mood-label">Mood:</span>
             <span class="mood-icon">
-              <fa-icon [icon]="getMoodIcon(entry.mood)" class="my-icon"/>
+              <fa-icon [icon]="getMoodIcon(entry.mood)" class="my-icon" [ngClass]="getMoodColor(entry.mood)"/>
             </span>
-            <span class="mood-text">{{ entry.mood }}</span>
+            <span class="mood-text">{{ getMoodLabel(entry.mood) }}</span>
           </div>
         }
 

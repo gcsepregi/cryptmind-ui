@@ -13,18 +13,13 @@ import {
   faCalendarAlt,
   faListUl,
   faTrophy,
-  faPlus,
-  faFrown,
-  faAngry,
-  faMeh,
-  faLaugh,
-  faSadTear,
-  faGrinHearts
+  faPlus
 } from '@fortawesome/free-solid-svg-icons';
 import {MarkdownEditorComponent} from '../../../tools/markdown-editor/markdown-editor.component';
-import {CommonModule} from '@angular/common';
+import {CommonModule, NgClass} from '@angular/common';
 import {NewJournal} from '../../../../models/journal.model';
 import {ListEditorComponent} from '../../../../common-components/components/list-editor/list-editor.component';
+import {MoodService} from '../../../../services/mood.service';
 
 @Component({
   selector: 'app-new-diary-entry',
@@ -35,6 +30,7 @@ import {ListEditorComponent} from '../../../../common-components/components/list
     MarkdownEditorComponent,
     FormsModule,
     CommonModule,
+    NgClass,
     ListEditorComponent
   ],
   templateUrl: './new-diary-entry.component.html',
@@ -49,23 +45,9 @@ export class NewDiaryEntryComponent {
   protected readonly faCalendarAlt = faCalendarAlt;
   protected readonly faListUl = faListUl;
   protected readonly faTrophy = faTrophy;
-  protected readonly faFrown = faFrown;
-  protected readonly faAngry = faAngry;
-  protected readonly faMeh = faMeh;
-  protected readonly faLaugh = faLaugh;
-  protected readonly faSadTear = faSadTear;
-  protected readonly faGrinHearts = faGrinHearts;
 
-  // Define mood options
-  moodOptions = [
-    { icon: this.faGrinHearts, value: 'love', label: 'Love' },
-    { icon: this.faLaugh, value: 'happy', label: 'Happy' },
-    { icon: this.faSmile, value: 'good', label: 'Good' },
-    { icon: this.faMeh, value: 'neutral', label: 'Neutral' },
-    { icon: this.faFrown, value: 'sad', label: 'Sad' },
-    { icon: this.faSadTear, value: 'very-sad', label: 'Very Sad' },
-    { icon: this.faAngry, value: 'angry', label: 'Angry' }
-  ];
+  // Mood options for the mood selector
+  moodOptions: any[] = [];
 
   selectedMood: string = '';
 
@@ -79,7 +61,8 @@ export class NewDiaryEntryComponent {
               private readonly journalService: JournalsService,
               private readonly toastr: ToastrService,
               private readonly route: ActivatedRoute,
-              private readonly router: Router) {
+              private readonly router: Router,
+              private readonly moodService: MoodService) {
     this.form = this.fb.group({
       title: ['', Validators.required],
       entry: ['', Validators.required],
@@ -90,6 +73,13 @@ export class NewDiaryEntryComponent {
       gratitude_list: this.fb.array([]),
       achievements: this.fb.array([])
     });
+
+    // Initialize mood options from the MoodService
+    this.moodOptions = this.moodService.moodOptions.map(option => ({
+      value: option.value,
+      label: option.label,
+      icon: this.getMoodIcon(option.value)
+    }));
 
     // Subscribe to mood changes in the form
     this.form.get('mood')?.valueChanges.subscribe(value => {
@@ -234,10 +224,14 @@ export class NewDiaryEntryComponent {
     this.form.patchValue({mood: moodValue});
   }
 
-  // Method to get the icon for the current mood
-  getMoodIcon() {
-    const selectedOption = this.moodOptions.find(option => option.value === this.selectedMood);
-    return selectedOption ? selectedOption.icon : this.faSmile;
+  // Method to get the icon for a given mood
+  getMoodIcon(mood: string) {
+    return this.moodService.getMoodIcon(mood);
+  }
+
+  // Method to get the color class for a given mood
+  getMoodColor(mood: string): string {
+    return this.moodService.getMoodColor(mood);
   }
 
   // Methods for handling list editor events

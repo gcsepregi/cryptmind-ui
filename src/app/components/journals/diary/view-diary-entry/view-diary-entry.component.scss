@@ -118,7 +118,7 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
   gap: 1.5rem;
   margin-bottom: 1.5rem;
   padding: 0.75rem 1rem;
-  background: rgba(0, 0, 0, 0.1);
+
   border-radius: 0.5rem;
   border-left: 3px solid $accent;
 
@@ -138,13 +138,12 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
       justify-content: center;
       width: 2.5rem;
       height: 2.5rem;
-      background: rgba(0, 0, 0, 0.2);
+
       border-radius: 50%;
       border: 2px solid $accent;
 
       .my-icon {
         font-size: 1.3rem;
-        color: $accent;
       }
     }
 
@@ -243,7 +242,7 @@ $shadow: 0 10px 30px -3px rgba(30,20,40,0.35), 0 4px 16px -4px rgba(30,20,40,0.2
       position: relative;
       padding: 0.5rem 0.5rem 0.5rem 1.5rem;
       margin-bottom: 0.5rem;
-      background: rgba(0, 0, 0, 0.1);
+
       border-radius: 0.25rem;
 
       &:before {

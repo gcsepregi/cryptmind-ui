@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {AsyncPipe, DatePipe} from "@angular/common";
+import {AsyncPipe, DatePipe, NgClass} from "@angular/common";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {
@@ -14,12 +14,6 @@ import {
   faSmile,
   faEye,
   faMapMarkerAlt,
-  faFrown,
-  faAngry,
-  faMeh,
-  faLaugh,
-  faSadTear,
-  faGrinHearts,
   faEdit,
   faTrash
 } from '@fortawesome/free-solid-svg-icons';
@@ -28,6 +22,7 @@ import {BehaviorSubject} from 'rxjs';
 import {Journal} from '../../../../models/journal.model';
 import {MarkdownPipe} from '../../../../pipes/markdown.pipe';
 import {ToastrService} from 'ngx-toastr';
+import {MoodService} from '../../../../services/mood.service';
 
 @Component({
   selector: 'app-view-dream-entry',
@@ -37,6 +32,7 @@ import {ToastrService} from 'ngx-toastr';
     FaIconComponent,
     RouterLink,
     MarkdownPipe,
+    NgClass
   ],
   templateUrl: './view-dream-entry.component.html',
   styleUrl: './view-dream-entry.component.scss'
@@ -54,32 +50,16 @@ export class ViewDreamEntryComponent {
   protected readonly faSmile = faSmile;
   protected readonly faEye = faEye;
   protected readonly faMapMarkerAlt = faMapMarkerAlt;
-  protected readonly faFrown = faFrown;
-  protected readonly faAngry = faAngry;
-  protected readonly faMeh = faMeh;
-  protected readonly faLaugh = faLaugh;
-  protected readonly faSadTear = faSadTear;
-  protected readonly faGrinHearts = faGrinHearts;
   protected readonly faEdit = faEdit;
   protected readonly faTrash = faTrash;
-
-  // Define mood options mapping
-  private moodIcons = {
-    'love': this.faGrinHearts,
-    'happy': this.faLaugh,
-    'good': this.faSmile,
-    'neutral': this.faMeh,
-    'sad': this.faFrown,
-    'very-sad': this.faSadTear,
-    'angry': this.faAngry
-  };
 
   protected entry$ = new BehaviorSubject<Journal>({} as Journal);
 
   constructor(private readonly route: ActivatedRoute,
               private readonly journalService: JournalsService,
               private readonly router: Router,
-              private readonly toastr: ToastrService) {
+              private readonly toastr: ToastrService,
+              private readonly moodService: MoodService) {
     const id = this.route.snapshot.paramMap.get('id')!;
     this.journalService.getJournalEntry(id, 'dream').subscribe(res => {
       this.entry$.next(res);
@@ -134,6 +114,16 @@ export class ViewDreamEntryComponent {
 
   // Method to get the appropriate mood icon based on the mood value
   getMoodIcon(mood: string) {
-    return this.moodIcons[mood as keyof typeof this.moodIcons] || this.faSmile;
+    return this.moodService.getMoodIcon(mood);
+  }
+
+  // Method to get the label for a given mood
+  getMoodLabel(mood: string): string {
+    return this.moodService.getMoodLabel(mood);
+  }
+
+  // Method to get the color class for a given mood
+  getMoodColor(mood: string): string {
+    return this.moodService.getMoodColor(mood);
   }
 }
