@@ -1,14 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Journal } from '../models/journal.model';
+import { MoodService, MoodHistoryItem } from './mood.service';
 
 export interface CalendarDay {
   date: Date;
   isCurrentMonth: boolean;
   entries: Journal[];
+  dominantMood?: string;
 }
 
 @Injectable({ providedIn: 'root' })
 export class CalendarService {
+  private moodHistory: MoodHistoryItem[] = [];
+
+  constructor(private moodService: MoodService) {
+    // Subscribe to mood history updates
+    this.moodService.getMoodHistory().subscribe(history => {
+      this.moodHistory = history;
+    });
+  }
+
   getMonthCalendar(year: number, month: number, journals: Journal[]): CalendarDay[] {
     const days: CalendarDay[] = [];
     const firstDayOfMonth = new Date(year, month, 1);
@@ -25,7 +36,8 @@ export class CalendarService {
       days.push({
         date,
         isCurrentMonth: false,
-        entries: this.entriesForDate(date, journals)
+        entries: this.entriesForDate(date, journals),
+        dominantMood: this.findDominantMood(date)
       });
     }
     // Current month days
@@ -34,7 +46,8 @@ export class CalendarService {
       days.push({
         date,
         isCurrentMonth: true,
-        entries: this.entriesForDate(date, journals)
+        entries: this.entriesForDate(date, journals),
+        dominantMood: this.findDominantMood(date)
       });
     }
     // Next month's days to fill last week
@@ -46,7 +59,8 @@ export class CalendarService {
       days.push({
         date,
         isCurrentMonth: false,
-        entries: this.entriesForDate(date, journals)
+        entries: this.entriesForDate(date, journals),
+        dominantMood: this.findDominantMood(date)
       });
     }
     return days;
@@ -60,4 +74,40 @@ export class CalendarService {
         entryDate.getDate() === date.getDate();
     });
   }
-} 
+
+  // Find the dominant mood for a specific day
+  private findDominantMood(date: Date): string | undefined {
+    // Get all moods for this day
+    const dayMoods = this.moodHistory.filter(item => {
+      const moodDate = new Date(item.timestamp);
+      return moodDate.getFullYear() === date.getFullYear() &&
+        moodDate.getMonth() === date.getMonth() &&
+        moodDate.getDate() === date.getDate();
+    });
+
+    if (dayMoods.length === 0) {
+      return undefined;
+    }
+
+    // Count occurrences of each mood
+    const moodCounts = new Map<string, number>();
+
+    dayMoods.forEach(item => {
+      const count = moodCounts.get(item.mood) || 0;
+      moodCounts.set(item.mood, count + 1);
+    });
+
+    // Find the most common mood
+    let maxCount = 0;
+    let dominantMood: string | undefined = undefined;
+
+    moodCounts.forEach((count, mood) => {
+      if (count > maxCount) {
+        maxCount = count;
+        dominantMood = mood;
+      }
+    });
+
+    return dominantMood;
+  }
+}
