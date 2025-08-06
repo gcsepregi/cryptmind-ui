@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +10,23 @@ export class SidebarService {
   private static readonly STORAGE_KEY = 'sidebarState';
 
   private sidebarOpen$ = new BehaviorSubject<boolean>(this.loadStateFromStorage());
+  private activeRoute$ = new BehaviorSubject<string>('');
 
   public isOpened$ = this.sidebarOpen$.asObservable();
+  public activeRoute = this.activeRoute$.asObservable();
 
-  constructor() {
+  constructor(private router: Router) {
     // BehaviorSubject is already initialized with the stored state in the declaration
+
+    // Subscribe to router events to track the active route
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      // Extract the base route (first segment)
+      const url = event.urlAfterRedirects;
+      const baseRoute = url.split('/')[1] || '';
+      this.activeRoute$.next(baseRoute ? `/${baseRoute}` : '/');
+    });
   }
 
   get isOpen() {
@@ -47,5 +61,14 @@ export class SidebarService {
       }
     }
     return false;
+  }
+
+  /**
+   * Check if the given route is the currently active route
+   * @param route The route to check (e.g., '/' or '/journals')
+   * @returns True if the route is active, false otherwise
+   */
+  isRouteActive(route: string): boolean {
+    return this.activeRoute$.value === route;
   }
 }

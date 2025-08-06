@@ -88,6 +88,15 @@ export class SidebarComponent implements OnDestroy {
     });
   }
 
+  /**
+   * Check if the given route is active
+   * @param route The route to check
+   * @returns True if the route is active
+   */
+  isRouteActive(route: string): boolean {
+    return this.sidebarService.isRouteActive(route);
+  }
+
   get isOpen() {
     return this.sidebarService.isOpen;
   }

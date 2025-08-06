@@ -19,11 +19,11 @@
       <div class="sidebar-section">
         <div class="sidebar-section-title">Navigation</div>
         <div class="sidebar-links">
-          <button [routerLink]="['/']" class="sidebar-link" type="button">
+          <button [routerLink]="['/']" class="sidebar-link" [ngClass]="{'active': isRouteActive('/')}" type="button">
             <fa-icon [icon]="faHome" class="my-icon" />
             <span>Home</span>
           </button>
-          <button [routerLink]="['journals']" class="sidebar-link" type="button">
+          <button [routerLink]="['journals']" class="sidebar-link" [ngClass]="{'active': isRouteActive('/journals')}" type="button">
             <fa-icon [icon]="faBook" class="my-icon" />
             <span>Sacred Journal</span>
           </button>
