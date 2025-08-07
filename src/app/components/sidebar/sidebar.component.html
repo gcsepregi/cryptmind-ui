@@ -27,10 +27,6 @@
             <fa-icon [icon]="faBook" class="my-icon" />
             <span>Sacred Journal</span>
           </button>
-          <button [routerLink]="['mood-history']" class="sidebar-link" [ngClass]="{'active': isRouteActive('/mood-history')}" type="button">
-            <fa-icon [icon]="faChartLine" class="my-icon" />
-            <span>Mood History</span>
-          </button>
         </div>
       </div>
       @if (roles.includes( 'admin' )) {

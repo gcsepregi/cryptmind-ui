@@ -174,32 +174,10 @@
   gap: 1rem;
 
 }
-.home-section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
 .home-section-title {
   font-size: 1.1rem;
   font-weight: 700;
-  margin-bottom: 0;
-}
-
-.mood-history-link {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-  color: var(--neon-cyan);
-  text-decoration: none;
-  transition: color 0.2s, transform 0.2s;
-
-  &:hover {
-    color: var(--neon-text-color);
-    transform: translateX(2px);
-  }
+  margin-bottom: 1rem;
 }
 .home-entry-card {
   display: flex;

@@ -15,21 +15,15 @@ export interface MoodData {
   timestamp: Date;
 }
 
-export interface MoodHistoryItem extends MoodData {
-  id: string;
-}
-
 @Injectable({
   providedIn: 'root'
 })
 export class MoodService {
   private static readonly STORAGE_KEY = 'quickMood';
-  private static readonly HISTORY_KEY = 'moodHistory';
   private static readonly MOOD_EXPIRY_HOURS = 12;
 
   // BehaviorSubject to track mood changes
   private moodSubject = new BehaviorSubject<MoodData | null>(null);
-  private moodHistorySubject = new BehaviorSubject<MoodHistoryItem[]>([]);
 
   // Icons for different moods
   private moodIcons = {
@@ -56,7 +50,6 @@ export class MoodService {
   constructor() {
     // Initialize by loading mood from localStorage
     this.loadMoodFromStorage();
-    this.loadMoodHistoryFromStorage();
   }
 
   /**
@@ -83,61 +76,6 @@ export class MoodService {
       mood: moodData.mood,
       timestamp: moodData.timestamp.toISOString()
     }));
-
-    // Add to mood history
-    this.addToMoodHistory(mood);
-  }
-
-  /**
-   * Get an observable of the mood history
-   */
-  public getMoodHistory(): Observable<MoodHistoryItem[]> {
-    return this.moodHistorySubject.asObservable();
-  }
-
-  /**
-   * Add a mood to the history
-   */
-  private addToMoodHistory(mood: string): void {
-    // Create a new history item
-    const historyItem: MoodHistoryItem = {
-      id: this.generateId(),
-      mood,
-      timestamp: new Date()
-    };
-
-    // Get current history
-    const currentHistory = this.moodHistorySubject.value;
-
-    // Add new item to the beginning of the array
-    const updatedHistory = [historyItem, ...currentHistory];
-
-    // Update the subject
-    this.moodHistorySubject.next(updatedHistory);
-
-    // Save to localStorage
-    this.saveMoodHistoryToStorage();
-  }
-
-  /**
-   * Generate a unique ID for mood history items
-   */
-  private generateId(): string {
-    return Date.now().toString() + Math.random().toString(36).substr(2, 9);
-  }
-
-  /**
-   * Save mood history to localStorage
-   */
-  private saveMoodHistoryToStorage(): void {
-    const history = this.moodHistorySubject.value;
-    localStorage.setItem(MoodService.HISTORY_KEY, JSON.stringify(
-      history.map(item => ({
-        id: item.id,
-        mood: item.mood,
-        timestamp: item.timestamp.toISOString()
-      }))
-    ));
   }
 
   /**
@@ -195,28 +133,6 @@ export class MoodService {
       } catch (e) {
         console.error('Error loading saved mood', e);
         this.clearMood();
-      }
-    }
-  }
-
-  /**
-   * Load mood history from localStorage
-   */
-  private loadMoodHistoryFromStorage(): void {
-    const savedHistory = localStorage.getItem(MoodService.HISTORY_KEY);
-    if (savedHistory) {
-      try {
-        const historyData = JSON.parse(savedHistory);
-        const history: MoodHistoryItem[] = historyData.map((item: any) => ({
-          id: item.id,
-          mood: item.mood,
-          timestamp: new Date(item.timestamp)
-        }));
-
-        this.moodHistorySubject.next(history);
-      } catch (e) {
-        console.error('Error loading mood history', e);
-        this.moodHistorySubject.next([]);
       }
     }
   }
