@@ -93,14 +93,6 @@ export class NewDreamEntryComponent {
       this.selectedMood = value;
     });
 
-    // Prefill with current mood if available
-    this.moodService.getMood().subscribe(moodData => {
-      if (moodData) {
-        this.selectedMood = moodData.mood;
-        this.form.patchValue({ mood: moodData.mood });
-      }
-    });
-
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       if (id) {
@@ -223,21 +215,6 @@ export class NewDreamEntryComponent {
       const dream_characters = this.dreamCharacters.value;
       const dream_emotions = this.dreamEmotions.value;
 
-      // Update current mood when saving the entry
-      if (mood) {
-        const currentDate = new Date().toISOString().split('T')[0];
-        if (!dream_date || dream_date === currentDate) {
-          // If date is empty or today, update current mood
-          this.moodService.setMood(mood);
-        } else if (dream_date) {
-          // If date is in the past, add to mood history with that date
-          const pastDate = new Date(dream_date);
-          if (pastDate < new Date()) {
-            this.moodService.addToMoodHistoryWithDate(mood, pastDate);
-          }
-        }
-      }
-
       const journalData: NewJournal = {
         journal_type: 'dream',
         entry,
@@ -285,7 +262,6 @@ export class NewDreamEntryComponent {
   // Method to handle mood selection
   selectMood(moodValue: string) {
     this.form.patchValue({mood: moodValue});
-    // Mood will be updated only when saving the entry, not on selection
   }
 
   // Method to get the icon for a given mood

@@ -99,18 +99,11 @@ export class MoodService {
    * Add a mood to the history
    */
   private addToMoodHistory(mood: string): void {
-    this.addToMoodHistoryWithDate(mood, new Date());
-  }
-
-  /**
-   * Add a mood to the history with a specific date
-   */
-  public addToMoodHistoryWithDate(mood: string, date: Date): void {
     // Create a new history item
     const historyItem: MoodHistoryItem = {
       id: this.generateId(),
       mood,
-      timestamp: date
+      timestamp: new Date()
     };
 
     // Get current history
