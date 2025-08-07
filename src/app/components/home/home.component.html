@@ -99,21 +99,11 @@
       </div>
       <div class="home-calendar-grid">
         @for (day of calendarDays; track day.date.toISOString()) {
-          <div class="home-calendar-cell"
-               [ngClass]="{
-                 'has-entry': day.entries.length > 0,
-                 'has-mood': day.dominantMood,
-                 'not-current': !day.isCurrentMonth
-               }">
+          <div class="home-calendar-cell" [ngClass]="{'has-entry': day.entries.length > 0, 'not-current': !day.isCurrentMonth}">
             <span>{{ day.date | date:'dd' }}</span>
-            <div class="day-indicators">
-              @if (day.dominantMood) {
-                <div class="day-mood-indicator" [ngClass]="getMoodColor(day.dominantMood)"
-                     [title]="getMoodLabel(day.dominantMood)">
-                  <fa-icon [icon]="getMoodIcon(day.dominantMood)" class="my-icon-xs" />
-                </div>
-              }
-            </div>
+            @if (day.entries.length > 0) {
+              <fa-icon [icon]="faCheckCircle" class="my-icon-sm"/>
+            }
           </div>
         }
       </div>
