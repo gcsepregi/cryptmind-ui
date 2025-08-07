@@ -1,7 +1,7 @@
 <div class="mood-history-container">
   <div class="mood-history-header">
     <h1 class="mood-history-title">Mood History</h1>
-    <p class="mood-history-subtitle">Your emotional journey visualized</p>
+    <p class="mood-history-subtitle">Track your emotional journey over time</p>
   </div>
 
   <div class="mood-history-content">
@@ -11,146 +11,19 @@
         <p>Set your mood on the home page to start tracking!</p>
       </div>
     } @else {
-      <!-- Mood Legend -->
-      <div class="mood-legend">
-        @for (option of moodOptions; track option.value) {
-          <div class="legend-item">
-            <div class="legend-icon" [ngClass]="option.colorClass">
-              <fa-icon [icon]="getMoodIcon(option.value)" class="my-icon-sm" />
+      <div class="mood-history-list">
+        @for (item of moodHistory; track item.id) {
+          <div class="mood-history-item">
+            <div class="mood-history-icon" [ngClass]="getMoodColor(item.mood)">
+              <fa-icon [icon]="getMoodIcon(item.mood)" class="my-icon-md" />
             </div>
-            <span class="legend-label">{{ option.label }}</span>
+            <div class="mood-history-details">
+              <div class="mood-history-mood">{{ getMoodLabel(item.mood) }}</div>
+              <div class="mood-history-timestamp">{{ item.timestamp | date: 'MMM d, y, h:mm a' }}</div>
+            </div>
           </div>
         }
       </div>
-
-      <!-- Calendar View Controls -->
-      <div class="calendar-controls">
-        <button class="calendar-nav-btn" (click)="previousWeek()">
-          <fa-icon [icon]="faChevronLeft" class="my-icon-sm" />
-        </button>
-        <div class="calendar-current-range">{{ currentDateRangeText }}</div>
-        <button class="calendar-nav-btn" (click)="nextWeek()">
-          <fa-icon [icon]="faChevronRight" class="my-icon-sm" />
-        </button>
-      </div>
-
-      <!-- Calendar View -->
-      <div class="mood-calendar">
-        <div class="calendar-header">
-          @for (day of weekdays; track day) {
-            <div class="weekday">{{ day }}</div>
-          }
-        </div>
-        <div class="calendar-body">
-          @for (day of calendarDays; track day.date) {
-            <div class="calendar-day"
-                 [class.today]="day.isToday"
-                 [class.outside-month]="!day.isCurrentMonth"
-                 [style.background]="day.moods.length > 0 ? day.interpolatedColor : ''"
-                 (click)="showDayDetails(day)">
-              <div class="day-header">
-                <span class="day-number">{{ day.date | date: 'd' }}</span>
-                @if (day.isFirstOfMonth) {
-                  <span class="day-month">{{ day.date | date: 'MMM' }}</span>
-                }
-              </div>
-              <div class="day-content">
-                @if (day.moods.length === 0) {
-                  @if (day.isCurrentMonth && day.date <= today) {
-                    <div class="no-mood">No entries</div>
-                  }
-                } @else {
-                  <div class="day-mood-summary">
-                    @if (day.dominantMood) {
-                      <div class="dominant-mood-icon">
-                        <fa-icon [icon]="getMoodIcon(day.dominantMood)" class="my-icon-sm" />
-                      </div>
-                    }
-                    <div class="mood-count-badge">{{ day.moods.length }}</div>
-                  </div>
-                }
-              </div>
-            </div>
-          }
-        </div>
-      </div>
-
-      <!-- Mood Stats -->
-      <div class="mood-stats">
-        <h3 class="stats-title">Your Mood Patterns</h3>
-        <div class="stats-content">
-          <div class="stats-item">
-            <div class="stats-label">Most Common Mood</div>
-            <div class="stats-value" [ngClass]="getMoodColor(mostCommonMood.mood)">
-              <fa-icon [icon]="getMoodIcon(mostCommonMood.mood)" class="my-icon-md" />
-              <span>{{ getMoodLabel(mostCommonMood.mood) }}</span>
-            </div>
-          </div>
-          <div class="stats-item">
-            <div class="stats-label">Total Entries</div>
-            <div class="stats-value">{{ moodHistory.length }}</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Selected Day Details (Modal) -->
-      @if (selectedDay) {
-        <div class="mood-details-overlay" (click)="closeDetails()">
-          <div class="mood-details-modal day-details-modal" (click)="$event.stopPropagation()">
-            <div class="modal-header">
-              <h3>{{ selectedDay.date | date: 'EEEE, MMMM d, y' }}</h3>
-              <button class="close-btn" (click)="closeDetails()">×</button>
-            </div>
-            <div class="modal-body day-details-body">
-              <div class="day-details-summary">
-                <div class="day-details-count">{{ selectedDay.moods.length }} entries</div>
-                <div class="day-details-moods">
-                  @for (aggregated of selectedDay.aggregatedMoods; track aggregated.mood) {
-                    <div class="day-details-mood-chip" [ngClass]="getMoodColor(aggregated.mood)">
-                      <fa-icon [icon]="getMoodIcon(aggregated.mood)" class="my-icon-sm" />
-                      <span>{{ getMoodLabel(aggregated.mood) }}</span>
-                      <span class="mood-chip-count">{{ aggregated.count }}</span>
-                    </div>
-                  }
-                </div>
-              </div>
-
-              <div class="day-details-entries">
-                @for (mood of selectedDay.moods; track mood.id) {
-                  <div class="day-details-entry">
-                    <div class="entry-time">{{ mood.timestamp | date: 'h:mm a' }}</div>
-                    <div class="entry-mood" [ngClass]="getMoodColor(mood.mood)">
-                      <fa-icon [icon]="getMoodIcon(mood.mood)" class="my-icon-sm" />
-                      <span>{{ getMoodLabel(mood.mood) }}</span>
-                    </div>
-                  </div>
-                }
-              </div>
-            </div>
-          </div>
-        </div>
-      }
-
-      <!-- Selected Mood Details (Modal) -->
-      @if (selectedMood) {
-        <div class="mood-details-overlay" (click)="closeDetails()">
-          <div class="mood-details-modal" (click)="$event.stopPropagation()">
-            <div class="modal-header">
-              <h3>Mood Details</h3>
-              <button class="close-btn" (click)="closeDetails()">×</button>
-            </div>
-            <div class="modal-body">
-              <div class="mood-details-icon" [ngClass]="getMoodColor(selectedMood.mood)">
-                <fa-icon [icon]="getMoodIcon(selectedMood.mood)" class="my-icon-lg" />
-              </div>
-              <div class="mood-details-info">
-                <div class="mood-details-label">{{ getMoodLabel(selectedMood.mood) }}</div>
-                <div class="mood-details-time">{{ selectedMood.timestamp | date: 'MMM d, y, h:mm a' }}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      }
     }
   </div>
 </div>
