@@ -284,22 +284,20 @@ export class MoodService {
     });
 
     // Use the dedicated sync endpoint
-    return this.http.post<any>(`${this.baseUrl}/mood_histories/sync`, {
+    return this.http.post<any[]>(`${this.baseUrl}/mood_histories/sync`, {
       mood_histories: formattedItems
     }).pipe(
       catchError(error => {
         console.error('Error syncing mood histories with server', error);
-        return of({ mood_histories: [] });
+        return of([]);
       }),
-      map(response => {
-        // Process server response - extract mood_histories array from response
-        const serverItems = response.mood_histories || [];
-        const processedItems = serverItems.map((item: { id: string; mood: string; recorded_at: string; client_id?: string }) => {
+      map(serverItems => {
+        // Process server response
+        const processedItems = serverItems.map(item => {
           // Create date and validate it
           let timestamp;
           try {
-            // Use recorded_at field from server response instead of timestamp
-            const parsedDate = new Date(item.recorded_at);
+            const parsedDate = new Date(item.timestamp);
             // Check if date is valid
             if (!isNaN(parsedDate.getTime())) {
               timestamp = parsedDate;
@@ -312,9 +310,8 @@ export class MoodService {
             timestamp = new Date();
           }
 
-          // Use client_id if available, otherwise fall back to server id
           return {
-            id: item.client_id || item.id, // Preserve client ID instead of using server ID
+            id: item.id,
             mood: item.mood,
             timestamp: timestamp
           };
